@@ -3,8 +3,7 @@ name: AI-Polish LaTeX
 on:
   push:
     paths:
-      - 'chapters/introduction.tex'
-      - 'chapters/conclusion.tex'
+      - '**/*.tex'   # now matches every .tex anywhere in the repo
 
 jobs:
   polish:
@@ -25,15 +24,12 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        python scripts/ai_polish.py \
-          chapters/introduction.tex \
-          chapters/conclusion.tex\
-          chapters/Read.me.tex
+        python scripts/ai_polish.py **/*.tex
 
     - name: Commit polished files
       run: |
-           git config user.name "KaosarUddin"
-           git config user.email "mzu0014@auburn.edu"
-           git add chapters/introduction.tex chapters/conclusion.tex chapters/Read.me.tex
-           git commit -m "✍️ AI-polished LaTeX" || echo "No changes to commit"
-           git push
+        git config user.name "Kaosar Uddin"
+        git config user.email "mzu0014@auburn.edu"
+        git add **/*.tex
+        git commit -m "✍️ AI-polished LaTeX" || echo "No changes to commit"
+        git push
