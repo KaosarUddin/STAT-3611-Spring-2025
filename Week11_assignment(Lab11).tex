@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 11)}
+\fancyhead[R]{April 7 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with R’s built-in datasets
+    \item Install, load, and use additional libraries
+    \item Clean data that has missing values
+    \item Sample from a dataset
+    \item Plot multiple data sets on the same graph
+    \item Conduct a sign test for the median
+    \item Conduct a signed rank test for the median
+    \item Conduct two sample tests for the median
+    \item Conduct a test to compare two variances
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab you will submit 3 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab11\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab11\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab11\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{islands} and \texttt{starwars} datasets in R. The documentation can be found here:
+
+\begin{itemize}
+    \item \url{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/islands.html}
+    \item \url{https://rdrr.io/cran/dplyr/man/starwars.html}
+\end{itemize}
+
+\subsection*{Tests for the Median Using the islands Dataset}
+
+\begin{itemize}
+    \item Install the \texttt{ggpubr} package and load the library.
+    \item Load the \texttt{islands} dataset; note that the units are in 10,000s of square miles (so a value of 14 indicates 14,000 square miles).
+    \item Generate a qq plot, with a reference line, of the landmass in square miles of the islands (landmasses) in the dataset.
+    \item What can you conclude about the distribution of the sizes and which tests will and will not be appropriate for this dataset?
+    \item Use the \texttt{sample()} function to create 5 different samples of size 15 from the \texttt{islands} dataset. You will use these samples for the remainder of the lab.
+    \item Plot boxplots of all 5 datasets on the same graph, with each boxplot being a different color. Clearly label your sets 1--5, and use this same ordering to present your results in the rest of this problem.
+\end{itemize}
+
+Make a dataframe with one column that has the sample number (1--5) and another column with the data. Make sure you have named your columns. An example where \texttt{sample1} is the first sample of 15 points, etc. is given here:
+
+\begin{verbatim}
+sampleIndices <- c(rep(1,15), rep(2,15), rep(3,15), rep(4,15), rep(5,15))
+allSampleData <- c(sample1, sample2, sample3, sample4, sample5)
+my_data <- data.frame(sampleIndices, allSampleData)
+colnames(my_data) <- c("sample number", "sq ft")
+\end{verbatim}
+
+\begin{itemize}
+    \item Use the \texttt{ggboxplot()} function from the \texttt{ggpubr} library to create your plot.
+    \item Online reference example: \url{http://www.sthda.com/english/wiki/unpaired-two-samples-wilcoxon-test-in-r}
+    \item Color reference: \url{http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf}
+    \item For each sample, conduct a sign test to test the hypothesis that the median size of a landmass in the dataset is 100 (this is with the dataset units; it would correspond to 1,000,000 sq miles). Use a 95\% significance level. Include the results from all 5 tests in your report. You should use the \texttt{binom.test()} function for these tests.
+    \item Do the results of your sign tests differ for the different data subsets? Provide a brief intuitive explanation of your findings.
+    \item Read the documentation on the \texttt{wilcox.test()} function in R.
+    \item For each sample, conduct a signed-rank test for the hypothesis that the median size of a landmass in the dataset is 100. Use a 95\% significance level. Include the results from all 5 tests in your report.
+    \item Do the results of your signed-rank tests differ from the results of the sign test for each of your 5 samples? Provide a brief intuitive explanation of your findings. Which test do you think is better to test the hypothesis? Why?
+\end{itemize}
+
+\subsection*{Tests for the Median and Variance Using the starwars Dataset}
+
+\begin{itemize}
+    \item Install the \texttt{dplyr} package and load the library.
+    \item Load the \texttt{starwars} dataset.
+    \item Make a new dataframe that only contains the \texttt{height} and \texttt{species} columns from the original dataset.
+    \item Remove all of the rows from the new dataframe that have missing values. How many rows of data were lost when the N/A values were removed?
+    \item It is recommended that you use the \texttt{na.omit()} function for this. \\
+    \texttt{ex: myData <- mydata \%\%>\% na.omit()}
+    \item Create two new dataframes that contain the heights of humans and aliens (not humans and not droids) respectively.
+    \item Read the help documentation for the \texttt{par()} function -- the first example listed is especially relevant.
+    \item Create 4 images in the same window:
+    \begin{itemize}
+        \item Top Left: histogram of human heights
+        \item Top Right: histogram of alien heights
+        \item Bottom Left: qq plot of human heights
+        \item Bottom Right: qq plot of alien heights
+    \end{itemize}
+    \item Describe the shape of the distributions and what your observations are about the heights of these two groups based on these four graphs.
+    \item For the humans and the aliens individually, compute the median, mean, and standard deviation of the heights.
+    \item Conduct a Wilcoxon signed-rank test to test the hypothesis that the median heights of humans and aliens in Star Wars are not the same. Use a significance level of 0.02 for your test. In your report, clearly state the test, the result, and the conclusion in the context of the problem.
+    \item Read the documentation for the \texttt{var.test()} function in R.
+    \item Conduct a hypothesis test to determine if the variance in heights of humans and aliens in Star Wars are not the same. Use a significance level of 0.02 for your test. In your report, clearly state the test, the result, and the conclusion in the context of the problem.
+\end{itemize}
+\subsection*{Linear Regression Analysis Using the starwars Dataset}
+
+\begin{itemize}
+    \item Using the cleaned \texttt{starwars} dataset (where missing values have been removed), create a scatter plot of \texttt{mass} (y-axis) vs \texttt{height} (x-axis).
+    \item Fit a simple linear regression model using \texttt{lm()} to predict \texttt{mass} based on \texttt{height}.
+    \item Add the regression line to your scatter plot using the \texttt{abline()} function.
+    \item Provide the equation of the regression line in your report.
+    \item Interpret the slope of the regression line in the context of this data (i.e., what does the slope tell you about the relationship between height and mass?).
+    \item Include the $R^2$ value and explain what it tells you about the strength of the relationship.
+    \item State whether the linear model appears to be a good fit for the data, and justify your answer.
+\end{itemize}
+
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors: 10 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness: 10 points
+    \item Report Accuracy/Correctness of Report Content: 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab
+    \item Note file is the student’s own notes
+\end{itemize}
+\end{document}

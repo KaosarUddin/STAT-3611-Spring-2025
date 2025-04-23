@@ -1,0 +1,159 @@
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 4)}
+\fancyhead[R]{Feb 17 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section*{Topic Overview}
+In this lab you will practice the following skills in R:
+\begin{itemize}
+    \item Reading in data from a CSV file
+    \item Using R libraries
+    \item Isolating a subset of a data frame
+    \item Computing summary statistics for a column of data
+    \item Finding percentiles of a data set
+    \item Creating histograms
+    \item Creating boxplots
+    \item Creating QQ plots
+    \item \textbf{Optional:} Writing loops and functions in R
+\end{itemize}
+
+\section*{Submission Instructions}
+For this lab, you will submit 3 files:
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab4\_LastNameFirstName.r}.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab4\_LastNameFirstName.pdf}.
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab4\_Notes\_LastNameFirstName.pdf}.
+\end{itemize}
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+This lab will use the data in the file \texttt{books.csv} that accompanies the lab instructions.
+
+This lab will use the function \texttt{str\_detect()}, so you must tell R that you want to use the \texttt{stringr} library by including the code:
+\begin{verbatim}
+library(stringr)
+\end{verbatim}
+at the top of your script.
+
+\textbf{You do not need to write your own function to find the mode,} you may use the one provided in the R file that accompanies this lab. To do so, copy the function code into your lab solution file, and it must be run before you call the function in your work.
+
+\section*{1) Install and Load the stringr Package}
+\subsection*{a. Install the stringr Package}
+\textbf{Using the GUI interface:}
+\begin{enumerate}
+    \item On the right side panel of the screen, click on the \textbf{Packages} tab.
+    \item Click on \textbf{Install}.
+    \item Search for \textbf{stringr} and install.
+\end{enumerate}
+\textbf{Using a line of code:}
+\begin{enumerate}
+    \item \texttt{install.packages(packageName)}
+    \item Make sure the package name is in quotation marks because it is a string.
+\end{enumerate}
+
+\subsection*{b. Tell R that you want to use this package in your script}
+\begin{enumerate}
+    \item Include \texttt{library(packageName)} at the top of your script file.
+    \item The package name should \textbf{not} be in quotation marks.
+\end{enumerate}
+
+\section*{2) Initial Data Overview}
+\begin{enumerate}
+    \item Read the R help documentation about the function \texttt{read.csv}.
+    \item Read in the CSV file \texttt{books.csv}.
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+    \item How many unique authors are there in the dataset? (Use the \texttt{unique()} function.)
+\end{enumerate}
+
+\section*{3) Creating Data Subsets}
+\begin{enumerate}
+    \item Create a new data frame containing books with more than 45 pages.
+    \item How many books have more than 45 pages?
+    \item Create a new data frame containing books with more than 45 pages and written in English (but not Middle English).
+    \begin{itemize}
+        \item Read the R help for \texttt{str\_detect()}.
+        \item Use \texttt{str\_detect()} to create a list of English language codes.
+        \item Remove \texttt{"enm"} from your list.
+        \item Create the subset using \texttt{subset()}.
+    \end{itemize}
+    \item Compute summary statistics for the average ratings of these books:
+    \begin{enumerate}
+        \item Minimum, maximum, range
+        \item First quartile, median, third quartile
+        \item Interquartile range, mean, variance
+    \end{enumerate}
+    \item Compute the correlation between the average rating and the number of pages. Interpret the result in 1-2 sentences.
+\end{enumerate}
+
+\section*{4) Data Visualization}
+\textbf{All plots must have a descriptive title and appropriate axis labels.}
+\begin{enumerate}
+    \item Create a five-number summary (min, Q1, median, Q3, max) of the number of pages.
+    \item Plot a histogram of the number of pages.
+    \item Create a boxplot of the number of pages.
+    \item Explain why these plots could be improved.
+\end{enumerate}
+
+\section*{5) Finding Percentiles}
+\begin{enumerate}
+    \item For each percentile from 95 to 99:
+    \begin{itemize}
+        \item Find the number of pages corresponding to that percentile using \texttt{quantile()}.
+        \item Create a subset of books with fewer than that number of pages.
+        \item Create a histogram of the number of pages.
+    \end{itemize}
+    \item Choose one percentile that is reasonable for subsetting the data and provides better graphs without losing too much data.
+    \item For your selected percentile:
+    \begin{itemize}
+        \item Create a histogram and boxplot.
+        \item Compute a five-number summary.
+        \item Compare the new summary with the original summary.
+    \end{itemize}
+\end{enumerate}
+
+\section*{6) QQ Plot}
+\begin{enumerate}
+    \item Create a QQ plot for the number of ratings (\texttt{ratings\_count} column) in English books with more than 45 pages.
+    \begin{itemize}
+        \item Read the help documentation for \texttt{qqnorm}.
+        \item Generate the QQ plot.
+        \item Add the reference line (\texttt{qqline}).
+    \end{itemize}
+    \item Based on your plot, is the number of ratings normally distributed? Explain briefly.
+\end{enumerate}
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors: 10 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report formatting and completeness: 10 points
+    \item Report accuracy/correctness: 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab.
+    \item Note file reflects student's own notes.
+\end{itemize}
+
+\end{document}

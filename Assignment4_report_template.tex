@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\title{STAT 3611 Lab 4 \\ Report Template}
+\author{First \& Last Name}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\textbf{*Throughout the lab report template, there are some notes in bold that are marked out with a *. These are reminders about things to include and/or specific notes for the assignment. You should remove these notes placeholders as you complete the tasks so you are left only with the final report content.*}
+
+\textbf{*Before submitting your final report, read through all of your work to make sure your explanations are clear. Adjust page breaks as necessary so that you don’t have tables split across multiple pages.*}
+
+\section*{Books Data Overview}
+There are \_\_ rows and \_\_ columns in the books dataset. There are \_\_\_ unique authors in this dataset.
+
+The column headers are: 
+
+
+\section*{Summary of Average Rating for Books Over 45 Pages Long that are in English}
+
+\subsection*{Summary Statistics}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Number of books $>$ 45 pages & \_\_\_ \\
+    Number of English books $>$ 45 pages & \_\_\_ \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{For English Books $>$ 45 Pages}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & \_\_ \\
+    Maximum Value & \_\_ \\
+    Range & \_\_ \\
+    First Quartile (Q1) & \_\_ \\
+    Median & \_\_ \\
+    Third Quartile (Q3) & \_\_ \\
+    Interquartile Range (IQR) & \_\_ \\
+    Mean & \_\_ \\
+    Variance & \_\_ \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{Correlation Analysis}
+The correlation between the average rating and the number of pages for books written in English that are more than 45 pages long is \_\_\_\_. \\ 
+
+{This correlation value tells us that:} \_\_\_\_.
+
+\section*{Visual Summaries of the Books Data (Books > 45 Pages and in English)}
+
+\textbf{*For each of the following plots, make sure that your plots have axis labels and a chart title. Write a 1-2 sentence summary of your observations about the shape of the distribution and why these plots are not particularly useful/could be improved.*}
+
+\subsection*{Five-Number Summary of the Number of Pages}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & \_\_ \\
+    First Quartile (Q1) & \_\_ \\
+    Median & \_\_ \\
+    Third Quartile (Q3) & \_\_ \\
+    Maximum Value & \_\_ \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{Histograms and Boxplots}
+{Histogram of the number of pages}\\
+
+{Boxplot of the number of pages}
+
+\section*{Choosing a Percentile}
+\subsection*{Percentile Values}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Percentile} & \textbf{Number of Pages} \\
+    \midrule
+    95 & \_\_ \\
+    96 & \_\_ \\
+    97 & \_\_ \\
+    98 & \_\_ \\
+    99 & \_\_ \\
+    \bottomrule
+\end{tabular}
+
+\textbf{*For each of the following plots, make sure that your plots have axis labels and a chart title. You may create each plot in its own frame or you can put them all in one frame.*}\\
+
+{Histograms of the number of pages when only the first P\% of page lengths are included, where P is 95, 96, 97, 98, 99.}
+
+\subsection*{Chosen Percentile}
+I have chosen the \_\_ percentile for the remainder of the lab for the following reasons:
+
+\_\_\_\_..
+
+\subsection*{Boxplot and Histogram}
+\textbf{Boxplot and histogram of the number of pages when only the selected P\% of the number of pages data is included.}
+
+\section*{Five-Number Summary of the Number of Pages Using the First \_\_ Percent of the Data}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & \_\_ \\
+    First Quartile (Q1) & \_\_ \\
+    Median & \_\_ \\
+    Third Quartile (Q3) & \_\_ \\
+    Maximum Value & \_\_ \\
+    \bottomrule
+\end{tabular}\\
+
+{There are some differences between this summary and the one for all English books with at least 45 pages. The most important differences are:} 
+
+\underline{(to be filled in)}.\\
+
+\textbf{*Include a short explanation of what has and has not changed about the summary, and why these changes are important or acceptable to be able to generate easier-to-read graphs.*}
+
+\section*{QQ Plot}
+{QQ Plot of the Average Rating of the books that have more than 45 pages and are written in English with a reference line.}\\
+
+{Based on this plot, we can conclude that the average book rating is not normally distributed because:} \underline{(to be filled in)}.
+
+\end{document}

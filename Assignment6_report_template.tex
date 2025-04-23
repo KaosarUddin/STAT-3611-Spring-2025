@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+
+\title{STAT 3611 – Lab 6 Report}
+\author{[Your First and Last Name]}
+\date{[Submission Date]}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report presents the analysis conducted in Lab 6, focusing on statistical computations and sampling techniques using the \texttt{faithful} dataset in R. The objectives of this lab include data exploration, computing summary statistics, generating confidence intervals, and working with sampling techniques.
+
+\section{Faithful Data Overview}
+The \texttt{faithful} dataset in R contains [number] rows and [number] columns. The column headers are:
+
+
+
+\section{Faithful Data Summaries}
+Summary statistics for the two variables in the dataset are computed as follows:
+
+\subsection{Eruption Duration}
+\begin{itemize}
+    \item Mean: [value]
+    \item Population Variance: [value]
+    \item Population Standard Deviation: [value]
+    \item Population Coefficient of Variation: [value]
+\end{itemize}
+
+\subsection{Waiting Time}
+\begin{itemize}
+    \item Mean: [value]
+    \item Population Variance: [value]
+    \item Population Standard Deviation: [value]
+    \item Population Coefficient of Variation: [value]
+\end{itemize}
+
+\section{Sample Analysis Aggregate Summary}
+Using the vectors where sample mean, variance, and standard deviation were computed for 120 samples from the eruption duration column, the following summaries are obtained:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        & Sample Means & Sample Variance & Sample Standard Deviation \\
+        \midrule
+        Average & [value] & [value] & [value] \\
+        Population Variance & [value] & [value] & [value] \\
+        Bias & [value] & [value] & [value] \\
+        \bottomrule
+    \end{tabular}
+    \caption{Summary Statistics for Sample Analysis}
+\end{table}
+
+\section{Quantiles}
+\begin{itemize}
+    \item The z-value for a 2-sided 95\% confidence interval is [value].
+    \item The t-value for a 2-sided 95\% confidence interval with $n = 10$ is [value].
+\end{itemize}
+
+\section{Confidence Intervals}
+For the 120 generated confidence intervals:
+
+\begin{itemize}
+    \item The true mean is within the generated confidence interval [number] out of 120 times.
+    \item This is/is not what was expected because [explanation].
+\end{itemize}
+
+\section{Conclusion}
+Summarize the key findings of this lab, discussing the accuracy of sample estimates, confidence intervals, and any observed biases. Reflect on the importance of sampling in statistical analysis.
+
+\section{References}
+List any references, such as R documentation, lecture notes, or textbooks used to complete this lab.
+
+\end{document}

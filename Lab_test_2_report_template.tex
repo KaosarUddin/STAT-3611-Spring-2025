@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab Test 2 Report}
+\author{Your First and Last Name}
+\date{Submission Date}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report summarizes the analyses conducted in Lab Test 2, including summary statistics, visualizations, hypothesis testing, and linear regression using the \texttt{mice2} dataset from the \texttt{datarium} package and the \texttt{expenses.csv} dataset.
+
+\section{Mice2 Dataset Analysis}
+
+\subsection{Initial Overview}
+\begin{itemize}
+    \item Dataset loaded using: \texttt{data("mice2", package = "datarium")}
+    \item Total number of rows: \_\_
+    \item Paired weights are provided before and after treatment.
+\end{itemize}
+
+\subsection{Descriptive Statistics and Distribution Check}
+\begin{itemize}
+    \item Sample mean (before): \_\_, SD (before): \_\_
+    \item Sample mean (after): \_\_, SD (after): \_\_
+    \item Added difference column: \texttt{diff = after - before}
+    \item Mean difference: \_\_, Variance of difference: \_\_
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{hist_diff.png} % Update filename
+    \caption{Histogram of Weight Differences}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{qqplot_diff.png} % Update filename
+    \caption{QQ Plot of Weight Differences}
+\end{figure}
+
+\textbf{Normality Conclusion:} \textit{(State if approximately normal)}
+
+\subsection{Two-sided Paired t-test}
+\begin{itemize}
+    \item \(H_0\): \(\mu_{before} = \mu_{after}\), \(H_a\): \(\mu_{before} \neq \mu_{after}\)
+    \item Significance level: \(\alpha = 0.02\)
+    \item p-value: \_\_
+    \item Conclusion: Reject/Fail to Reject \(H_0\)
+    \item Contextual interpretation: \textit{(Interpret your result)}
+\end{itemize}
+
+\subsection{One-sided Paired t-test}
+\begin{itemize}
+    \item Threshold: \_\_, justification: \textit{(Brief reasoning)}
+    \item \(H_0\): \(\mu_{diff} \leq \text{threshold}\), \(H_a\): \(\mu_{diff} > \text{threshold}\)
+    \item p-value: \_\_
+    \item Conclusion: Reject/Fail to Reject \(H_0\)
+    \item Contextual interpretation: \textit{(Explain result)}
+\end{itemize}
+
+\section{Expenses Dataset Analysis}
+
+\subsection{Initial Overview}
+\begin{itemize}
+    \item Dataset loaded from CSV file.
+    \item Rows: \_\_, Columns: \_\_
+    \item Column names: \textit{[list]}
+    \item Unique regions: \_\_, Names: \textit{[list]}
+\end{itemize}
+
+\subsection{Summary by Region}
+\begin{itemize}
+    \item Entries per region: \textit{[summary]}
+    \item Summary statistics (min, Q1, median, mean, Q3, max, var) provided per region.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{charges_boxplot.png} % Update filename
+    \caption{Boxplot of Charges by Region}
+\end{figure}
+
+\subsection{Confidence Interval and Hypothesis Test}
+\begin{itemize}
+    \item Regions compared: \_\_ vs \_\_
+    \item 99\% Confidence Interval for mean charges in each region.
+    \item Hypotheses: \(H_0\): \(\mu_1 = \mu_2\), \(H_a\): \(\mu_1 \neq \mu_2\)
+    \item Significance level: \(\alpha = 0.05\), p-value: \_\_
+    \item Conclusion: Reject/Fail to Reject \(H_0\)
+    \item Interpretation in context: \textit{(Explain result)}
+\end{itemize}
+
+\section{Linear Regression Analysis (Using Expenses Dataset or Mice Dataset)}
+
+\begin{itemize}
+    \item Variables: \texttt{charges} (response), \texttt{age} (predictor)
+    \item Scatter plot created with regression line added.
+    \item Regression equation: \(\hat{y} = b_0 + b_1x\)
+    \item Slope interpretation: \textit{(Meaning of change in age)}
+    \item \(R^2\): \_\_, Interpretation: \textit{(Strength of relationship)}
+    \item Model fit discussion based on visual or residual plot.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{regression_age_charges.png} % Update filename
+    \caption{Scatter Plot and Regression Line: Charges vs Age}
+\end{figure}
+
+\section{Conclusion}
+Summarize the key findings from the mice2 paired tests and regression, regional charge analysis, and linear regression modeling using the expenses dataset.
+
+\section{References}
+\begin{itemize}
+    \item ....
+    \item .....
+    \item ....
+\end{itemize}
+
+\end{document}

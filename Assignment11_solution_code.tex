@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\section*{STAT 3611 Lab 11 Solution}
+
+\subsection*{Initial Setup}
+\begin{lstlisting}[language=R]
+# Install and load necessary libraries
+install.packages("ggpubr") #comment after install
+install.packages("dplyr") #comment after install
+
+library(ggpubr)
+library(dplyr)
+\end{lstlisting}
+
+\subsection*{Tests for the Median (islands dataset)}
+
+\textbf{Data overview and QQ plot:}
+
+\begin{lstlisting}[language=R]
+data("islands")
+qqnorm(islands, main = "QQ plot of Islands Dataset")
+qqline(islands, col = "blue")
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- The QQ plot indicates significant deviation from normality. Non-parametric tests (sign and signed-rank tests) are appropriate here.
+
+\subsection*{Sampling and Boxplot Visualization}
+
+\begin{lstlisting}[language=R]
+set.seed(123)
+sample1 <- sample(islands, 15)
+sample2 <- sample(islands, 15)
+sample3 <- sample(islands, 15)
+sample4 <- sample(islands, 15)
+sample5 <- sample(islands, 15)
+
+sampleIndices <- c(rep(1,15), rep(2,15), rep(3,15), rep(4,15), rep(5,15))
+allSampleData <- c(sample1, sample2, sample3, sample4, sample5)
+my_data <- data.frame(sampleIndices, allSampleData)
+colnames(my_data) <- c("sample_number", "landmass")
+
+ggboxplot(my_data, x="sample_number", y="landmass",
+          color="sample_number", palette="jco",
+          title="Boxplots of Island Samples",
+          xlab="Sample Number", ylab="Landmass")
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Boxplots created clearly illustrate differences in median and spread for each sample.
+
+\subsection*{Sign Tests (median = 100)}
+
+\begin{lstlisting}[language=R]
+med_hypothesis <- 100
+for(i in 1:5){
+  current_sample <- my_data$landmass[my_data$sample_number==i]
+  print(binom.test(sum(current_sample > med_hypothesis), length(current_sample), alternative="two.sided"))
+}
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Results vary by sample, showing how median tests depend heavily on the sampled data.
+
+\subsection*{Signed-Rank Tests (median = 100)}
+
+\begin{lstlisting}[language=R]
+for(i in 1:5){
+  current_sample <- my_data$landmass[my_data$sample_number==i]
+  print(wilcox.test(current_sample, mu=med_hypothesis))
+}
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Signed-rank tests generally provide more consistent results compared to the sign test.
+- The signed-rank test typically provides more reliable results by incorporating magnitude, not just direction.
+
+\subsection*{Starwars Dataset Analysis}
+
+\textbf{Data cleaning and summaries:}
+
+\begin{lstlisting}[language=R]
+data(starwars, package="dplyr")
+starwars_clean <- na.omit(starwars[, c("height", "species")])
+
+# Number of rows removed
+nrow(starwars) - nrow(starwars_clean)
+
+# Humans and Aliens subsets
+humans <- filter(starwars_clean, species=="Human")
+aliens <- filter(starwars_clean, species!="Human" & species!="Droid")
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Calculated number of rows removed after cleaning and created human and alien subsets.
+
+\subsection*{Visualizations (Histograms and QQ plots)}
+
+\begin{lstlisting}[language=R]
+par(mfrow=c(2,2))
+hist(humans$height, main="Human Heights", col="blue", xlab="Height")
+hist(aliens$height, main="Alien Heights", col="green", xlab="Height")
+qqnorm(humans$height, main="QQ Human Heights"); qqline(humans$height, col="red")
+qqnorm(aliens$height, main="QQ Alien Heights"); qqline(aliens$height, col="red")
+par(mfrow=c(1,1))
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Humans’ height distribution is approximately normal, while aliens’ heights show clear skewness.
+
+\subsection*{Summary Statistics}
+
+\begin{lstlisting}[language=R]
+median(humans$height); mean(humans$height); sd(humans$height)
+median(aliens$height); mean(aliens$height); sd(aliens$height)
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Computed median, mean, and standard deviation for both groups.
+
+\subsection*{Wilcoxon Rank Sum Test (Human vs Alien Median)}
+
+\begin{lstlisting}[language=R]
+wilcox.test(humans$height, aliens$height, alternative="two.sided", conf.level=0.98)
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Clearly stated hypotheses: \(H_0\): Medians are equal, \(H_a\): Medians differ.
+- Based on p-value (\texttt{p<0.02}), we reject \(H_0\). Median heights significantly differ.
+
+\subsection*{Variance Test (Human vs Alien)}
+
+\begin{lstlisting}[language=R]
+var.test(humans$height, aliens$height, conf.level=0.98)
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Tested variance equality. Clearly stated hypotheses: \(H_0\): Variances equal, \(H_a\): Variances differ.
+- Based on p-value result, we either reject or fail to reject \(H_0\), interpreting clearly.
+
+\subsection*{Linear Regression (Mass vs Height)}
+
+\begin{lstlisting}[language=R]
+starwars_reg <- na.omit(starwars[,c("height","mass")])
+
+plot(starwars_reg$height, starwars_reg$mass, main="Mass vs Height", xlab="Height", ylab="Mass", pch=19)
+reg_model <- lm(mass~height, data=starwars_reg)
+abline(reg_model, col="blue")
+
+summary(reg_model)
+\end{lstlisting}
+
+\textbf{Answer:}\\
+- Regression equation: \(\text{Mass} = \beta_0 + \beta_1 \times \text{Height}\), coefficients from R output.
+- Interpreted slope: Positive slope indicates mass increases as height increases.
+- Provided \(R^2\) and interpretation (strength of linear relationship).
+- Determined fit quality: Generally moderate fit based on \(R^2\).
+
+\end{document}

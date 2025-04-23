@@ -1,0 +1,174 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 6)}
+\fancyhead[R]{March 03 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with one of R’s built-in datasets
+    \item Computing sample and population variance
+    \item Sampling from a dataset
+    \item Using the \texttt{replicate} function to create a data frame
+    \item Looking up normal and t-distribution quantiles
+    \item Creating and populating vectors
+    \item Generating confidence intervals for the sample mean by using built-in R functions
+    \item Adding rows to a data frame
+    \item Writing a data frame to a CSV file
+\end{itemize}
+
+\section{Submission Instructions}
+
+For this lab, you will submit 4 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab6\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all the steps you are taking by only reading the comments.
+    \item Your CSV file (export instructions included in the lab instructions) must be named \texttt{Lab6\_LastNameFirstInitial.csv}
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab6\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab6\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions, code blocks, or tips you have acquired in this lab.
+
+\section{Lab Instructions}
+
+This lab will use the \texttt{faithful} dataset in R. The documentation can be found here:
+
+\url{https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/faithful.html}
+
+\subsection{Initial Data Overview}
+
+\begin{itemize}
+    \item Load the \texttt{faithful} dataset in R
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+\end{itemize}
+
+\subsection{Summary Statistics for the Full Dataset}
+
+Compute all of the following for the duration of the eruptions and the waiting time between the eruptions:
+
+\begin{itemize}
+    \item Mean
+    \item Population variance
+    \item Population standard deviation
+    \item Population coefficient of variation
+\end{itemize}
+
+\subsection{Sampling}
+
+\begin{itemize}
+    \item Create a new data frame that contains 120 samples of size 15 from the eruption duration column of the \texttt{faithful} dataset.
+    \item You can use the \texttt{sample()} function to create your samples of size 15.
+    \item You can use the \texttt{replicate()} function to repeat the sampling 120 times.
+    \item You can cast the result as a data frame using \texttt{data.frame()}.
+\end{itemize}
+
+\subsection{Analyze the Samples}
+
+\begin{itemize}
+    \item Create 3 new empty vectors – these will store the sample mean, sample variance, and sample standard deviation of each of your 120 samples from the duration column.
+    \item For each sample:
+    \begin{itemize}
+        \item Compute the sample mean and add it to the sample means vector.
+        \item Compute the sample variance and add it to the sample variances vector.
+        \item Compute the sample standard deviation and add it to the sample standard deviations vector.
+    \end{itemize}
+    \item Compute the average and population variance of each new vector:
+    \begin{itemize}
+        \item Sample means
+        \item Sample variances
+        \item Sample standard deviations
+    \end{itemize}
+    \item Compute the bias (true parameter – estimate) of:
+    \begin{itemize}
+        \item Sample means
+        \item Variance
+        \item Standard deviation
+    \end{itemize}
+\end{itemize}
+
+\subsection{Distribution Quantiles}
+
+\begin{itemize}
+    \item Look up the z-value that corresponds to a 2-sided 95\% confidence interval.
+    \item Look up the t-value that corresponds to a 2-sided 95\% confidence interval with \( n = 10 \).
+\end{itemize}
+
+\subsection{Confidence Intervals Using Duration Samples}
+
+It is recommended that you use the \texttt{t.test()} function for this set of tasks.
+
+\begin{itemize}
+    \item Read the \texttt{t.test()} R help information.
+    \item Make 3 empty vectors to store the confidence interval upper and lower bounds when the variance is not assumed to be known, and the information about whether the true parameter is in each interval.
+    \item For each of the 120 samples:
+    \begin{itemize}
+        \item Find the lower and upper bounds for a 95\% confidence interval of the mean when the variance is not known and store these values in the appropriate vectors.
+        \item Determine if the true mean is within the unknown variance CI and store this information in the appropriate vector.
+    \end{itemize}
+\end{itemize}
+
+You can retrieve specific pieces of information from the results of a t-test in R using \texttt{\$} like we do to access a column in a data frame and \texttt{[\#]} to access information in a specific position:
+
+\begin{verbatim}
+results <- t.test(parameters)
+results$conf.int[1]  
+\end{verbatim}
+# This gives the first entry in the confidence interval from the results of our t-test.
+
+\subsection{Data Frame Modification}
+
+\begin{itemize}
+    \item Use the \texttt{rbind()} function to append the vectors you have made to the data frame containing your 120 samples of size 15 in the following order:
+    \begin{itemize}
+        \item Sample mean
+        \item Unknown variance CI lower bound
+        \item Unknown variance CI upper bound
+    \end{itemize}
+    \item Use the \texttt{row.names()} function to rename the rows of the data frame with appropriate and informative names.
+\end{itemize}
+
+\subsection{Write a Data Frame to a CSV File}
+
+Use the \texttt{write.csv()} function to write your data frame with the 120 samples of size 15 and the confidence interval information to a CSV file.
+
+
+
+\newpage
+
+\section{Grading Overview}
+\begin{itemize}
+    \item \textbf{Code File: 30 points}
+    \begin{itemize}
+        \item Code runs without errors: 10 points.
+        \item Code is well-commented: 5 points.
+        \item Code is complete: 15 points.
+    \end{itemize}
+    \item \textbf{Report: 60 points}
+    \begin{itemize}
+        \item Report formatting and completeness: 10 points.
+        \item Report accuracy and correctness: 50 points.
+    \end{itemize}
+    \item \textbf{Note File: 10 points}
+    \begin{itemize}
+        \item Note file has been updated with new material from this lab.
+        \item Note file reflects student’s own notes.
+    \end{itemize}
+\end{itemize}
+
+\end{document}

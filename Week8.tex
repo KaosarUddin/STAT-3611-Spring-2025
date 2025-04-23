@@ -1,0 +1,168 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+
+\title{Week 9: Hypothesis Tests z and t Table; One and Two Sample}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Administrative Items}
+\begin{itemize}
+    \item Tuesday, April 10: second restricted resource lab
+    \item R help
+    \item Note sheet updated in each lab
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Instructions: R Documentation}
+To access R documentation, use:
+\begin{itemize}
+    \item \texttt{??function\_name}
+    \item \textbf{Example:} \texttt{??t.test}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 1: Summary Statistics in R}
+\textbf{Load Data and Compute Basic Statistics:}
+\begin{itemize}
+    \item \texttt{data <- c(5, 8, 6, 9, 7, 10)}
+    \item \texttt{mean(data)}
+    \item \texttt{var(data)}
+    \item \texttt{qqnorm(data)}
+    \item \texttt{qqline(data, col = \"deeppink\")}
+\end{itemize}
+\end{frame}
+\begin{frame}{Step 2: Two-sided hypothesis test}
+\textbf{Two-sided hypothesis test – known true variance (without using t.test())}
+\begin{itemize}
+    \item Define the null and alternate hypotheses
+    \item Look up the z value that corresponds to \( \alpha = 0.05 \) (two-sided): \( z_{\alpha} \)
+    \begin{itemize}
+        \item Function: \texttt{qnorm(1 - {\alpha/2})}
+    \end{itemize}
+    \item Compute upper and lower rejection values:
+    \[
+    \mu_0 \pm z_{\alpha} \frac{\sigma}{\sqrt{n}}
+    \]
+    \item Compute z statistic:
+    \[
+    Z = \frac{\bar{X} - \mu_0}{\frac{\sigma}{\sqrt{n}}}
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 2: Hypothesis Testing with z-test}
+\textbf{Compute Critical Value:}
+\begin{itemize}
+    \item \texttt{z\_alpha <- qnorm(1 - 0.05/2)}
+\end{itemize}
+
+\textbf{Compute Test Statistic and Rejection Region:}
+\begin{itemize}
+    \item \texttt{mu0 <- 7}
+    \item \texttt{sigma <- 1.5}
+    \item \texttt{n <- length(data)}
+    \item \texttt{upper <- mu0 + z\_alpha*(sigma/sqrt(n))}
+    \item \texttt{lower <- mu0 - z\_alpha*(sigma/sqrt(n))}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 3: Hypothesis Test Decision}
+Reject the null hypothesis ($H_0$) if:
+\[
+\bar{x} > \mu_0 + z_{\alpha}\frac{\sigma}{\sqrt{n}} \quad\text{or}\quad \bar{x} < \mu_0 - z_{\alpha}\frac{\sigma}{\sqrt{n}}
+\]
+
+\textbf{Example in R:}
+\begin{itemize}
+    \item \texttt{x\_bar <- mean(data)}
+    \item \texttt{sigma <- 1.5}
+    \item \texttt{n <- length(data)}
+    \item \texttt{upper <- mu0 + z\_alpha*(sigma/sqrt(n))}
+    \item \texttt{lower <- mu0 - z\_alpha*(sigma/sqrt(n))}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Decision Example (Continued)}
+\begin{itemize}
+    \item \texttt{if(mean(data) > upper | mean(data) < lower) \{}
+    \item \quad \texttt{cat(\"Reject H0\")}
+    \item \texttt{\} else \{}
+    \item \quad \texttt{cat(\"Fail to reject H0\")}
+    \item \texttt{\}}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 3: Type II Error ($\beta$)}
+Compute Type II error as:
+\[\beta = P(\text{Fail to reject } H_0 \mid H_0 \text{ is false})\]
+
+\textbf{Example calculation can be added based on specifics of alternative hypothesis.}
+\end{frame}
+
+\begin{frame}{Step 4: 2-sided hypothesis test – known true variance using R for t-tests}
+\textbf{Performing a t-test in R:}
+\begin{itemize}
+    \item \texttt{t.test(data, mu=mu0)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 4: Example of One-sample t-test}
+\textbf{Sample Data for Year 1955:}
+\begin{itemize}
+    \item \texttt{data\_1955 <- c(8, 7, 7.5, 7.8, 6)}
+    \item \texttt{t.test(data\_1955, mu = 7)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 5: 1-sided hypothesis test}
+\textbf{1-sided hypothesis test when the true variance is unknown}
+\begin{itemize}
+    \item Define the null and alternate hypothesis
+    \item Create new data structure containing only data from the year 1955
+    \item Sample mean and sample standard deviation
+    \item Look up the t-value
+    \begin{itemize}
+        \item \textbf{function to use:} \texttt{qt()}
+    \end{itemize}
+    \item Conduct test
+    \begin{itemize}
+        \item \textbf{function you can use:} \texttt{t.test()} or work it out on your own
+    \end{itemize}
+    \item p-value
+    \item Reject or fail to reject \(H_0\)?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 5:R Code Example }
+\begin{itemize}
+    \item \texttt{data\_1955 <- c(8.1, 7.2, 7.5, 7.9, 6.8)}
+    \item \texttt{mu0 <- 7}
+    \item \texttt{t.test(data\_1955, mu = mu0, alternative = \"greater\")}
+    \item \texttt{sample\_mean <- mean(data\_1955)}
+    \item \texttt{sample\_sd <- sd(data\_1955)}
+    \item \texttt{t\_critical <- qt(0.95, df = length(data\_1955)-1)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Submissions}
+\begin{itemize}
+    \item Submit updated note sheet
+    \item Submit R script 
+    \item Submit report
+    \item Ensure clarity in code and explanation
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\section*{STAT 3611 Lab 10 Solution Code}
+
+\subsection*{1. Initial Data Overview of \texttt{birthwt}}
+\begin{lstlisting}
+# Load the required libraries
+# install.packages("MASS")
+library(MASS)
+
+# Load birthwt dataset
+data("birthwt")
+colnames(birthwt)
+nrow(birthwt)
+
+# Add column for birthweight in pounds
+birthwt$weight_lb <- birthwt$bwt / 454
+
+# Create subsets for smokers and non-smokers
+smokers <- subset(birthwt, smoke == 1)
+nonsmokers <- subset(birthwt, smoke == 0)
+
+# Summary statistics
+library(e1071)
+
+# Smokers
+n_smokers <- nrow(smokers)
+mean_smokers_grams <- mean(smokers$bwt)
+var_smokers_grams <- var(smokers$bwt)
+skew_smokers_grams <- skewness(smokers$bwt)
+
+# Non-smokers
+n_nonsmokers <- nrow(nonsmokers)
+mean_nonsmokers_grams <- mean(nonsmokers$bwt)
+var_nonsmokers_grams <- var(nonsmokers$bwt)
+skew_nonsmokers_grams <- skewness(nonsmokers$bwt)
+\end{lstlisting}
+Answer:
+- Column headers include \texttt{low, age, lwt, race, smoke, ptl, ht, ui, ftv, bwt}.
+- Dataset contains \texttt{189 rows}.
+- Calculated and compared summary statistics suggest the means of the two groups (smokers and non-smokers) will differ.
+
+\subsection*{2. Two-Sample Hypothesis Test}
+\begin{lstlisting}
+# QQ plots for normality
+par(mfrow=c(1,3))
+qqnorm(birthwt$bwt, main="All Babies")
+qqline(birthwt$bwt, col="blue")
+qqnorm(smokers$bwt, main="Smokers")
+qqline(smokers$bwt, col="red")
+qqnorm(nonsmokers$bwt, main="Non-smokers")
+qqline(nonsmokers$bwt, col="green")
+
+# Two-sided t-test
+# H0: mean_smokers = mean_nonsmokers
+# Ha: mean_smokers != mean_nonsmokers
+t.test(smokers$bwt, nonsmokers$bwt, alternative="two.sided")
+
+# One-sided t-test
+# H0: mean_smokers >= mean_nonsmokers
+# Ha: mean_smokers < mean_nonsmokers
+t.test(smokers$bwt, nonsmokers$bwt, alternative="less")
+\end{lstlisting}
+Answer:
+- Two-sided test rejects the null hypothesis, suggesting significant difference in mean birth weights.
+- One-sided test indicates smoking mothers have significantly lower birth weights than non-smoking mothers.
+
+\subsection*{3. Hypothesis Tests for the Proportion Parameter}
+\begin{lstlisting}
+# Load precip dataset
+data("precip")
+
+# Sample 25 cities
+set.seed(123)
+sample_precip <- sample(precip, 25)
+
+# Proportion test
+# H0: p = 0.65
+# Ha: p != 0.65
+successes <- sum(sample_precip >= 20)
+binom.test(successes, 25, p=0.65, conf.level=0.90)
+
+# One-sided proportion test
+# H0: p = 0.65
+# Ha: p > 0.65
+binom.test(successes, 25, p=0.65, alternative="greater", conf.level=0.90)
+
+# True proportion in full dataset
+true_proportion <- mean(precip >= 20)
+true_proportion
+\end{lstlisting}
+Answer:
+- Conducted two-sided and one-sided proportion tests for rainfall data.
+- Comparison to the full dataset proportion suggests the tests provided accurate results. Any discrepancies could be due to sampling variability.
+
+\end{document}

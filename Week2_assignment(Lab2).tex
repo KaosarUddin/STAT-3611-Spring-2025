@@ -1,0 +1,135 @@
+
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 2)}
+\fancyhead[R]{Jan 27 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+
+
+\begin{document}
+
+
+\section*{Topic Overview}
+In this assignment, you will practice the following skills in R:
+\begin{itemize}
+    \item Installing R packages.
+    \item Using R libraries.
+    \item Working with R's built-in datasets.
+    \item Reading data from a CSV file.
+    \item Computing summary statistics for a column of data.
+    \item Creating histograms.
+    \item Creating boxplots.
+\end{itemize}
+
+\section*{Submission Instructions}
+For this lab, you will submit \textbf{3 files}:
+\begin{enumerate}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab2\_LastNameFirstName.r}. Your code file must include sufficient comments so that someone unfamiliar with the lab can understand the steps by reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab2\_LastNameFirstName.pdf}.
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \\\texttt{Lab2\_Notes\_LastNameFirstName.pdf}. The reference sheet should include information from previous labs and any additional notes about new functions or code from this lab.
+\end{enumerate}
+\section*{Lab Instructions}
+This lab will utilize the \texttt{trees} dataset in R and the \texttt{books.csv} dataset, which is provided with the lab files on Canvas. You can find the documentation for the \texttt{trees} dataset here: 
+\href{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/trees.html}{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/trees.html}.
+
+\subsection*{1. Initial Trees Data Overview}
+\begin{enumerate}
+    \item Load the \texttt{trees} dataset in R.
+    \item Identify the column headers for this dataset.
+    \item Read the documentation for the \texttt{trees} dataset:
+    \begin{itemize}
+        \item Determine which column should be renamed based on the documentation notes. Suggest a more appropriate name for this column.
+        \item Rename this column in your dataset in R using the \texttt{colnames()} function or by directly modifying the column names.
+        \item Example: \texttt{colnames(trees)[colIndex] <- \"NewColumnName\"}.
+    \end{itemize}
+    \item Count the number of rows in the dataset. Use the \texttt{nrow()} function for this purpose.
+    \begin{itemize}
+        \item Example: \texttt{nrow(trees)}.
+    \end{itemize}
+\end{enumerate}
+
+
+
+
+\subsection*{2. Summary Statistics for the Trees Dataset}
+\begin{enumerate}
+    \item For each column, compute the standard 5-number summary (min, Q1, median, Q3, max).
+    \item For each column, compute the mean and variance.
+\end{enumerate}
+
+\subsection*{3. Data Visualization for the Trees Dataset}
+\begin{enumerate}
+    \item Generate a boxplot and a histogram for each column.
+    \item Using your boxplots, identify if there are any outliers in the dataset.
+\end{enumerate}
+
+
+
+\subsection*{4. Subsetting a Data Frame}
+\begin{enumerate}
+    \item Using \texttt{[]} notation, create a new data frame containing all information about trees with a height \(\leq 65\).
+    \begin{itemize}
+        \item Reminder: To access data in a data frame with square brackets, specify the row condition first, followed by the column indices.
+        \item Syntax:
+        \begin{itemize}
+            \item \texttt{dataframeName[rows, columns]} retrieves data based on the specified row and column conditions.
+            \item Example 1: \texttt{newData <- myData[myData\$columnOfInterest >= 10, 3]} selects rows where \texttt{columnOfInterest} is at least 10, retrieves column 3, and saves the result to \texttt{newData}.
+            \item Example 2: \texttt{myData[myData\$columnOfInterest > 8, ]} retrieves all columns where\\
+            \texttt{columnOfInterest} is strictly greater than 8 (without saving the result).
+            \item Example 3: \texttt{newData <- myData[myData\$Height <= 65, ]} creates a new data frame containing all rows where \texttt{Height} is less than or equal to 65.
+        \end{itemize}
+    \end{itemize}
+    \item Determine how many trees have a height less than or equal to 65. Print all data from this new data frame.
+    \begin{itemize}
+        \item Use the \texttt{dim()} function to find the number of rows and columns in your new data frame.
+        \item Example: \texttt{dim(newData)}.
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection*{5. Reading in the Books Data}
+\begin{enumerate}
+    \item Download the file \texttt{books.csv} from Canvas and save it in the same directory as your R script.
+    \item Set your working directory to the same directory as your R script.
+    \item Read in the data using the \texttt{read.csv()} function.
+\end{enumerate}
+
+\subsection*{6. Initial Books Data Overview}
+\begin{enumerate}
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+\end{enumerate}
+
+\subsection*{7. Information About the Number of Pages in Books}
+\begin{enumerate}
+    \item Create a histogram of the number of pages in the books.
+    \item How many books have no pages?
+    \begin{itemize}
+        \item Hint: Create a data frame containing books with \texttt{0} pages and use the \texttt{dim()} function.
+    \end{itemize}
+    \item Create a data frame containing books with at least one page.
+    \item For books with at least one page, find the upper outlier threshold:
+    \begin{enumerate}
+        \item Use the \texttt{summary()} function to generate the 5-number summary.
+        \item You can use [index] to retrieve specific values from the summary once you have 
+              saved it under a variable name 
+        \item Compute the IQR: \(\texttt{IQR = Q3 - Q1}\).
+        \item Compute the upper outlier threshold: \(\texttt{Q3 + 1.5 * IQR}\).
+    \end{enumerate}
+    \item Create a boxplot of the number of pages in books with at least one page, truncating the axes to display only non-outlier values.
+    \begin{itemize}
+        \item Use the \texttt{ylim} parameter in the \texttt{boxplot()} function.
+    \end{itemize}
+\end{enumerate}
+
+\end{document}

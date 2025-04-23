@@ -1,0 +1,163 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+
+\title{Week 11: Hypothesis Test for Median and Variance}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Administrative Items}
+\begin{itemize}
+    \item Tuesday, April 10: second restricted resource lab
+    \item R help
+    \item Note sheet updated in each lab
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lab Instructions: Step 1}
+Tests for the median using the islands dataset:
+\begin{verbatim}
+install.packages("ggpubr")
+library(ggpubr)
+data("islands")
+
+qqnorm(islands)
+qqline(islands)
+
+sample1 <- sample(islands, 15)
+# Repeat for sample2 to sample5
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Lab Instructions: Boxplot Example}
+\begin{verbatim}
+sampleIndices <- rep(1:5, each = 15)
+allSampleData <- c(sample1, sample2, sample3, sample4, sample5)
+
+my_data <- data.frame(sampleIndices, allSampleData)
+colnames(my_data) <- c("sampleNumber", "Landmass")
+
+library(ggpubr)
+ggboxplot(my_data, x="sampleNumber", y="Landmass")
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Sign Test }
+\textbf{Sign Test:}
+\begin{itemize}
+    \item Nonparametric test used to determine if the median of a population is significantly different from a hypothesized median.
+    \item Counts the number of observations above and below the hypothesized median.
+    \item Does not account for magnitude, only the direction (sign).
+\end{itemize}
+\end{frame}
+\begin{frame}{ Wilcoxon Signed-Rank Test}
+\textbf{Wilcoxon Signed-Rank Test:}
+\begin{itemize}
+    \item Nonparametric test that considers both the direction and magnitude of differences.
+    \item Ranks the absolute differences between each observation and the hypothesized median, then sums ranks separately for positive and negative differences.
+    \item Provides more power compared to the sign test due to consideration of ranks.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Hypothesis Testing for Median}
+\begin{verbatim}
+# Sign test
+binom.test(sample1, median=100)
+
+# Signed-rank test
+wilcox.test(sample1, mu=100)
+\end{verbatim}
+Repeat for all samples.
+\end{frame}
+
+\begin{frame}{Median and Variance Tests}
+\textbf{Median Test:}
+\begin{itemize}
+    \item Used to test if two or more samples come from populations with the same median.
+    \item Based on counting observations above and below the overall median.
+\end{itemize}
+
+\textbf{Variance Test (F-test):}
+\begin{itemize}
+    \item Compares the variances of two populations.
+    \item Test statistic:
+\end{itemize}
+\[
+F = \frac{s_1^2}{s_2^2}
+\]
+where \( s_1^2 \) and \( s_2^2 \) are the sample variances.
+\end{frame}
+\begin{frame}[fragile]{Tests for Median and Variance: Iris Dataset}
+\begin{verbatim}
+data("iris")
+library(dplyr)
+iris_data <- iris %>% select(Sepal.Length, Species)
+
+setosa <- iris_data %>% filter(Species == "setosa")
+versicolor <- iris_data %>% filter(Species == "versicolor")
+
+hist(setosa$Sepal.Length)
+qqnorm(setosa$Sepal.Length)
+qqline(setosa$Sepal.Length)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Hypothesis Testing in Iris Dataset}
+\begin{verbatim}
+# Median test
+wilcox.test(setosa$Sepal.Length, versicolor$Sepal.Length)
+
+# Variance test
+var.test(setosa$Sepal.Length, versicolor$Sepal.Length)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Linear Regression: Theory}
+Linear regression describes the relationship:
+\[
+Y = \beta_0 + \beta_1 X + \epsilon
+\]
+\begin{itemize}
+    \item $\beta_0$: intercept
+    \item $\beta_1$: slope
+    \item $\epsilon$: error term
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear Regression: Least Squares Method}
+Coefficients estimated by:
+\[
+\hat{\beta}_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}, \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}
+\]
+\end{frame}
+
+\begin{frame}[fragile]{Linear Regression Example in R}
+\begin{verbatim}
+data(cars)
+model <- lm(dist ~ speed, data=cars)
+plot(cars$speed, cars$dist)
+abline(model, col="blue")
+summary(model)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Lab Submissions}
+\begin{itemize}
+    \item Submit updated note sheet
+    \item Clearly commented R script
+    \item Ensure script runs without errors
+    \item Report using Canvas template
+    \item Include all plots and summaries
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 10)}
+\fancyhead[R]{March 31 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+In this lab you will practice the following skills in R:
+\begin{itemize}
+    \item Work with R’s built-in datasets
+    \item Sample from a dataset
+    \item Create and use a dataframe
+    \item Add columns to a dataframe
+    \item Install, load, and use additional libraries
+    \item Conduct 2 sample t-tests for the mean
+    \item Conduct a hypothesis test for the proportion parameter
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab you will submit 3 files:
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab10\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab10\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab10\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{birthwt} and \texttt{precip} datasets in R. The documentation can be found here:
+\begin{itemize}
+    \item \url{https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html}
+    \item \url{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/precip.html}
+\end{itemize}
+
+You will need the \texttt{e1071} package to compute skewness of data.
+
+\subsection*{Set up the e1071 package}
+\begin{itemize}
+    \item Install the package using the \texttt{install.packages()} function \\
+    \textit{After running your code, leave this line in but comment it}
+    \item Load the package in R using the \texttt{library()} function
+\end{itemize}
+
+\subsection*{Initial data overview of the birthwt data set}
+\begin{itemize}
+    \item Load the \texttt{birthwt} dataset in R. You will need to tell R that you want to use the \texttt{MASS} library first.
+    \item What are the column headers for this dataset?
+    \item How many total rows of data are in the dataset?
+    \item Add a column to the data frame that has the baby birthweight in pounds.  
+\end{itemize}
+
+There are 454 grams per pound.
+
+A new column can be added to a data frame using the following approach:
+\begin{center}
+    \texttt{dataFrame\$newColumn <- newDataVector}
+\end{center}
+
+\begin{itemize}
+    \item Create new data frames to store the data that corresponds to babies born to mothers who did and did not smoke.
+    \item Determine the number of samples, the sample mean, sample variance, and skewness of the birth weights for each group (smokers and non-smokers), both pound and gram.
+    \item Based on the initial summary values, do you expect that the mean birth weight of the two groups is the same or different?
+\end{itemize}
+
+\subsection*{2 Sample Hypothesis Test (Unknown Variance, $\alpha = 0.05$)}
+
+Use only the \textbf{gram} variable for this part.
+
+\begin{itemize}
+    \item Generate qq plots with reference lines for the birth weights of all babies, smokers, and non-smokers.
+    \begin{itemize}
+        \item Make sure your plots have appropriate titles.
+        \item Generate all 3 plots side-by-side in one frame.
+    \end{itemize}
+
+    \item Use the \texttt{t.test()} function and the two new data frames you created to test if the mean birth weights of the two groups are the same.
+    \begin{itemize}
+            \item State the null and alternate hypotheses.
+    \item What is the result of the test?
+    \item What is your conclusion? Provide a brief explanation to justify your answer.
+    \end{itemize}
+
+    \item Use the \texttt{t.test()} function again to test if the mean birth weight of babies born to smoking mothers is less than that of non-smoking mothers.
+    \begin{itemize}
+    \item State the null and alternate hypotheses.
+    \item What is the result of the test?
+    \item What is your conclusion? Provide a brief explanation to justify your answer.
+    \end{itemize}
+
+\end{itemize}
+
+\subsection*{Hypothesis Tests for the Proportion Parameter}
+
+\begin{itemize}
+    \item Read the documentation in R for \texttt{binom.test()} and \texttt{prop.test()} \\
+    Reminder: use \texttt{help(binom.test)} to access the function documentation.
+    \item Load the \texttt{precip} dataset.
+    \item Use the \texttt{sample()} function to take a sample of size 25 from the dataset.
+    \item Conduct a hypothesis test to determine if the proportion of cities with an average rainfall of at least 20 inches is equal to 0.65 or not at a 90\% significance level.
+    \item Clearly state your hypotheses, rejection rule, and conclusion in your report.
+    \item Based on your sample, conduct a one-sided test to determine if the proportion parameter is greater than or less than 0.65. 
+    \item Clearly state your hypotheses, rejection rule, and conclusion in your report.
+    \item Compute the proportion of cities in the full dataset that have more than 20 inches of rain per year.
+    \item With this information, do you think your test results are correct? Explain any discrepancies or issues that you see.
+\end{itemize}
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors: 10 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness: 10 points
+    \item Report Accuracy/Correctness of Report Content: 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab
+    \item Note file is the student’s own notes
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab 7 Report}
+\author{Your First and Last Name}
+\date{Submission Date}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This report presents the analysis conducted in Lab 7, focusing on statistical computations, sampling techniques, and confidence intervals using the faithful dataset in R. The objectives of this lab include data exploration, computing summary statistics, generating confidence intervals, and working with sampling techniques.
+
+\section{Faithful Data Overview}
+
+The faithful dataset in R contains \_\_ rows and \_\_ columns. The column headers are:
+
+\begin{itemize}
+    \item Column 1: \_
+    \item Column 2: \_
+\end{itemize}
+
+\section{Faithful Data Summaries}
+
+Summary statistics for the two variables in the dataset are computed as follows:
+
+\subsection{Eruption Duration}
+\begin{itemize}
+    \item Mean: \_
+    \item Population Variance: \_
+    \item Population Standard Deviation: \_
+    \item Population Coefficient of Variation: \_
+\end{itemize}
+
+\subsection{Waiting Time}
+\begin{itemize}
+    \item Mean: \_
+    \item Population Variance: \_
+    \item Population Standard Deviation: \_
+    \item Population Coefficient of Variation: \_
+\end{itemize}
+
+\section{Proportion Analysis}
+
+The proportion of eruptions with a duration of at least 4 minutes is \_\_.
+
+\section{Sample Analysis Aggregate Summary}
+
+Using the vectors where sample mean, variance, standard deviation, and p-hat were computed for 100 samples from the eruption duration column, the following summaries are obtained:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        & Sample Means & Sample Variance & Sample Standard Deviation & P-hat \\
+        \midrule
+        Average & \_\_ & \_\_ & \_\_ & \_\_ \\
+        Population Variance & \_\_ & \_\_ & \_\_ & \_\_ \\
+        Bias & \_\_ & \_\_ & \_\_ & \_\_ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Summary Statistics for Sample Analysis}
+    \label{tab:sample_analysis}
+\end{table}
+
+\section{Visual Summaries}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{boxplot_variances.png} % Update filename
+    \caption{Boxplot of variances for each sample.}
+    \label{fig:boxplot_variances}
+\end{figure}
+
+Explanation: \textit{(Provide a 1-2 sentence explanation of the shape of the distribution and whether it matches expectations.)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{boxplot_phat.png} % Update filename
+    \caption{Boxplot of p-hat for each sample.}
+    \label{fig:boxplot_phat}
+\end{figure}
+
+Explanation: \textit{(Provide a 1-2 sentence explanation of the shape of the distribution and whether it matches expectations.)}
+
+\section{Distribution Quantiles}
+
+\begin{itemize}
+    \item The chi-squared value that corresponds to a two-sided 95\% confidence interval with 9 degrees of freedom is \_\_.
+    \item The z-value that corresponds to a one-sided 95\% confidence interval is \_\_.
+\end{itemize}
+
+\section{Confidence Intervals}
+
+\begin{itemize}
+    \item \_\_ of the 100 confidence intervals for the standard deviation contain the true standard deviation. This \textbf{is/is not} what I expected because \_\_.
+    \item \_\_ of the 100 confidence intervals for the proportion parameter contain the true proportion parameter. This \textbf{is/is not} what I expected because \_\_.
+\end{itemize}
+
+
+
+\section{Conclusion}
+
+Summarize the key findings of this lab, discussing the accuracy of sample estimates, confidence intervals, and any observed biases. Reflect on the importance of sampling in statistical analysis.
+
+\section{References}
+
+List any references, such as R documentation, lecture notes, or textbooks used to complete this lab.
+
+\end{document}

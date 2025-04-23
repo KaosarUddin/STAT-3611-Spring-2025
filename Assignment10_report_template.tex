@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab 10 Report}
+\author{Your First and Last Name}
+\date{Submission Date}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report presents the analysis conducted in Lab 10, which includes exploratory data analysis, summary statistics, t-tests, and hypothesis testing for proportions using the \texttt{birthwt} and \texttt{precip} datasets in R.
+
+\section{Initial Data Overview: birthwt Dataset}
+\begin{itemize}
+    \item The dataset \texttt{birthwt} was loaded using the MASS package.
+    \item Column headers: \textit{[list them here]}.
+    \item Total number of rows: \_\_
+    \item A new column for birthweight in pounds was added using the conversion 454 grams = 1 pound.
+    \item Two new data frames were created:
+    \begin{itemize}
+        \item One for babies born to mothers who smoked.
+        \item One for babies born to mothers who did not smoke.
+    \end{itemize}
+    \item For each group, the following values were computed (in both grams and pounds):
+    \begin{itemize}
+        \item Sample size
+        \item Sample mean
+        \item Sample variance
+        \item Skewness (computed using the \texttt{e1071} package)
+    \end{itemize}
+    \item Based on the summary statistics, \textit{we expect/do not expect} the mean birthweight to be the same. (Brief explanation)
+\end{itemize}
+
+\section{Two-Sample t-Test (Unknown Variance, \(\alpha = 0.05\))}
+\subsection{QQ Plots}
+QQ plots for birthweight (grams) are shown below:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{qqplots_birthwt.png} % Update with your actual image file
+    \caption{QQ plots of birthweights: all babies, smokers, and non-smokers.}
+    \label{fig:qqplots}
+\end{figure}
+
+\subsection{Two-sided t-test}
+\begin{itemize}
+    \item Null Hypothesis: 
+    \item Alternative Hypothesis: 
+    \item Result of \texttt{t.test()}: \textit{[insert output summary]}.
+    \item Conclusion: Reject/Fail to Reject Null Hypothesis. \textit{(Brief explanation)}
+\end{itemize}
+
+\subsection{One-sided t-test}
+\begin{itemize}
+    \item Null Hypothesis: 
+    \item Alternative Hypothesis: 
+    \item Result of \texttt{t.test()}: \textit{[insert output summary]}.
+    \item Conclusion: Reject/Fail to Reject Null Hypothesis. \textit{(Brief explanation)}
+\end{itemize}
+
+\section{Hypothesis Test for the Proportion Parameter: precip Dataset}
+\begin{itemize}
+    \item The \texttt{precip} dataset was loaded.
+    \item A sample of size 25 was taken using \texttt{sample()}.
+    \item Proportion of cities with rainfall \(\geq 20\) inches was tested:
+    \begin{itemize}
+        \item Null Hypothesis: 
+        \item Alternative Hypothesis: 
+        \item Significance level: 
+        \item Method used: \texttt{prop.test()} or \texttt{binom.test()}
+        \item Conclusion: \textit{Reject/Fail to Reject Null Hypothesis}
+    \end{itemize}
+    \item One-sided test for whether \(p > 0.65\) or \(p < 0.65\):
+    \begin{itemize}
+        \item Null Hypothesis: 
+        \item Alternative Hypothesis: 
+        \item Conclusion: \textit{Reject/Fail to Reject Null Hypothesis}
+    \end{itemize}
+    \item True proportion of cities in the full dataset with rainfall over 20 inches: \_\_
+    \item Based on this true proportion, the test result is reasonable/unexpected. \textit{(Explanation)}
+\end{itemize}
+
+\section{Conclusion}
+Summarize the major findings from Lab 10. Discuss the difference in birthweight distributions between smokers and non-smokers, the conclusions drawn from proportion tests, and any challenges or insights.
+
+\section{References}
+List any references used, such as R documentation, package help files, or course materials.
+
+\end{document}

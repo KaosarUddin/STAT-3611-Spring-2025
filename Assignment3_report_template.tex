@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{graphicx} % Include this at the top of your document
+\usepackage{adjustbox}
+
+\begin{document}
+
+\title{STAT 3611 Lab 3\\ Report Template}
+\author{First \& Last Name}
+\date{}
+\maketitle
+
+\textbf{*Throughout the lab report template, there are some notes in bold that are marked out with a *. These are reminders about things to include and/or specific notes for the assignment. You should remove these notes placeholders as you complete the tasks so you are left only with the final report content.*}
+
+\textbf{*Before submitting your final report, read through all of your work to make sure your explanations are clear. Adjust page breaks as necessary so that you don’t have tables split across multiple pages.*}
+
+\section*{Quakes Data Overview}
+There are \_\_ rows and \_\_ columns in the Quakes data set. The column headers are: 
+
+\section*{Summarizing the Magnitude of the Recorded Earthquakes}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l l}
+        \toprule
+        \textbf{Summary Statistic} & \textbf{Value} \\
+        \midrule
+        Minimum Value & \_\_ \\
+        Maximum Value & \_\_ \\
+        Range & \_\_ \\
+        First Quartile (Q1) & \_\_ \\
+        Median & \_\_ \\
+        Third Quartile (Q3) & \_\_ \\
+        Interquartile Range (IQR) & \_\_ \\
+        Mean & \_\_ \\
+        Variance & \_\_ \\
+        Standard Deviation & \_\_ \\
+        Coefficient of Variation & \_\_ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Summary Statistics for the Magnitudes of the Recorded Earthquakes}
+\end{table}
+
+\newpage
+\section*{Visual Summaries of the Quakes Data}
+\textbf{*For each of the following plots, make sure that your plots have axis labels and a chart title. Write a 1-2 sentence summary of your observations about the shape of the distribution.*}
+
+\subsection*{Histogram of the depths recorded for all of the earthquakes}
+\textbf{[Insert Histogram Here]}
+
+\subsection*{Histogram of the magnitudes recorded for all of the earthquakes}
+\textbf{[Insert Histogram Here]}
+
+\subsection*{Boxplot for the number of stations that recorded data for each earthquake}
+\textbf{[Insert Boxplot Here]}
+
+\section*{Data Subset Numeric and Visual Summaries}
+There were \_\_ earthquakes that were recorded by fewer than 40 stations and \_\_ earthquakes that were recorded by at least 40 stations.
+
+\textbf{*After filling in the table below, write 1-2 sentences about any key takeaways you have about these different datasets based on their numeric summaries.*}
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{ % Adjust the width of the table to fit within the page
+        \begin{tabular}{l c c c c c c c c}
+            \toprule
+            \textbf{Statistic} & \textbf{Min} & \textbf{Q1} & \textbf{Median} & \textbf{Mean} & \textbf{Q3} & \textbf{Max} & \textbf{Variance} & \textbf{IQR} \\
+            \midrule
+            All Depths (Kilometers) &  &  &  &  &  &  &  &  \\
+            Depths Recorded by < 40 Stations (Kilometers) &  &  &  &  &  &  &  &  \\
+            Depths Recorded by $\geq$ 40 Stations (Kilometers) &  &  &  &  &  &  &  &  \\
+            \bottomrule
+        \end{tabular}
+    }
+    \caption{Summary Statistics for Different Data Subsets}
+\end{table}
+
+
+\textbf{*For each of the following plots, make sure that your plots have axis labels and a chart title. Write a 1-2 sentence summary of your observations about the shape of each distribution. Write a 1-2 sentence summary comparing the distributions of the different subsets presented in pairs. For the boxplots, explain your choice of the axes and the benefit of using the same axes for side-by-side plots.*}
+
+\subsection*{Histograms of the magnitudes of the earthquakes recorded by}
+\begin{itemize}
+    \item Less than 40 stations (left side)
+    \item Greater than or equal to 40 stations (right side)
+\end{itemize}
+\textbf{[Insert Histograms Here]}
+
+\subsection*{Boxplots of the depths of the earthquakes recorded by}
+\begin{itemize}
+    \item Less than 40 stations (left side)
+    \item Greater than or equal to 40 stations (right side)
+\end{itemize}
+\textbf{[Insert Boxplots Here]}
+
+\section*{Order Statistics Summary}
+The 18th order statistic for the longitude values of earthquakes that were recorded by at least 40 stations is \_\_\_.
+
+\end{document}

@@ -1,0 +1,155 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+
+\title{Lab 7}
+\author{STAT 3611: Probability \& Statistics II Lab}
+\date{}
+
+\begin{document}
+
+% Slide 1: Title
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Slide 2: Admin Stuff
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item Attendance is required!
+    \end{itemize}
+\end{frame}
+
+% Slide 3: Admin Stuff
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item Your code should align with your report and uploaded documents.
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Admin Stuff
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item You should be using your note sheet if you get stuck during an open resource lab.
+        \item Lab 10 (April 2) will be the second restricted reference lab.
+        \item Make sure you are comfortable using the built-in R help and that your note sheet has been updated.
+        \item Make sure your FULL note sheet is being submitted on Canvas each week; this should have all of your notes from all of the labs so far.
+    \end{itemize}
+\end{frame}
+
+% Slide 5: Adding to Vectors Using c()
+\begin{frame}{Adding to Vectors Using \texttt{c()}}
+    \begin{itemize}
+        \item Make the original list, maybe with data in it:
+        \begin{itemize}
+            \item \texttt{friends <- c("Jason")}
+        \end{itemize}
+        \item Add a new entry to the vector:
+        \begin{itemize}
+            \item \texttt{friends <- c(friends, "Kaley")}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Slide 6: For Loops
+\begin{frame}{For Loops}
+    \begin{itemize}
+        \item Execute a block of code a fixed number of times.
+    \end{itemize}
+
+    \textbf{Example:}
+    \begin{block}{R Code}
+for (x in 1:10) {
+    print(x + 2)
+}
+    \end{block}
+    \begin{itemize}
+        \item Loops must start and end with \texttt{\{\}}.
+    \end{itemize}
+\end{frame}
+
+% Slide 7: Manipulating Vector Values
+\begin{frame}{Manipulating Vector Values}
+    \textbf{Multiply All Values by a Constant}
+    \begin{itemize}
+        \item \texttt{myVector <- c(1,2,3)}
+        \item \texttt{myVector3x <- 3 * myVector}
+    \end{itemize}
+
+    \textbf{Add a Constant to Each Value}
+    \begin{itemize}
+        \item \texttt{myVector <- c(4,5,6)}
+        \item \texttt{myVectorPlus2 <- 2 + myVector}
+    \end{itemize}
+
+    \textbf{Add Vectors of the Same Length}
+    \begin{itemize}
+        \item \texttt{myVector1 <- c(1,2,3)}
+        \item \texttt{myVector2 <- c(4,5,6)}
+        \item \texttt{myVectorSum <- myVector1 + myVector2}
+    \end{itemize}
+\end{frame}
+
+% Slide 8: Confidence Intervals - Variance
+\begin{frame}{Confidence Intervals: Variance}
+    \begin{itemize}
+        \item The reference distribution is the Chi-Squared distribution.
+        \item Like the t-distribution, we have to include the degrees of freedom.
+        \item Remember that \texttt{S} is the sample standard deviation.
+        \item Use the \texttt{qchisq()} function in R.
+    \end{itemize}
+\end{frame}
+
+% Slide 9: Confidence Intervals - P-Hat (Population Proportion)
+\begin{frame}{Confidence Intervals: P-Hat (Population Proportion)}
+    \begin{itemize}
+        \item We conduct a simple random sample of 90 people in this university and find that 74 of them identify as a student.
+    \end{itemize}
+
+    \textbf{Example Calculation:}
+    \begin{block}{R Code}
+p_hat <- 74 / 90
+# Output: 0.82
+    \end{block}
+    
+    \begin{itemize}
+        \item Sample size: \texttt{n = 90}
+    \end{itemize}
+\end{frame}
+
+% Slide 10: Distribution Quantiles
+\begin{frame}{Distribution Quantiles}
+    \begin{itemize}
+        \item Functions in R are available to get the quantiles from a variety of distributions:
+        \begin{itemize}
+            \item \texttt{qnorm()} - Normal distribution
+            \item \texttt{qt()} - t-distribution
+            \item \texttt{qchisq()} - Chi-squared distribution
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Slide 11: Lab Submissions
+\begin{frame}{Lab Submissions}
+    \begin{itemize}
+        \item \textbf{R script:}
+        \begin{itemize}
+            \item Must be commented.
+            \item If we run the script you turn in, it must run without errors and give the same output that you have in your report.
+        \end{itemize}
+
+        \item \textbf{Report:}
+        \begin{itemize}
+            \item Template available on Canvas.
+            \item There are some places where you will need to add descriptions/summaries.
+        \end{itemize}
+
+        \item \textbf{CSV File:} Required for lab submissions.
+
+        \item \textbf{Updated Note Sheet:} Must be submitted weekly, including notes from all previous labs.
+    \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,132 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 13)}
+\fancyhead[R]{April 21 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with R’s built in datasets
+    \item Install, load, and use additional libraries
+    \item Create data vectors (hard coding them based on our own data)
+    \item Create new columns in a data frame with categorical values based on data in other columns
+    \item Conduct chi-squared goodness of fit test
+    \item Conduct chi-squared tests for homogeneity and independence
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab you will submit 3 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab13\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab13\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab13\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{diamond} and \texttt{Cars93} data sets in R. The documentation can be found here:
+
+\begin{itemize}
+    \item \url{https://rdrr.io/cran/UsingR/man/diamond.html}
+    \item \url{https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Cars93.html}
+\end{itemize}
+
+\subsection*{Setup}
+
+\begin{itemize}
+    \item Load the UsingR library
+    \item Load the dplyr library
+    \item Load the janitor library
+\end{itemize}
+
+Read the R documentation for the \texttt{chisq.test()} function. Identify which parameters you will need for a goodness of fit test vs a test for homogeneity or independence.  
+What is the null hypothesis for each of the test options?
+
+Read the documentation for the \texttt{table()} function and the \texttt{tabyl()} function.  
+Identify the function inputs and output, and what data format is needed for each.
+
+\subsection*{Goodness of Fit Test}
+
+The distribution of the colors in any bag of regular Skittles should be approximately uniformly distributed. There are 5 flavors/colors in a regular mix bag of Skittles: yellow, orange, green, purple, and red.
+
+Use the following count data:
+
+\begin{center}
+Yellow = 575, Orange = 602, Green = 590, Purple = 610, Red = 588
+\end{center}
+
+Conduct a chi-squared goodness of fit test in R to determine if the experiment confirms that the distribution of Skittles colors is uniform.
+\begin{itemize}
+    \item Create vectors of the observed and expected counts.
+    \item Use the \texttt{chisq.test()} function to conduct your test.
+    \item Clearly state the hypotheses, conclusion, and justification in your report.
+\end{itemize}
+
+
+
+
+
+
+\subsection*{Test for Homogeneity using the Cars93 Dataset}
+
+\begin{itemize}
+    \item Load the Cars93 data set
+    \item Create a new data frame that has the counts of the number of cars of each type with each drivetrain using the \texttt{table()} or \texttt{tabyl()} function.
+    \item View and include the contingency table in your report.
+    \item Conduct a chi-squared test to see if the distribution of cars with each drivetrain is the same for each car type.
+    \item Clearly state your hypothesis, test results, conclusion, and justification in your report.
+\end{itemize}
+
+\subsection*{Test for Independence using the Diamond Dataset}
+
+\begin{itemize}
+    \item Load the diamond data set
+    \item Create separate histograms for the \texttt{price} and \texttt{carat}
+    \item Choose categories/ranges for each of these columns based on your histograms. You should have between 3 and 5 categories for each.
+    \item Add columns to the diamond data set that contain the category for the price and the carat
+    \item Create a new data frame that has the counts of the data by price and carat category using the \texttt{table()} or \texttt{tabyl()} function.
+    \item Conduct the chi-squared independence test to determine if the price and carat of a diamond are independent.
+    \item Clearly state your hypothesis, conclusion, and justification.
+    \item From the results of the test, extract the expected number of results in each category pair (carat-price). Include this table in your report.
+\end{itemize}
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors: 10 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness: 10 points
+    \item Report Accuracy/Correctness of Report Content: 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab
+    \item Note file is the student’s own notes
+\end{itemize}
+\end{document}
+\end{document}

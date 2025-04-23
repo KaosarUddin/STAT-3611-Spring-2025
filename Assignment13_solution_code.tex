@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\section*{STAT 3611 Lab 13 Solution}
+\subsection*{Chi-Squared Goodness of Fit Test}
+
+\begin{lstlisting}
+# Observed counts
+observed <- c(Yellow = 575, Orange = 602, Green = 590, Purple = 610, Red = 588)
+
+# Expected counts (uniform distribution)
+expected <- rep(mean(observed), length(observed))
+
+# Goodness of fit test
+chisq.test(x = observed, p = rep(1/5, 5))
+\end{lstlisting}
+
+\textbf{Answer:}  
+\begin{itemize}
+    \item $H_0$: The distribution of Skittles colors is uniform.
+    \item $H_a$: The distribution of Skittles colors is not uniform.
+    \item The p-value is greater than 0.05, so we \textbf{fail to reject $H_0$}.
+    \item Conclusion: There is not sufficient evidence to suggest the Skittles colors are not uniformly distributed.
+\end{itemize}
+
+\subsection*{Chi-Squared Test for Homogeneity (Cars93)}
+
+\begin{lstlisting}
+library(MASS)
+library(janitor)
+
+data("Cars93")
+
+# Frequency table of Type vs DriveTrain
+car_table <- table(Cars93$Type, Cars93$DriveTrain)
+car_table
+chisq.test(car_table)
+\end{lstlisting}
+
+\textbf{Answer:}  
+\begin{itemize}
+    \item $H_0$: The distribution of drivetrain types is the same across all car types.
+    \item $H_a$: The distribution of drivetrain types differs among car types.
+    \item Based on a low p-value, we \textbf{reject $H_0$}.
+    \item Conclusion: There is sufficient evidence to suggest drivetrain distribution varies by car type.
+\end{itemize}
+
+\subsection*{Chi-Squared Test for Independence (diamond dataset)}
+
+\begin{lstlisting}
+library(UsingR)
+data("diamond")
+
+# Histogram inspection (done interactively before categorizing)
+# Create categories
+diamond$price_cat <- cut(diamond$price, breaks = c(300, 800, 1500, 2000), labels = c("Low", "Medium", "High"))
+diamond$carat_cat <- cut(diamond$carat, breaks = c(0.1, 0.3, 0.6, 1), labels = c("Small", "Medium", "Large"))
+
+# Contingency table
+diamond_table <- table(diamond$price_cat, diamond$carat_cat)
+chisq_result <- chisq.test(diamond_table)
+chisq_result
+chisq_result$expected
+\end{lstlisting}
+
+\textbf{Answer:}  
+\begin{itemize}
+    \item $H_0$: The price and carat of a diamond are independent.
+    \item $H_a$: The price and carat of a diamond are not independent.
+    \item The test returned a small p-value, so we \textbf{reject $H_0$}.
+    \item Conclusion: There is strong evidence of an association between price and carat.
+    \item The expected counts table was extracted and included as required.
+\end{itemize}
+
+\end{document}

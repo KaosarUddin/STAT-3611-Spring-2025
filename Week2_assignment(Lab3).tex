@@ -1,0 +1,117 @@
+
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 3)}
+\fancyhead[R]{Feb 10 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+
+
+\section*{Topic Overview}
+In this assignment you will practice the following skills in R:
+\begin{itemize}
+    \item Work with one of R’s built-in datasets.
+    \item Computing summary statistics for a column of data.
+    \item Isolating a subset of a data frame.
+    \item Creating a new vector of data.
+    \item Creating histograms.
+    \item Creating boxplots.
+    \item Using the sort function to find order statistics.
+\end{itemize}
+
+\section*{Submission Instructions}
+For this lab, you will submit 3 files:
+\begin{itemize}
+    \item \textbf{Code File:} Must have a \texttt{.r} extension and be named \texttt{Lab3\_LastNameFirstName.r}. 
+    \item \textbf{Lab Report:} Must have a \texttt{.pdf} extension and be named \texttt{Lab3\_LastNameFirstName.pdf}.
+    \item \textbf{Reference Note Sheet:} Must have a \texttt{.pdf} extension and be named \texttt{Lab3\_Notes\_LastNameFirstName.pdf}. The reference sheet should contain all information from previous labs and any additional notes about new functions/code blocks/tips acquired in this lab.
+\end{itemize}
+
+\section*{Lab Instructions}
+This lab will use the \texttt{quakes} dataset in R. The documentation can be found here:
+\url{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html}
+
+\subsection*{Initial Data Overview}
+\begin{itemize}
+    \item Load the \texttt{quakes} dataset in R.
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+\end{itemize}
+
+\subsection*{Summary Stats for the Full Dataset}
+Compute the following for the magnitudes of the recorded earthquake data:
+\begin{itemize}
+    \item Minimum value
+    \item Maximum value
+    \item Range
+    \item First quartile
+    \item Median
+    \item Third quartile
+    \item Interquartile range
+    \item Mean
+    \item Variance
+    \item Standard deviation
+    \item Coefficient of variation
+\end{itemize}
+
+\subsection*{Data Visualization for the Full Dataset}
+All plots must have a descriptive title and appropriate axis labels:
+\begin{itemize}
+    \item Plot a histogram of the depths recorded for all earthquakes with the height of each bar labeled.
+    \item Plot a histogram of the magnitudes recorded for all earthquakes with the height of each bar labeled.
+    \item Create a boxplot for the number of stations that recorded data for each earthquake.
+\end{itemize}
+
+\subsection*{Manipulating Data and Creating New Vectors}
+\begin{itemize}
+    \item Create a new vector with the depth of each earthquake in miles (originally in kilometers).
+    \item Create two new data frames:
+    \begin{itemize}
+        \item Earthquakes recorded by fewer than 40 stations.
+        \item Earthquakes recorded by at least 40 stations.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Summary Stats for Data Subsets}
+\begin{itemize}
+    \item How many earthquakes were recorded by fewer than 40 stations?
+    \item How many earthquakes were recorded by at least 40 stations?
+    \item Compute the 5-number summary for the depths:
+    \begin{itemize}
+        \item All depths in miles.
+        \item Depths recorded by fewer than 40 stations in kilometers.
+        \item Depths recorded by at least 40 stations in kilometers.
+    \end{itemize}
+    \item Compute the mean, variance, and interquartile range for:
+    \begin{itemize}
+        \item Depths recorded by fewer than 40 stations in kilometers.
+        \item Depths recorded by at least 40 stations in kilometers.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Data Visualization for Data Subsets}
+All plots must have a descriptive title and appropriate axis labels. Change the plot settings so that two plots are presented side by side using the \texttt{par(mfrow=c(\#, \#))} command in R:
+\begin{itemize}
+    \item Plot histograms of magnitudes for earthquakes recorded by fewer than 40 stations (left) and at least 40 stations (right).
+    \item Plot boxplots of depths for earthquakes recorded by fewer than 40 stations (left) and at least 40 stations (right). Use the \texttt{ylim} parameter to ensure both boxplots have the same y-axes. Explain your choice and the benefits of using the same axes for side-by-side plots.
+\end{itemize}
+
+\subsection*{Order Statistics}
+\begin{itemize}
+    \item Create a new vector with the longitude values for earthquakes recorded by at least 40 stations, ordered from smallest to largest.
+    \item What is the 18th order statistic for the longitude values of earthquakes recorded by at least 40 stations?
+    \item Write a function (your name) that takes two numbers (\texttt{x, y}) and returns \texttt{x * y}.
+\end{itemize}
+
+\end{document}

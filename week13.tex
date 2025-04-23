@@ -1,0 +1,159 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usetheme{Madrid}
+
+\title[STAT 3611]{LAB 13: Goodness of Fit, Homogeneity, Independence}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}[fragile]{Making \& Adding to Vectors Using \texttt{c()}}
+    \begin{itemize}
+        \item Make the original list, maybe with data in it:
+        \begin{verbatim}
+        friends <- c("Jason", "Sarah", "Jen")
+        \end{verbatim}
+        \item Add a new entry to the vector:
+        \begin{verbatim}
+        friends <- c(friends, "Kaley")
+        \end{verbatim}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Creating Category Columns}
+    \begin{itemize}
+    \item You have to have decided what the criteria are first
+    \item Make a new column using the mutate function
+    \item Embed the case\_when function to define the categories
+        \item Use \texttt{mutate} and \texttt{case\_when}:
+        \begin{verbatim}
+        diamond2 <- diamond2 %>% mutate(
+            PriceGroup = case_when(
+                price <= 400 ~ "Low Price",
+                price > 400 ~ "High Price"
+            )
+        )
+        \end{verbatim}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Chi-Squared Goodness-of-Fit Tests}
+    \begin{itemize}
+        \item Tests if sample data fits a known distribution.
+        \item Null Hypothesis: Data fits the distribution.
+        \item Alternative Hypothesis: Data does not fit the distribution.
+    \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{GOF Test Example in R}
+\begin{verbatim}
+observed <- c(20, 15, 30, 35)
+expected <- c(25, 25, 25, 25)
+chisq.test(x = observed, p = expected/sum(expected))
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Tests for Homogeneity}
+    \begin{itemize}
+        \item We want to know if multiple sets of data come from the same distribution.
+        \item We do not have to know what that distribution is?
+        \item Null Hypothesis: All groups have the same distribution.
+        \item Alternative Hypothesis: At least one group differs.
+    \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Homogeneity Test Example in R}
+\begin{verbatim}
+data <- matrix(c(30, 10, 20, 40), nrow = 2)
+chisq.test(data)
+\end{verbatim}
+\end{frame}
+\begin{frame}{Tests for Independence}
+    \begin{itemize}
+        \item Checks independence of two categorical variables.
+        \item Null Hypothesis: Variables are independent.
+        \item Independence:
+        \[ \text{Pr}(A \cap B) = \text{Pr}(A) \times \text{Pr}(B) \]
+    \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Independence Test Example in R}
+\begin{verbatim}
+data <- matrix(c(12, 5, 8, 15), nrow = 2)
+chisq.test(data)
+\end{verbatim}
+\end{frame}
+\begin{frame}{Homogeneity vs. Independence}
+    \begin{itemize}
+        \item “If you're thinking, "homogeneity and independence sound the same!", you're nearly right. The difference is a matter of design. 
+        \item \textbf{Independence}: Data from one population, two variables observed per unit.
+        \item \textbf{Homogeneity}: Data collected separately from multiple groups.
+        \item The difference is subtle but crucial.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{chisq.test()} Function}
+    \begin{itemize}
+        \item Used for all three tests.
+        \item The set of parameters for homogeneity and independence are the same.
+        \item Check parameters carefully:
+        \begin{verbatim}
+        ?chisq.test
+        \end{verbatim}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Making Tables}
+    \begin{itemize}
+        \item Two options:
+        \begin{verbatim}
+        table()
+        tabyl()
+        \end{verbatim}
+        \item Choose based on preference; neither is superior.
+    \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Making Tables}
+\begin{verbatim}
+# Using table()
+table(gender, response)
+
+# Using tabyl() from janitor
+library(janitor)
+df %>% tabyl(gender, response)
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Anticipated Warning}
+    \begin{verbatim}
+    Warning message:
+    Chi-squared approximation may be incorrect
+    \end{verbatim}
+    \begin{itemize}
+        \item Common in small datasets; acceptable for this lab.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Extracting Results from \texttt{chisq.test()}}
+\begin{verbatim}
+chisqResults <- chisq.test(myData)
+pvalue <- chisqResults$p.value
+statistic <- chisqResults$statistic
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}{Lab Submissions}
+    \begin{itemize}
+        \item R script must be commented and executable.
+        \item Report using Canvas template.
+        \item Include all necessary descriptions and summaries.
+        \item Submit updated note sheet.
+    \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,157 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 7)}
+\fancyhead[R]{March 10 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with one of R’s built-in datasets
+    \item Computing sample and population variance
+    \item Computing the proportion parameter
+    \item Sampling from a dataset
+    \item Using the \texttt{replicate()} function to create a data frame
+    \item Looking up normal and chi-square distribution quantiles
+    \item Creating and populating vectors
+    \item Generating confidence intervals for the standard deviation
+    \item Generating confidence intervals for the proportion parameter
+    \item Creating boxplots and using plot options
+    \item Adding rows to a data frame
+    \item Writing a data frame to a CSV file
+\end{itemize}
+
+\section{Submission Instructions}
+
+For this lab, you will submit 4 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \\ \texttt{Lab7\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your CSV file (export instructions included in the lab instructions) must be named \\ \texttt{Lab7\_LastNameFirstInitial.csv}
+    \item Your lab report must have a \texttt{.pdf} extension and be named \\ \texttt{Lab7\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \\ \texttt{Lab7\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section{Lab Instructions}
+
+This lab will use the \texttt{faithful} dataset in R. The documentation can be found here:
+
+\url{https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/faithful.html}
+
+\subsection{Initial Data Overview}
+\begin{itemize}
+    \item Load the \texttt{faithful} dataset in R.
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+\end{itemize}
+
+\subsection{Summary Stats for the Full Dataset}
+Compute all of the following for the duration of eruptions and the waiting time between eruptions:
+\begin{itemize}
+    \item Mean
+    \item Population variance
+    \item Population standard deviation
+    \item Population coefficient of variation
+\end{itemize}
+Compute the proportion of eruptions with a duration of at least 4 minutes.
+
+\subsection{Sampling}
+\begin{itemize}
+    \item Create a new data frame that contains 100 samples of size 10 from the eruption duration column of the \texttt{faithful} dataset.
+    \item Use the \texttt{sample()} function to create your samples of size 10.
+    \item Use the \texttt{replicate()} function to repeat the sampling 100 times.
+    \item Cast the result as a data frame using \texttt{data.frame()}.
+\end{itemize}
+
+\subsection{Analyze the Samples}
+Create 4 new empty vectors to store:
+\begin{itemize}
+    \item Sample means
+    \item Sample variances
+    \item Sample standard deviations
+    \item P-hat of each of your 100 samples
+\end{itemize}
+
+\item For each sample:
+\begin{itemize}
+    \item Compute the sample mean and add it to the sample means vector.
+    \item Compute the sample variance and add it to the sample variances vector.
+    \item Compute the sample standard deviation and add it to the sample standard deviations vector.
+    \item Compute p-hat, the proportion of values in each sample that are at least 4, and add it to the p-hat vector.
+\end{itemize}
+
+\item Compute the average and variance of each new vector:
+\begin{itemize}
+    \item Sample means
+    \item Sample variances
+    \item Sample standard deviations
+    \item P-hat
+\end{itemize}
+
+\item Compute the bias (difference between the true parameter and estimate) for:
+\begin{itemize}
+    \item Sample means
+    \item Variance
+    \item Standard deviations
+    \item P-hat
+\end{itemize}
+
+\subsection{Visual Summaries}
+\begin{itemize}
+    \item Create a boxplot of the sample variances of the 100 samples.
+    \item The plot should have an appropriate title and numeric values labeled.
+    \item Create a boxplot of the values of p-hat for the 100 samples.
+    \item The plot should have an appropriate title and numeric values labeled.
+\end{itemize}
+
+\subsection{Distribution Quantiles}
+\begin{itemize}
+    \item Look up the chi-squared value that corresponds to a two-sided 95\% confidence interval with 9 degrees of freedom.
+    \item Look up the z-value that corresponds to a one-sided 95\% confidence interval.
+\end{itemize}
+
+\subsection{Confidence Intervals}
+For each of the 100 samples:
+\begin{itemize}
+    \item Find the upper and lower bounds for a two-sided 95\% confidence interval of the standard deviation (chi-square).
+    \item Determine if the true standard deviation is within the confidence interval.
+    \item Count the number of confidence intervals that contain the true standard deviation.
+    \item Find the upper bound for a 95\% confidence interval of the proportion parameter (for the proportion of durations in each sample that are at least 4).
+    \item Determine if the true proportion parameter is within the confidence interval.
+    \item Count the number of confidence intervals that contain the true proportion parameter.
+\end{itemize}
+
+\subsection{Data Frame Modification}
+Use the \texttt{rbind()} function to append the following vectors to the data frame containing your 100 samples:
+\begin{itemize}
+    \item Sample standard deviation
+    \item Standard deviation CI lower bound (chi-square)
+    \item Standard deviation CI upper bound (chi-square)
+    \item If each standard deviation CI contains the true standard deviation (matches)
+    \item P-hat estimates
+    \item Proportion parameter CI upper bound
+    \item If each proportion parameter CI contains the true proportion parameter (matches)
+\end{itemize}
+
+\item Now, you should have a data frame with 17 rows and 100 columns!  
+Use the \texttt{row.names()} function to rename the rows of the data frame with appropriate and informative names.
+
+\subsection{Write a Data Frame to a CSV File}
+Use the \texttt{write.csv()} function to write your data frame with the 100 samples of size 10 and the confidence interval information to a CSV file.
+
+\end{document}

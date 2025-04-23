@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab Test 1 Report}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Dataset 1: ToothGrowth}
+
+\subsection{Q1: Initial Data Overview}
+\begin{itemize}
+    \item The dataset \texttt{ToothGrowth} is loaded in R.
+    \item The column headers are: \---, \---, and \---.
+    \item The dataset contains \texttt{XX} rows.
+    \item There are \texttt{XX} different supplements in this dataset.
+\end{itemize}
+
+\subsection{Q2: Summary Statistics}
+For each supplement (VC and OJ), the following summary statistics are computed:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Statistic & Supplement VC & Supplement OJ \\
+        \midrule
+        Minimum & XX & XX \\
+        First Quartile (Q1) & XX & XX \\
+        Median & XX & XX \\
+        Mean & XX & XX \\
+        Third Quartile (Q3) & XX & XX \\
+        Maximum & XX & XX \\
+        Interquartile Range (IQR) & XX & XX \\
+        Variance & XX & XX \\
+        \bottomrule
+    \end{tabular}
+    \caption{Summary statistics for tooth length by supplement type.}
+    \label{tab:summary_toothgrowth}
+\end{table}
+
+\subsection{Q3: Data Visualization}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{boxplots_toothgrowth.png} % Update with correct filename
+    \caption{Boxplots of Tooth Length for Supplements VC and OJ}
+    \label{fig:boxplots_toothgrowth}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{histograms_toothgrowth.png} % Update with correct filename
+    \caption{Histograms of Tooth Length for Supplements VC and OJ}
+    \label{fig:histograms_toothgrowth}
+\end{figure}
+
+\textbf{Explanation:} Based on the boxplots and histograms, the differences between the tooth length obtained by supplement VC and OJ can be summarized as follows: \textit{(Provide a short interpretation here based on your analysis.)}
+
+\section{Dataset 2: Palmer Penguins}
+
+\subsection{Q4: Initial Data Overview}
+\begin{itemize}
+    \item The dataset \texttt{penguins} is loaded in R.
+    \item The column headers are: \---, \---, \---.
+    \item The dataset contains \texttt{XX} rows and \texttt{XX} columns.
+    \item The unique species in the dataset are: \texttt{XX, XX, XX}.
+    \item After sorting alphabetically, the first two species are \texttt{XX, XX} and the last two species are \texttt{XX, XX}.
+\end{itemize}
+
+\subsection{Q5: Body Mass Analysis}
+
+\begin{itemize}
+    \item A new dataframe was created with penguins having body mass \texttt{$\geq$ 4000 g}.
+    \item The dataset was cleaned to remove missing values.
+    \item The total number of penguins with body mass \texttt{$\geq$ 4000 g} and no missing values is \texttt{XX}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{histogram_penguins_mass.png} % Update with correct filename
+    \caption{Histogram of Body Mass for Penguins with at least 4000g}
+    \label{fig:histogram_penguins_mass}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{qqplot_penguins_mass.png} % Update with correct filename
+    \caption{QQ Plot of Body Mass for Penguins with at least 4000g}
+    \label{fig:qqplot_penguins_mass}
+\end{figure}
+
+\textbf{Explanation:} The histogram and QQ plot indicate that the distribution of body mass is \textit{(Provide a short interpretation here based on your analysis.)}
+
+\section{Conclusion}
+In this lab test, we analyzed the \texttt{ToothGrowth} and \texttt{penguins} datasets using descriptive statistics and visualizations in R. Our analysis showed \textit{(Summarize key findings here.)}
+
+\end{document}

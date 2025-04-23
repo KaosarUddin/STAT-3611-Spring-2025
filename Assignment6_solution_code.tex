@@ -1,0 +1,206 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+
+\fancyhead[L]{STAT 3611 Assignment (Lab 6)}
+\fancyhead[R]{March 03 at 11:59pm}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  breaklines=true,
+  showstringspaces=false
+}
+
+\begin{document}
+
+\title{STAT 3611 Lab 6 Solution Code}
+\author{Auburn University}
+\date{Spring 2025}
+\maketitle
+
+\section{Problem 3.1: Initial Data Overview}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Load the dataset
+data("faithful")
+colnames(faithful) # Column headers
+nrow(faithful) # Number of rows
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Load and examine the dataset.
+
+\section{Problem 3.2: Summary Statistics}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Compute statistics for numerical columns
+summary_stats <- data.frame(
+  Mean = sapply(faithful, function(x) if(is.numeric(x)) mean(x, na.rm = TRUE) else NA),
+  Variance = sapply(faithful, function(x) if(is.numeric(x)) var(x, na.rm = TRUE) else NA),
+  Std_Dev = sapply(faithful, function(x) if(is.numeric(x)) sd(x, na.rm = TRUE) else NA),
+  Coef_Var = sapply(faithful, function(x) if(is.numeric(x)) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE) else NA)
+)
+print(summary_stats)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Compute key summary statistics, including the population coefficient of variation.
+
+\section{Problem 3.3: Sampling}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Generate multiple samples and convert to a data frame
+samples <- replicate(120, sample(faithful$eruptions, 15, replace=TRUE))
+samples_df <- data.frame(samples)
+print(samples_df)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Create a data frame of 120 samples.
+\section{Problem 3.4: Analyze the Samples}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Create empty vectors to store sample statistics
+sample_means <- c()
+sample_variances <- c()
+sample_std_devs <- c()
+
+# Generate 120 samples from the eruption duration column
+samples <- replicate(120, sample(faithful$eruptions, 15, replace = TRUE), simplify = FALSE)
+
+# Compute statistics for each sample
+for (i in 1:120) {
+  sample_means <- c(sample_means, mean(samples[[i]]))
+  sample_variances <- c(sample_variances, var(samples[[i]]))
+  sample_std_devs <- c(sample_std_devs, sd(samples[[i]]))
+}
+
+# Compute average and population variance of each new vector
+avg_sample_means <- mean(sample_means)
+avg_sample_vars <- mean(sample_variances)
+avg_sample_sds <- mean(sample_std_devs)
+
+pop_var_sample_means <- var(sample_means)
+pop_var_sample_vars <- var(sample_variances)
+pop_var_sample_sds <- var(sample_std_devs)
+
+# Compute bias (true parameter - estimate)
+true_mean <- mean(faithful$eruptions)
+true_variance <- var(faithful$eruptions)
+true_sd <- sd(faithful$eruptions)
+
+bias_means <- true_mean - avg_sample_means
+bias_variance <- true_variance - avg_sample_vars
+bias_sd <- true_sd - avg_sample_sds
+
+# Store results in a data frame
+sample_analysis_results <- data.frame(
+  Sample_ID = 1:120,
+  Sample_Mean = sample_means,
+  Sample_Variance = sample_variances,
+  Sample_Std_Dev = sample_std_devs
+)
+print(sample_analysis_results)
+
+# Display bias and population variance results
+bias_results <- data.frame(
+  Metric = c("Sample Means", "Sample Variances", "Sample Std Devs"),
+  Bias = c(bias_means, bias_variance, bias_sd),
+  Population_Variance = c(pop_var_sample_means, pop_var_sample_vars, pop_var_sample_sds)
+)
+print(bias_results)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Compute the sample means, variances, and standard deviations, along with their averages, population variances, and bias calculations.
+
+\section{Problem 3.5: Distribution Quantiles}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Compute z-value and t-value
+alpha <- 0.05  # 95% confidence level
+z_value <- qnorm(1 - (alpha / 2))
+n <- 10  # Sample size
+t_value <- qt(1 - (alpha / 2), df = n - 1)
+cat("Z-value:", z_value, "\n")
+cat("T-value for n =", n, ":", t_value, "\n")
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Find quantiles for normal and t-distributions.
+
+
+\section{Problem 3.6: Confidence Intervals Using Duration Samples}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Compute confidence intervals
+set.seed(123)
+true_mean <- mean(faithful$eruptions)
+samples <- replicate(120, sample(faithful$eruptions, 15, replace = TRUE), simplify = FALSE)
+sample_sds <- c()
+lower_bounds <- c()
+upper_bounds <- c()
+contains_true_mean <- c()
+
+for (i in 1:120) {
+  sample_sds <- c(sample_sds, sd(samples[[i]]))
+  margin_of_error <- qt(0.975, df = 14) * (sample_sds[i] / sqrt(15))
+  lower_bound <- mean(samples[[i]]) - margin_of_error
+  upper_bound <- mean(samples[[i]]) + margin_of_error
+  lower_bounds <- c(lower_bounds, lower_bound)
+  upper_bounds <- c(upper_bounds, upper_bound)
+  contains_true_mean <- c(contains_true_mean, (true_mean >= lower_bound & true_mean <= upper_bound))
+}
+
+# Store confidence interval results in a data frame
+confidence_results <- data.frame(
+  Sample_ID = 1:120,
+  Sample_Mean = sapply(samples, mean),
+  Sample_SD = sample_sds,
+  Lower_Bound = lower_bounds,
+  Upper_Bound = upper_bounds,
+  Contains_True_Mean = contains_true_mean
+)
+print(confidence_results)
+
+# Perform a t-test on a sample
+sampled_values <- sample(faithful$eruptions, 15, replace = TRUE)
+t.test(sampled_values)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Compute confidence intervals for each of the 120 samples and check whether the true mean is contained within each interval.
+
+
+\section{Problem 3.7: Data Frame Modification}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Append sample means and confidence intervals to the dataset
+samples_matrix <- do.call(cbind, samples)
+samples_df <- as.data.frame(samples_matrix)
+samples_df <- rbind(samples_df, sample_means, lower_bounds, upper_bounds)
+row.names(samples_df) <- c(paste0("s", 1:n), "x-bar", "ci_lower", "ci_upper")
+print(samples_df)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Append confidence interval data to the sample data frame.
+
+\section{Problem 3.8: Writing to CSV}
+\begin{tcolorbox}
+\begin{lstlisting}
+# Write the data frame to a CSV file
+write.csv(samples_df, "samples_results.csv", row.names = TRUE)
+\end{lstlisting}
+\end{tcolorbox}
+Answer: Save the results to a CSV file.
+
+\end{document}

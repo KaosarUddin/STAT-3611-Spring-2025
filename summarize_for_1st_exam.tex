@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  breaklines=true,
+  showstringspaces=false
+}
+
+\begin{document}
+
+\title{Review for Test 1}
+\author{Kaosar, Auburn University}
+\date{Spring 2025}
+\maketitle
+
+
+This document summarizes key concepts from the STAT 3611 lab sessions ( week 1 to week 4 and assignments 2-4), covering fundamental R programming techniques, data manipulation, visualization, and statistical analysis.
+
+\section{Week 1: Introduction to R}
+\begin{itemize}
+    \item Basic R syntax: Using \texttt{<-} for assignments, arithmetic operations, and command recall.
+    \item Creating and manipulating vectors: \texttt{c()}, \texttt{seq()}, \texttt{rep()}.
+    \item Logical operators: \texttt{<, >, ==, !=, \&, |, !}.
+    \item Handling missing values: \texttt{NA}, \texttt{NaN}, and functions like \texttt{is.na()}.
+    \item Subsetting vectors: Using brackets \texttt{[]} and negative indices for exclusion.
+    \item Matrices and data frames: Functions \texttt{matrix()}, \texttt{data.frame()}, \texttt{colnames()}.
+\end{itemize}
+
+
+
+\section{Week 2: Data Description in R}
+\begin{itemize}
+    \item One-based indexing in R.
+    \item Accessing help: \texttt{help()}, \texttt{?}.
+    \item Exploring datasets: \texttt{dim()}, \texttt{nrow()}, \texttt{ncol()}, \texttt{head()}.
+    \item Subsetting data: \texttt{subset()}, filtering with logical conditions.
+    \item Descriptive statistics: \texttt{min()}, \texttt{max()}, \texttt{mean()}, \texttt{summary()}, \texttt{quantile()}.
+    \item Data visualization: Histograms and boxplots using \texttt{hist()} and \texttt{boxplot()}.
+\end{itemize}
+
+
+
+\section{Week 3: Working with CSV Files and Functions}
+\begin{itemize}
+    \item Reading CSV files: \texttt{read.csv()}.
+    \item Creating user-defined functions.
+    \item Subsetting and sorting data: \texttt{sort()}, \texttt{unique()}.
+    \item Order statistics: \texttt{median()}, \texttt{quantile()}.
+\end{itemize}
+
+
+
+\section{Week 4: Advanced Data Handling and Visualization}
+\begin{itemize}
+    \item Using \texttt{unique()} to remove duplicates.
+    \item Checking for membership: \texttt{\%in\%} operator.
+    \item Installing and loading packages: \texttt{install.packages()}, \texttt{library()}.
+    \item Regular expressions with \texttt{str\_detect()} from \texttt{stringr} package.
+    \item Correlation: \texttt{cor()} function.
+    \item QQ plots: \texttt{qqnorm()}, \texttt{qqline()}.
+\end{itemize}
+
+
+\section{Assignment Highlights}
+\subsection{Assignment 2: Trees and Books Dataset}
+\begin{itemize}
+    \item Renaming columns in data frames.
+    \item Subsetting data based on conditions.
+    \item Computing summary statistics and creating visualizations.
+\end{itemize}
+
+\subsection{Assignment 3: Quakes Dataset}
+\begin{itemize}
+    \item Summary statistics: Mean, variance, standard deviation, quartiles.
+    \item Data visualization: Histograms and boxplots.
+    \item Subsetting based on station count.
+    \item Sorting and order statistics.
+\end{itemize}
+
+
+
+\subsection{Assignment 4: Books Dataset}
+\begin{itemize}
+    \item Using \texttt{str\_detect()} to filter text data.
+    \item Finding percentiles and visualizing data distributions.
+    \item Computing correlation between variables.
+    \item Creating QQ plots to assess normality.
+\end{itemize}
+
+
+
+\end{document}

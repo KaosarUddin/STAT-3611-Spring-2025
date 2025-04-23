@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\title{STAT 3611 Lab 4 \\ Report Template}
+\author{First \& Last Name}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Books Data Overview}
+There are 11,127 rows and 12 columns in the books dataset. There are 6,643 unique authors in this dataset.
+
+The column headers are:
+\begin{verbatim}
+ [1] bookID             title              authors            average_rating    
+ [5] isbn               isbn13             language_code      num_pages         
+ [9] ratings_count      text_reviews_count publication_date   publisher
+\end{verbatim}
+
+\section*{Summary of Average Rating for Books Over 45 Pages Long that are in English}
+
+\subsection*{Summary Statistics}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Number of books > 45 pages & 10,629 \\
+    Number of English books > 45 pages & 10,055 \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{For English Books > 45 Pages}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & 0 \\
+    Maximum Value & 5 \\
+    Range & 0-5 \\
+    First Quartile (Q1) & 3.770 \\
+    Median & 3.950 \\
+    Third Quartile (Q3) & 4.130 \\
+    Interquartile Range (IQR) & 0.36 \\
+    Mean & 3.928414 \\
+    Variance & 0.1197873 \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{Correlation Analysis}
+The correlation between the average rating and the number of pages for books written in English that are more than 45 pages long is 0.1820682. This correlation value suggests a weak positive correlation between the average rating and the number of pages for books written in English that are more than 45 pages long. In other words, as the number of pages increases, there is a slight tendency for the average rating to also increase, but the relationship is not very strong.
+
+\section*{Visual Summaries of the Books Data (Books > 45 Pages and in English)}
+\subsection*{Five-Number Summary of the Number of Pages}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & 46 \\
+    First Quartile (Q1) & 208 \\
+    Median & 304 \\
+    Third Quartile (Q3) & 419 \\
+    Maximum Value & 6576 \\
+    \bottomrule
+\end{tabular}
+
+\subsection*{Histograms and Boxplots}
+\textbf{Histogram of the number of pages}
+
+\textbf{Boxplot of the number of pages}
+
+\section*{Choosing a Percentile}
+\subsection*{Percentile Values}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Percentile} & \textbf{Number of Pages} \\
+    \midrule
+    95 & 9551 \\
+    96 & 9651 \\
+    97 & 9753 \\
+    98 & 9849 \\
+    99 & 9954 \\
+    \bottomrule
+\end{tabular}
+
+\textbf{*For each of the following plots, make sure that your plots have axis labels and a chart title. You may create each plot in its own frame or you can put them all in one frame.*}
+
+\textbf{Histograms of the number of pages when only the first P\% of page lengths are included, where P is 95, 96, 97, 98, 99.}
+
+\subsection*{Chosen Percentile}
+I have chosen the 99th percentile for the remainder of the lab for the following reasons:
+
+With the 99th percentile, we lose less data, so we should select the 99th.
+
+\subsection*{Boxplot and Histogram}
+\textbf{Boxplot and histogram of the number of pages when only the selected P\% of the number of pages data is included.}
+
+\section*{Five-Number Summary of the Number of Pages Using the First 95 Percent of the Data}
+\begin{tabular}{l l}
+    \toprule
+    \textbf{Statistic} & \textbf{Value} \\
+    \midrule
+    Minimum Value & 46 \\
+    First Quartile (Q1) & 208 \\
+    Median & 304 \\
+    Third Quartile (Q3) & 419 \\
+    Maximum Value & 6576 \\
+    \bottomrule
+\end{tabular}
+
+There are some differences between this summary and the one for all English books with at least 45 pages. The most important differences are \underline{(to be filled in)}.
+
+\textbf{*Include a short explanation of what has and has not changed about the summary, and why these changes are important or acceptable to be able to generate easier-to-read graphs.*}
+
+\section*{QQ Plot}
+\textbf{QQ Plot of the Average Rating of the books that have more than 45 pages and are written in English with a reference line.}
+
+Based on this plot, we can conclude that the average book rating is/is not normally distributed because \underline{(to be filled in)}.
+
+\end{document}

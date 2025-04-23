@@ -1,0 +1,95 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usetheme{Madrid}
+
+\title[STAT 3611]{Week 14: One-Way ANOVA (Final Lab)}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Administrative Items}
+\begin{itemize}
+    \item Use your note sheet, old labs, and resources during open lab.
+    \item \textbf{This is the last lab of the semester.}
+    \item \textbf{No class during finals week.}
+    \item Do not use code generators — write your own R code.
+    \item Looking up syntax/documentation is allowed.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting a Data Frame in R}
+\textbf{Using the \texttt{ToothGrowth} dataset:}
+\begin{verbatim}
+data("ToothGrowth")
+
+# Subset to include only rows with "OJ"
+ToothGrowth[ToothGrowth$supp == "OJ", ]
+
+# Select specific columns (e.g., first and second)
+ToothGrowth[ToothGrowth$supp == "OJ", c(1,2)]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Introduction to One-Way ANOVA}
+\begin{itemize}
+    \item ANOVA = \textbf{Analysis of Variance}
+    \item Used to compare \textbf{three or more group means}.
+    \item \textbf{H\textsubscript{0}}: \( \mu_1 = \mu_2 = \mu_3 = \cdots = \mu_m \)
+    \item \textbf{H\textsubscript{1}}: At least one mean is different.
+    \item \textbf{m}: number of independent groups
+    \item \textbf{n}: total number of observations
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Decision Rule for ANOVA}
+\begin{itemize}
+    \item Use the \textbf{F-ratio} from ANOVA output.
+    \item Compare with critical value from F-table:
+    \[ \text{Reject } H_0 \text{ if } F_{\text{ratio}} > F_{\text{table}} \]
+    \item Find critical values: \url{https://www.statology.org/f-distribution-table/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conducting ANOVA in R}
+\textbf{Steps to perform one-way ANOVA:}
+\begin{verbatim}
+# Step 1: Load data and run the test
+anovaResults <- aov(len ~ supp, data = ToothGrowth)
+
+# Step 2: Print the ANOVA summary
+summary(anovaResults)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Example Output}
+\textbf{Typical ANOVA output:}
+\begin{verbatim}
+             Df Sum Sq Mean Sq F value Pr(>F)
+supp          1  205.4  205.35   15.57  0.0002
+Residuals    58  764.0   13.17
+\end{verbatim}
+\textbf{Interpretation:}
+\begin{itemize}
+    \item p-value = 0.0002 $<$ 0.05 → reject \( H_0 \)
+    \item Conclusion: supplement type has a significant effect on tooth length
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Submissions}
+\begin{itemize}
+    \item Submit a clearly commented R script that runs without error.
+    \item Submit a report using the template provided on Canvas.
+    \item Add brief summaries and interpretations where required.
+    \item Submit updated note sheet as required.
+\end{itemize}
+\end{frame}
+
+\end{document}

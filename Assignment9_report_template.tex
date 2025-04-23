@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab 9 Report}
+\author{Your First and Last Name}
+\date{Submission Date}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Write introduction for the report.
+
+\section{Initial Data Overview}
+
+\subsection{Nile Dataset}
+\begin{itemize}
+    \item The dataset \texttt{Nile} is loaded in R.
+    \item The dataset contains \_\_ years of data.
+\end{itemize}
+
+\subsection{AirPassengers Dataset}
+\begin{itemize}
+    \item The dataset \texttt{AirPassengers} is loaded in R.
+    \item The dataset contains \_\_ numbers.
+\end{itemize}
+
+\section{Summary Statistics for the Nile Dataset}
+
+For the annual flow of the Nile River, the following summary statistics are computed:
+
+\begin{itemize}
+    \item Mean: \_\_
+    \item Variance: \_\_
+\end{itemize}
+
+\subsection{Normality Check}
+
+A QQ plot is generated with a reference line:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{qqplot_nile.png} % Update with correct filename
+    \caption{QQ Plot for the Nile dataset.}
+    \label{fig:qqplot_nile}
+\end{figure}
+
+\textbf{Conclusion:} \textit{Is the data approximately normal? Justify your answer.}
+
+\section{Two-Sided Hypothesis Test (Known Variance, Without t.test())}
+
+\begin{itemize}
+    \item Null Hypothesis: \_
+    \item Alternative Hypothesis: \_
+    \item Given true variance: 28350
+    \item Significance level: \(\alpha = 0.05\)
+    \item Z-value for two sided test from \texttt{qnorm()} lookup: \_\_
+    \item Computed the upper and lower rejection values: \_\_
+    \item Computed Z-statistic: \_\_
+    \item Decision: Reject/Fail to Reject Null Hypothesis
+    \item Type II Error (if true mean is 917): \_\_
+\end{itemize}
+
+\section{Two-Sided Hypothesis Test (Known Variance, Using t.test())}
+
+\begin{itemize}
+    \item Hypothesis Test conducted using \texttt{t.test()}.
+    \item Decision: Reject/Fail to Reject Null Hypothesis
+    \item Consistency with previous test: Yes/No
+\end{itemize}
+
+\section{One-Sided Hypothesis Test (Unknown Variance, AirPassengers Dataset)}
+
+\begin{itemize}
+    \item Null Hypothesis: \_
+    \item Alternative Hypothesis: \_
+    \item Data subset includes only the year 1955.
+    \item Sample Mean: \_\_
+    \item Sample Standard Deviation: \_\_
+    \item Lookup t-value from \texttt{qt()} function: \_\_
+    \item Significance level: \(\alpha = 0.05\), Sample Size \(n\): \_\_
+    \item Computed test statistic: \_\_
+    \item P-value: \_\_
+    \item Decision: Reject/Fail to Reject Null Hypothesis
+\end{itemize}
+
+\section{Conclusion}
+Summarize the key findings of the hypothesis tests, normality checks, and confidence intervals. Discuss the consistency of results between different methods.
+
+\section{References}
+List any references, such as R documentation, lecture notes, or textbooks used to complete this lab.
+
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+
+\title{STAT 3611 Lab 2: Report Template}
+\author{First and Last Name}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Trees Data Overview}
+There are \_\_\_ rows and \_\_\_ columns in the Trees data set. The column headers are: 
+
+\vspace{0.5cm}
+
+Based on the documentation, the column originally named \_\_\_\_ has been renamed to \_\_\_\_\_.
+
+\section*{Summarizing the Trees Data}
+\textbf{Summary Statistics}
+
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Statistic         & Column 1 & Column 2 & Column 3 \\ \midrule
+Minimum Value     &          &          &          \\
+First Quartile    &          &          &          \\
+Median            &          &          &          \\
+Third Quartile    &          &          &          \\
+Maximum Value     &          &          &          \\
+Mean              &          &          &          \\
+Variance          &          &          &          \\ \bottomrule
+\end{tabular}
+
+\vspace{1cm}
+
+\section*{Visual Summaries of the Trees Data}
+*\textbf {For each of the plots, make sure that your plots have axis labels and a chart title.  Write a 1-2 sentence summary of your observations about the shape of the distribution for each column of data.}\\
+
+\textbf{Boxplot and Histogram of Column 1:} \_\_\_\_
+
+\vspace{0.5cm}
+\textbf{Boxplot and Histogram of Column 2:} \_\_\_\_
+
+\vspace{0.5cm}
+\textbf{Boxplot and Histogram of Column 3:} \_\_\_\_
+
+\section*{Data for Short Trees}
+There are \_\_\_ trees with a height that is no greater than 65. 
+
+\vspace{0.5cm}
+
+\textbf{Table of Short Trees:}
+
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Tree ID & Girth & Height & Volume \\ \midrule
+        &       &        &        \\
+        &       &        &        \\ \bottomrule
+\end{tabular}
+
+\vspace{1cm}
+
+\section*{Books Data Overview}
+There are \_\_\_ rows and \_\_\_ columns in the Books data set. The column headers are: 
+
+\vspace{0.5cm}
+
+\section*{Number of Pages in the Books}
+\textbf{Histogram:}
+
+\begin{itemize}
+    \item Create a histogram with a descriptive title to show the number of pages in the books.
+\end{itemize}
+
+There are \_\_\_ books with 0 pages.
+
+\vspace{0.5cm}
+
+\textbf{Outlier Threshold for Pages:}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Statistic           & Value \\ \midrule
+First Quartile      &       \\
+Third Quartile      &       \\
+Interquartile Range &       \\
+Upper Outlier Threshold & \\ \bottomrule
+\end{tabular}
+
+\vspace{0.5cm}
+
+\textbf{Boxplot:}
+\begin{itemize}
+    \item Create a boxplot with a descriptive title showing the number of pages for books with at least one page. Adjust the axes to exclude outlier values.
+\end{itemize}
+
+\end{document}

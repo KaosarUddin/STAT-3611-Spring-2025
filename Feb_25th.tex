@@ -1,0 +1,167 @@
+
+
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+
+\title{Week 6 :Confidence Intervals for the Mean}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item Previous lab: closed-resources lab
+        \item Note Sheet reminder
+        \item One closed-resources lab remaining
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Steps 1-2: Same as previous labs}
+    \textbf{Steps 1-2: Same as previous labs}
+    \begin{itemize}
+        \item Load data: \texttt{data("dataset\_name")}
+        \item Identify column headers: \texttt{head(dataset\_name)}
+        \item Number of rows: \texttt{nrow(dataset\_name)}
+        \item Compute statistics (mean, variance, standard deviation, etc.)
+    \end{itemize}
+    \textbf{Note:}
+    \begin{itemize}
+        \item R computes sample variance and sample standard deviation.
+        \item We need a function to compute population variance and standard deviation.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Step 3: Sampling (Part 1)}
+    \textbf{Step 3: Sampling}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Generate sample of size} \underline{$n$}}
+        \begin{itemize}
+            \item \textit{Function to use:} \textcolor{red}{\texttt{sample(x, n)}}
+            \item \textbf{x}: elements from which to choose; e.g., if you want to sample from column A in a data frame called “data”, then you can use \textbf{\underline{data\$A}}
+            \item \textbf{n}: non-negative integer, giving the number of items to choose
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 3: Sampling (Part 2)}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Produce} \underline{$m$} \textbf{samples like this one}}
+        \begin{itemize}
+            \item \textit{Function to use:} \textcolor{red}{\texttt{replicate(m, y)}}
+            \item \textbf{m}: number of times to repeatedly evaluate some expression
+            \item \textbf{y}: expression to be evaluated
+        \end{itemize}
+        \item \textcolor{green}{\textbf{Store output as a data frame}}
+        \begin{itemize}
+            \item \textit{Function to use:} \textcolor{red}{\texttt{data.frame(...)}}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 4: Analyze the samples}
+    \textbf{Step 4: Analyze the samples}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Create vector}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{c()}}
+
+        \item \textcolor{green}{\textbf{Iterate through the samples}}  
+        \textcolor{red}{\texttt{for(i in 1:\underline{m}) \{} \\  
+        \quad \# compute what you need \\  
+        \texttt{\}}}
+
+        \item \textbf{\underline{m}}: number of samples
+
+        \item \textcolor{green}{\textbf{Compute sample mean, sample variance, sample standard deviation}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{mean()} \quad \texttt{var()} \quad \texttt{sd()}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 5: Distribution Quantiles}
+    \textit{Note: Different ways to approach confidence interval questions.}
+
+    \textbf{Step 5: Distribution Quantiles}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{z-value that corresponds to a 2 sided (1-alpha)\% confidence interval}}  
+        
+        \quad You can use: \textcolor{red}{\texttt{qnorm(1-(alpha/2))}}
+        
+        \item \textcolor{green}{\textbf{t-value that corresponds to a 2 sided (1-alpha)\% confidence interval with n = 10}}  
+        
+        \quad You can use: \textcolor{red}{\texttt{qt(1-(alpha/2), \underline{n-1})}}  
+        
+        \quad \textbf{\underline{n-1}}: degree of freedom for the t distribution
+    \end{itemize}
+\end{frame}
+\begin{frame}{Step 6: Confidence Intervals Using Duration Samples}
+    \textbf{Step 6: Confidence Intervals Using Duration Samples}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Create vector}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{c()}}
+
+        \item \textcolor{green}{\textbf{Perform test}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{t.test(x, ...)}}
+
+        \item \textcolor{green}{\textbf{Get interval bounds}}  
+        \[
+        \text{sample\_means} - t \times \frac{\text{sample\_sds}}{\sqrt{10}}
+        \]
+
+        \item \textcolor{green}{\textbf{Verify if the true mean is in the interval.}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 7a: Data Frame Modification}
+    \textbf{Step 7a: Data Frame Modification}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Append vectors}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{sample <- rbind(sample, sample\_means)}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 7b: Data Frame Modification}
+    \textbf{Step 7b: Data Frame Modification}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Rename rows}}  
+        \textit{Function to use:} \textcolor{red}{\texttt{row.names(samples) <- c("s1", ..., "s10", "x-bar", "ci\_lower\_t", ...)}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 8: Write a Data Frame to a CSV File}
+    \textbf{Step 8: Write a Data Frame to a CSV File}
+    \begin{itemize}
+        \item \textcolor{green}{\textbf{Function to use:}}  
+        \textcolor{red}{\texttt{write.csv()}}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Lab Instructions}
+    \textbf{R Script}
+    \begin{itemize}
+        \item Must be commented.
+        \item The script you submit must run without errors and produce the correct output.
+    \end{itemize}
+    \textbf{Report}
+    \begin{itemize}
+        \item Template available on Canvas.
+        \item Some sections may require additional descriptions/summaries.
+    \end{itemize}
+    \textbf{Additional Items}
+    \begin{itemize}
+        \item Updated Note Sheet
+        \item The CSV file
+    \end{itemize}
+\end{frame}
+
+\end{document}

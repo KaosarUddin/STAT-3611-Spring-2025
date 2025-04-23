@@ -1,0 +1,204 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+
+\title{Week 6: Confidence intervals for standard deviation and proportion parameter}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Slide 2: Admin Stuff
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item Your code should align with your report and uploaded documents.
+        \item You should be using your note sheet if you get stuck during an open resource lab.
+        \item Make sure you are comfortable using the built-in R help and that your note sheet has been updated.
+        \item Make sure your FULL note sheet is being submitted on Canvas each week; this should have all of your notes from all of the labs so far.
+    \end{itemize}
+\end{frame}
+
+% Slide 3: Adding to Vectors Using c()
+\begin{frame}{Adding to Vectors Using \texttt{c()}}
+    \begin{itemize}
+        \item Create an initial vector:
+        \begin{itemize}
+            \item \texttt{friends <- c("Jason")}
+        \end{itemize}
+        \item Add a new entry to the vector:
+        \begin{itemize}
+            \item \texttt{friends <- c(friends, "Kaley")}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Slide 4: For Loops
+\begin{frame}{For Loops}
+    \begin{itemize}
+        \item Execute a block of code a fixed number of times.
+    \end{itemize}
+    \begin{block}{Function Syntax}
+\texttt{Loop\_functionName <- function(parameters) \{}
+\begin{itemize}
+    \item Function Body Code
+    \item \texttt{print(returnContents)}
+\end{itemize}
+\texttt{\}}
+    \end{block}
+
+    \begin{itemize}
+        \item Loops must start and end with \texttt{\{\}}.
+    \end{itemize}
+\end{frame}
+
+% Slide 5: Manipulating Vector Values
+\begin{frame}{Manipulating Vector Values}
+    \textbf{Multiply All Values by a Constant}
+    \begin{itemize}
+        \item \texttt{myVector <- c(1,2,3)}
+        \item \texttt{myVector3x <- 3 * myVector}
+    \end{itemize}
+
+    \textbf{Add a Constant to Each Value}
+    \begin{itemize}
+        \item \texttt{myVector <- c(4,5,6)}
+        \item \texttt{myVectorPlus2 <- 2 + myVector}
+    \end{itemize}
+
+    \textbf{Add Vectors of the Same Length}
+    \begin{itemize}
+        \item \texttt{myVector1 <- c(1,2,3)}
+        \item \texttt{myVector2 <- c(4,5,6)}
+        \item \texttt{myVectorSum <- myVector1 + myVector2}
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Confidence Intervals - Variance
+\begin{frame}{Confidence Intervals: Variance}
+    \begin{itemize}
+        \item The reference distribution is the \textbf{Chi-Squared Distribution}.
+        \item Like the t-distribution, we have to include the \textbf{degrees of freedom}.
+        \item Remember that \( S \) is the sample standard deviation.
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \textbf{Chi-Squared Confidence Interval Formula:}
+
+    \[
+    \frac{(n - 1) S^2}{\chi^2_{\alpha/2, n-1}} \leq \sigma^2 \leq \frac{(n - 1) S^2}{\chi^2_{1-\alpha/2, n-1}}
+    \]
+
+    \vspace{0.3cm}
+    \textbf{Using R:} The function \texttt{qchisq()} can be used to find critical values.
+
+    \begin{block}{R Code}
+qchisq(p, df)  # Gets quantiles of Chi-Squared distribution
+    \end{block}
+\end{frame}
+
+\begin{frame}{Confidence Intervals: P-Hat (Population Proportion)}
+    \begin{block}{Formula for Confidence Interval}
+        \[
+        \hat{p} \pm z^* \times \sqrt{\frac{\text{sample proportion} \times (1 - \text{sample proportion})}{n}}
+        \]
+    \end{block}
+
+    \textbf{Example:}
+    \begin{itemize}
+        \item We conduct a simple random sample of 90 people in this university.
+        \item 74 of them identify as a student.
+    \end{itemize}
+
+    \textbf{Calculation:}
+    \[
+    \hat{p} = \frac{74}{90} = 0.82 \quad \quad \mathbf{n = 90}
+    \]
+\end{frame}
+
+% Slide 7: Confidence Intervals - P-Hat (Population Proportion)
+\begin{frame}{Computing \(\hat{p}\) (Proportion of Values \(\geq 4\))}
+
+    \textbf{Example:} Given a set of samples, we compute the proportion of values in each sample that are at least 4 and store the result in a vector.
+
+    \begin{block}{R Code}
+# Generate example data: 10 samples, each with 20 random values (1 to 6)\\
+set.seed(123)  \textbf{For reproducibility}\\
+samples $=$ replicate(10, sample(1:6, 20, replace = TRUE))\\
+
+ Compute p-hat for each sample (proportion of values $>=$ 4)\\
+p\_hat $=$ apply(samples, 2, function(x) mean(x $>=$ 4))\\
+
+ Display p\_hat values\\
+print(p\_hat)
+    \end{block}
+
+\end{frame}
+
+
+
+
+
+% Slide 8: Distribution Quantiles
+\begin{frame}{Distribution Quantiles}
+    \begin{itemize}
+        \item Functions in R to obtain quantiles from different distributions:
+        \begin{itemize}
+            \item \texttt{qnorm()} - Normal distribution
+            \item \texttt{qt()} - t-distribution
+            \item \texttt{qchisq()} - Chi-squared distribution
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Distribution Quantiles}
+
+    \begin{block}{R Code: Compute Quantiles Using a Loop Function}
+\texttt{compute\_quantiles <- function(prob\_values, df\_value) \{}
+\begin{itemize}
+    \item Loop through each probability value \texttt{p}.
+    \item Compute quantiles using:
+    \begin{itemize}
+        \item \texttt{qnorm(p)} - Normal distribution
+        \item \texttt{qt(p, df)} - t-distribution
+        \item \texttt{qchisq(p, df)} - Chi-squared distribution
+    \end{itemize}
+    \item Store and return results.
+\end{itemize}
+\texttt{\}}
+
+\texttt{\# Example Usage:}  
+\texttt{quantile\_results <- compute\_quantiles(c(0.025, 0.5, 0.975), 10)}  
+\texttt{print(quantile\_results)}
+    \end{block}
+
+\end{frame}
+
+% Slide 9: Lab Submissions
+\begin{frame}{Lab Submissions}
+    \begin{itemize}
+        \item \textbf{R script:}
+        \begin{itemize}
+            \item Must be commented.
+            \item If we run the script you turn in, it must run without errors and give the same output that you have in your report.
+        \end{itemize}
+
+        \item \textbf{Report:}
+        \begin{itemize}
+            \item Template available on Canvas.
+            \item Some sections require you to add descriptions/summaries.
+        \end{itemize}
+
+        \item \textbf{CSV File:} Required for lab submissions.
+
+        \item \textbf{Updated Note Sheet:} Must be submitted weekly, including notes from all previous labs.
+    \end{itemize}
+\end{frame}
+
+\end{document}

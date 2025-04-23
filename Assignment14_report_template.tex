@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab 14 Report}
+\author{Student Name}
+\date{April 28, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report explores one-way ANOVA analysis using the \texttt{coagulation} and \texttt{penguins} datasets in R. We assess assumptions, generate visualizations, and evaluate group means using ANOVA.
+
+\section{One-Way ANOVA: Coagulation Dataset}
+
+\subsection{Data Summary and Assumptions}
+\begin{itemize}
+    \item Column names: [Insert column names from \texttt{coagulation} dataset].
+    \item Total number of rows: [Insert number].
+    \item Diet-wise data frame sizes:
+    \begin{itemize}
+        \item Diet A: [Insert count]
+        \item Diet B: [Insert count]
+        \item Diet C: [Insert count]
+        \item Diet D: [Insert count]
+    \end{itemize}
+    \item Sample variances by diet: [Insert values and commentary on homogeneity assumption.]
+\end{itemize}
+
+\subsection{Boxplots of Coagulation Time by Diet}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{coagulation_boxplot.png} % Replace with actual plot file
+    \caption{Boxplots of Coagulation Time for Each Diet}
+    \label{fig:coag_box}
+\end{figure}
+
+\subsection{Normality Check: QQ Plots for Each Diet}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qqplots_coagulation.png} % Replace with actual plot file
+    \caption{QQ Plots of Coagulation Time by Diet}
+    \label{fig:coag_qq}
+\end{figure}
+
+\subsection{ANOVA Test}
+\begin{itemize}
+    \item \textbf{H\textsubscript{0}}:....
+    \item \textbf{H\textsubscript{A}}:....
+    \item Summary of \texttt{aov()} and \texttt{summary()} output:
+    \begin{itemize}
+        \item Degrees of freedom: [Insert df]
+        \item Sum of squares: [Insert values]
+        \item p-value: [Insert p-value]
+        \item Conclusion: [Reject/Fail to reject H\textsubscript{0} with explanation.]
+    \end{itemize}
+\end{itemize}
+
+\section{One-Way ANOVA: Penguins Dataset}
+
+\subsection{Data Summary and Assumptions}
+\begin{itemize}
+    \item Selected variables: \texttt{species} and \texttt{bill\_depth\_mm}
+    \item NA rows removed using \texttt{na.omit()}
+    \item Sample sizes by species:
+    \begin{itemize}
+        \item Adelie: [Insert count]
+        \item Chinstrap: [Insert count]
+        \item Gentoo: [Insert count]
+    \end{itemize}
+    \item Sample variances: [Insert variances and discuss common variance assumption.]
+\end{itemize}
+
+\subsection{Boxplots of Bill Depth by Species}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{penguins_boxplot.png} % Replace with actual plot file
+    \caption{Boxplots of Bill Depth by Penguin Species}
+    \label{fig:peng_box}
+\end{figure}
+
+\subsection{Normality Check: Histograms and QQ Plots}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{penguins_normality.png} % Replace with actual plot file
+    \caption{Histograms and QQ Plots for Bill Depth by Species}
+    \label{fig:peng_norm}
+\end{figure}
+
+\subsection{ANOVA Test}
+\begin{itemize}
+    \item \textbf{H\textsubscript{0}}:...
+    \item \textbf{H\textsubscript{A}}:....
+    \item Summary of \texttt{aov()} and \texttt{summary()} output:
+    \begin{itemize}
+        \item Degrees of freedom: [Insert df]
+        \item Sum of squares: [Insert values]
+        \item p-value: [Insert p-value]
+        \item Conclusion: [Reject/Fail to reject H\textsubscript{0} with explanation.]
+    \end{itemize}
+\end{itemize}
+
+\section{Conclusion}
+Summarize key findings and discuss whether assumptions were met and how the ANOVA tests helped in comparing group means.
+
+\section{References}
+\begin{itemize}
+    \item ....
+    \item ....
+\end{itemize}
+
+\end{document}

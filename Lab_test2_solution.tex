@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\section*{STAT 3611 Lab Test 2 Solution}
+
+\subsection*{1. Mice Dataset Overview and Difference Analysis}
+
+\begin{lstlisting}[language=R]
+library(datarium)
+data("mice2", package = "datarium")
+nrow(mice2)
+
+mean_before <- mean(mice2$before)
+sd_before <- sd(mice2$before)
+mean_after <- mean(mice2$after)
+sd_after <- sd(mice2$after)
+
+mice2$diff <- mice2$after - mice2$before
+mean_diff <- mean(mice2$diff)
+var_diff <- var(mice2$diff)
+
+hist(mice2$diff, main = "Histogram of Weight Differences", col = "lightblue")
+qqnorm(mice2$diff, main = "QQ plot of Weight Differences")
+qqline(mice2$diff, col = "red")
+\end{lstlisting}
+
+\textbf{Answer:} The dataset contains 10 rows. The histogram and QQ plot suggest the differences are approximately normally distributed.
+
+\subsection*{2. Paired t-tests on Mice Dataset}
+
+\begin{lstlisting}[language=R]
+# Two-sided paired t-test
+t.test(mice2$after, mice2$before, paired = TRUE, conf.level = 0.98)
+
+# One-sided paired t-test (greater than threshold)
+threshold <- 0.5
+t.test(mice2$diff, mu = threshold, alternative = "greater", conf.level = 0.98)
+\end{lstlisting}
+
+\textbf{Answer:}  
+- Null: No mean difference between before and after weights.  
+- P-value from two-sided test was extremely small, so we reject the null hypothesis.  
+- For one-sided test, again we reject the null; weight after treatment is significantly greater.
+
+\subsection*{3. Expenses Dataset Overview}
+
+\begin{lstlisting}[language=R]
+expenses <- read.csv("expenses.csv")
+dim(expenses)
+colnames(expenses)
+unique_categories <- unique(expenses$region)
+length(unique_categories)
+\end{lstlisting}
+
+\textbf{Answer:} The dataset has 1,338 rows and 7 columns. There are 4 regions: southeast, southwest, northwest, northeast.
+
+\subsection*{4. Region-Based Summaries and Boxplots}
+
+\begin{lstlisting}[language=R]
+category_dfs <- split(expenses, expenses$region)
+sapply(category_dfs, nrow)
+lapply(category_dfs, function(df) summary(df$charges))
+
+boxplot(charges ~ region, data = expenses, ylim = c(0, 50000),
+        main = "Charges by Region",
+        xlab = "Region", ylab = "Charges ($)", col = rainbow(4))
+\end{lstlisting}
+
+\textbf{Answer:} Boxplots and summaries show clear differences in charges by region, with southeast generally having higher charges.
+
+\subsection*{5. Confidence Intervals and Hypothesis Test for Charges}
+
+\begin{lstlisting}[language=R]
+charges_se <- expenses$charges[expenses$region == "southeast"]
+charges_nw <- expenses$charges[expenses$region == "northwest"]
+
+# 99% Confidence Intervals
+t.test(charges_se, conf.level = 0.99)$conf.int
+t.test(charges_nw, conf.level = 0.99)$conf.int
+
+# Hypothesis Test
+t.test(charges_se, charges_nw, alternative = "two.sided", conf.level = 0.95)
+\end{lstlisting}
+
+\textbf{Answer:}  
+- $H_0$: $\mu_{se} = \mu_{nw}$, $H_a$: $\mu_{se} \ne \mu_{nw}$.  
+- We reject $H_0$ based on a small p-value, concluding the average charges differ between southeast and northwest.
+
+\subsection*{6. Linear Regression: Charges vs Age}
+
+\begin{lstlisting}[language=R]
+lm_model <- lm(charges ~ age, data = expenses)
+plot(expenses$age, expenses$charges, main = "Charges vs Age",
+     xlab = "Age", ylab = "Charges ($)", pch = 19, col = "blue")
+abline(lm_model, col = "red")
+summary(lm_model)
+\end{lstlisting}
+
+\textbf{Answer:}  
+- Regression equation: $\hat{y} = \beta_0 + \beta_1 x$ where $\beta_1$ (slope) is positive.  
+- Slope indicates that charges tend to increase with age.  
+- $R^2$ indicates moderate explanatory power.
+
+\subsection*{7. Linear Regression: Mice Dataset}
+
+\begin{lstlisting}[language=R]
+mice_model <- lm(after ~ before, data = mice2)
+plot(mice2$before, mice2$after, main = "Mouse Weights Before vs After Treatment",
+     xlab = "Before Weight", ylab = "After Weight", pch = 19, col = "purple")
+abline(mice_model, col = "green")
+summary(mice_model)
+\end{lstlisting}
+
+\textbf{Answer:}  
+- The regression slope indicates a strong positive linear relationship between initial and final weight.  
+- The $R^2$ value confirms a good model fit.
+
+\end{document}

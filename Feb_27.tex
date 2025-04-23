@@ -1,0 +1,170 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{tcolorbox}  % For colored code blocks
+\usepackage{verbatim}   % For raw code display
+
+\usetheme{Madrid}
+
+\title{Week 6: Confidence Intervals for the Mean}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+% Define code box style
+\tcbuselibrary{listingsutf8}
+\tcbset{
+    colframe=black,
+    colback=white,
+    coltitle=black,
+    boxrule=0.5mm,
+    arc=2mm,
+    fonttitle=\bfseries,
+    left=5pt,
+    right=5pt,
+    top=5pt,
+    bottom=5pt
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Admin Stuff}
+    \begin{itemize}
+        \item Previous lab: closed-resources lab
+        \item Note Sheet reminder
+        \item One closed-resources lab remaining
+    \end{itemize}
+\end{frame}
+
+% Steps 1-2: Load and Analyze Data
+\begin{frame}{Step 1-2: Load and Analyze Data}
+    \textbf{Load dataset and compute statistics}
+    \begin{tcolorbox}[title=R Code]
+\begin{verbatim}
+# Load dataset
+library(datasets)
+data(iris)  # Load the iris dataset
+t <- iris  # Assign dataset to variable
+
+# Identify column headers
+colnames(t)
+
+# Number of rows
+nrow(t)
+
+# Compute statistics for numerical columns
+summary_stats <- data.frame(
+  Mean = sapply(t, function(x) if(is.numeric(x)) mean(x, na.rm = TRUE) else NA),
+  Variance = sapply(t, function(x) if(is.numeric(x)) var(x, na.rm = TRUE) else NA),
+  Std_Dev = sapply(t, function(x) if(is.numeric(x)) sd(x, na.rm = TRUE) else NA)
+)
+
+# Display statistics
+print(summary_stats)
+\end{verbatim}
+    \end{tcolorbox}
+\end{frame}
+
+% Step 3: Sampling
+\begin{frame}{Step 3: Sampling}
+    \textbf{Generating Samples}
+    \begin{tcolorbox}[title=R Code]
+\begin{verbatim}
+# Generate a random sample
+x <- 1:100  # Define population
+n <- 10  # Define sample size
+sampled_values <- sample(x, n)  # Generate a random sample
+print(sampled_values)
+
+# Generate multiple samples
+m <- 5  # Number of samples
+sampled_data <- data.frame(replicate(m, sample(x, n)))
+print(sampled_data)
+\end{verbatim}
+    \end{tcolorbox}
+\end{frame}
+
+% Step 4: Analyze Samples
+\begin{frame}{Step 4: Analyze the Samples}
+    \textbf{Compute Sample Statistics}
+    \begin{tcolorbox}[title=R Code]
+\begin{verbatim}
+# Compute sample statistics
+samples <- replicate(m, sample(x, n), simplify = FALSE)
+sample_means <- c()
+sample_variances <- c()
+sample_std_devs <- c()
+
+for (i in 1:m) {
+  sample_means <- c(sample_means, mean(samples[[i]]))
+  sample_variances <- c(sample_variances, var(samples[[i]]))
+  sample_std_devs <- c(sample_std_devs, sd(samples[[i]]))
+}
+
+# Store results in a data frame
+results <- data.frame(
+  Sample_ID = 1:m,
+  Mean = sample_means,
+  Variance = sample_variances,
+  Std_Dev = sample_std_devs
+)
+print(results)
+\end{verbatim}
+    \end{tcolorbox}
+\end{frame}
+
+% Step 6: Confidence Intervals
+\begin{frame}{Step 6: Confidence Intervals}
+    \textbf{Computing Confidence Intervals}
+    \begin{tcolorbox}[title=R Code]
+\begin{verbatim}
+# Compute confidence intervals
+set.seed(123)
+true_mean <- 50
+samples <- replicate(m, sample(x, n), simplify = FALSE)
+sample_sds <- c()
+lower_bounds <- c()
+upper_bounds <- c()
+contains_true_mean <- c()
+
+for (i in 1:m) {
+  sample_sds <- c(sample_sds, sd(samples[[i]]))
+  margin_of_error <- t_value * (sample_sds[i] / sqrt(n))
+  lower_bound <- sample_means[i] - margin_of_error
+  upper_bound <- sample_means[i] + margin_of_error
+  lower_bounds <- c(lower_bounds, lower_bound)
+  upper_bounds <- c(upper_bounds, upper_bound)
+  contains_true_mean <- c(contains_true_mean, (true_mean >= lower_bound & true_mean <= upper_bound))
+}
+
+# Store confidence interval results in a data frame
+results <- data.frame(
+  Sample_ID = 1:m,
+  Sample_Mean = sample_means,
+  Sample_SD = sample_sds,
+  Lower_Bound = lower_bounds,
+  Upper_Bound = upper_bounds,
+  Contains_True_Mean = contains_true_mean
+)
+print(results)
+\end{verbatim}
+    \end{tcolorbox}
+\end{frame}
+
+% Step 8: Write to CSV
+\begin{frame}{Step 8: Write to CSV}
+    \textbf{Save Results to File}
+    \begin{tcolorbox}[title=R Code]
+\begin{verbatim}
+# Write the data frame to a CSV file
+output_file <- "C:/Users/ksrru/Documents/STAT_3611/samples_results.csv"
+write.csv(samples_df, file = output_file, row.names = TRUE)
+\end{verbatim}
+    \end{tcolorbox}
+\end{frame}
+
+\end{document}
+

@@ -1,0 +1,130 @@
+\documentclass{article}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\subsection*{STAT 3611 Lab 7 Solution}
+
+\subsection*{3.1 Initial Data Overview}
+\begin{lstlisting}[language=R]
+data("faithful")
+colnames(faithful)
+nrow(faithful)
+\end{lstlisting}
+Answer:
+- Columns: \texttt{"eruptions"}, \texttt{"waiting"}
+- Number of rows: \texttt{272}
+
+\subsection*{3.2 Summary Stats for the Full Dataset}
+\begin{lstlisting}[language=R]
+eruptions <- faithful$eruptions
+waiting <- faithful$waiting
+
+mean(eruptions)
+var(eruptions) * (length(eruptions) - 1) / length(eruptions)
+sqrt(var(eruptions) * (length(eruptions) - 1) / length(eruptions))
+mean(eruptions >= 4)
+\end{lstlisting}
+Answer:
+- Computed mean, variance, standard deviation, and proportion of eruptions $\geq 4$.
+
+\subsection*{3.3 Sampling}
+\begin{lstlisting}[language=R]
+set.seed(123)
+samples <- replicate(100, sample(faithful$eruptions, 10, replace = TRUE))
+samples_df <- data.frame(samples)
+\end{lstlisting}
+Answer:
+- Created a data frame containing 100 samples of size 10 from eruption durations.
+
+\subsection*{3.4 Analyze the Samples}
+\begin{lstlisting}[language=R]
+sample_means <- colMeans(samples_df)
+sample_vars <- apply(samples_df, 2, var)
+sample_sds <- sqrt(sample_vars)
+p_hat <- apply(samples_df, 2, function(x) mean(x >= 4))
+
+mean(sample_means)
+mean(sample_vars)
+mean(sample_sds)
+mean(p_hat)
+
+bias_means <- mean(faithful$eruptions) - mean(sample_means)
+bias_vars <- var(faithful$eruptions) - mean(sample_vars)
+bias_sds <- sd(faithful$eruptions) - mean(sample_sds)
+bias_p_hat <- mean(faithful$eruptions >= 4) - mean(p_hat)
+\end{lstlisting}
+Answer:
+- Calculated sample means, variances, standard deviations, and proportion estimates (p-hat) for each sample.
+- Computed average values and biases (difference between true population parameters and their estimates) for sample means, variances, standard deviations, and proportions.
+
+\subsection*{3.5 Visual Summaries}
+\begin{lstlisting}[language=R]
+boxplot(sample_vars, main="Boxplot of Sample Variances", ylab="Variance")
+boxplot(p_hat, main="Boxplot of Proportion Estimates (P-hat)", ylab="P-hat")
+\end{lstlisting}
+Answer:
+- Created boxplots for sample variances and proportion estimates.
+
+\subsection*{3.6 Distribution Quantiles}
+\begin{lstlisting}[language=R]
+qchisq(0.975, df=9)
+qnorm(0.95)
+\end{lstlisting}
+Answer:
+- Calculated chi-squared and z quantiles for confidence intervals.
+
+\subsection*{3.7 Confidence Intervals}
+\begin{lstlisting}
+chi_lower <- (9 * sample_vars) / qchisq(0.975, df=9)
+chi_upper <- (9 * sample_vars) / qchisq(0.025, df=9)
+contains_sd <- (sqrt(chi_lower) <= sd(eruptions)) & (sqrt(chi_upper) >= sd(eruptions))
+sum(contains_sd)
+
+z_value <- qnorm(0.95)
+p_hat_upper <- p_hat + z_value * sqrt(p_hat * (1 - p_hat) / 10)
+contains_prop <- mean(eruptions >= 4) <= p_hat_upper
+sum(contains_prop)
+\end{lstlisting}
+Answer:
+- Calculated 95 confidence intervals for standard deviation and proportion parameters. Counted intervals containing the true standard deviation and proportion.
+
+\subsection*{3.8 Data Frame Modification}
+\begin{lstlisting}
+samples_df <- rbind(samples_df,
+                    sample_sds,
+                    sqrt(chi_lower),
+                    sqrt(chi_upper),
+                    contains_sd,
+                    p_hat,
+                    p_hat_upper,
+                    contains_prop)
+
+row.names(samples_df)[11:17] <- c("Sample_SD", "SD_CI_Lower", "SD_CI_Upper", "Contains_SD", "P-hat", "P-hat_CI_Upper", "Contains_Prop")
+\end{lstlisting}
+Answer:
+- Appended the confidence interval calculations, sample statistics, and proportion parameters into the data frame and renamed rows with descriptive labels.
+
+\subsection*{3.9 Write Data Frame to CSV}
+\begin{lstlisting}[language=R]
+write.csv(samples_df, "Lab7_LastNameFirstInitial.csv", row.names=TRUE)
+\end{lstlisting}
+Answer:
+- Exported data frame to CSV.
+
+\end{document}

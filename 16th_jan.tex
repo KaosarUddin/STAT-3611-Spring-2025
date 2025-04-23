@@ -1,0 +1,280 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usetheme{Madrid}
+
+
+\title{Week 1 (Lab 2): Introduction to R}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Overview of Lab 2}
+\textbf{Topics Covered:}
+\begin{itemize}
+    \item Basic R Syntax
+    \item Creating and Manipulating Vectors
+    \item Sequences and Replication
+    \item  Vectors and Logical Operators
+    \item Handling Missing and Special Values
+    \item Subsetting and Indexing
+    \item Matrices and Data Frames
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Basic R Syntax}
+\textbf{Key Concepts:}
+\begin{itemize}
+    \item \texttt{>} Symbol is used to start a line in R.
+    \item Use \texttt{<-} to assign values to variables (e.g., \texttt{x <- 5}).
+    \item Arithmetic operations: \texttt{+, -, *, /, \textasciicircum}
+    \item Up arrow recalls previous commands.
+    \item If a vector is shorter than others in operations, it will recycle values.
+\end{itemize}
+\textbf{Example:}
+\begin{verbatim}
+x <- c(1.1, 9, 3.14)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Creating Sequences}
+\textbf{Using the \texttt{:} Operator:}
+\begin{itemize}
+    \item Creates sequences in increments of 1 (e.g., \texttt{1:10}).
+\end{itemize}
+\textbf{Using \texttt{seq()}:}
+\begin{verbatim}
+seq(0, 10, by=0.5)
+seq(5, 10, length=30)
+\end{verbatim}
+\textbf{Replicating Values with \texttt{rep()}:}
+\begin{verbatim}
+rep(0, times=40)
+rep(c(0, 1, 2), each=10)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Vectors and Logical Operators}
+\textbf{Vector Types:}
+\begin{itemize}
+    \item Atomic: numeric, logical, character, integer, complex.
+    \item Lists: Can contain mixed data types.
+\end{itemize}
+\textbf{Logical Operators:}
+\begin{itemize}
+    \item \texttt{<, >, <=, >=, ==, !=}
+    \item \texttt{\&} (AND), \texttt{|} (OR), \texttt{!} (NOT).
+\end{itemize}
+\textbf{Example:}
+\begin{verbatim}
+x <- c(10, 20, 30)
+x[x > 15]  # Output: 20, 30
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]{Handling Missing and Special Values}
+\textbf{NA and NAN:}
+\begin{itemize}
+    \item \texttt{NA}: Represents missing or unavailable values.
+    \item \texttt{NAN}: Stands for "Not a Number" (e.g., division by zero).
+\end{itemize}
+\textbf{Example:}
+\begin{verbatim}
+x <- c(1, NA, 3)
+is.na(x)  # Output: TRUE for missing values
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting and Indexing}
+\textbf{Indexing Vectors:}
+\begin{itemize}
+    \item Use brackets \texttt{[]} to extract elements.
+    \item Example: \texttt{x[1:10]} selects the first 10 elements.
+\end{itemize}
+\textbf{Naming Vectors:}
+\begin{verbatim}
+names(x) <- c("name1", "name2", "name3")
+\end{verbatim}
+\textbf{Example:}
+\begin{verbatim}
+x[c(2, 10)]   # Extracts the 2nd and 10th elements
+x[-c(2, 10)]  # Excludes the 2nd and 10th elements
+\end{verbatim}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Combining Characters}
+\textbf{Using \texttt{paste()}:}
+\begin{itemize}
+    \item Joins characters together.
+    \item \texttt{collapse=" "}: Specifies a space between elements.
+    \item \texttt{sep()}: Specifies how to separate elements in the combined string.
+\end{itemize}
+\textbf{Examples:}
+\begin{verbatim}
+# Combine with collapse
+paste(c("my", "name", "is"), collapse=" ")
+# Output: "my name is"
+
+# Combine with sep
+paste("my", "name", "is", sep="-")
+# Output: "my-name-is"
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Practical Examples}
+\textbf{Task:}
+\begin{itemize}
+    \item Extract the 2nd and 10th elements from a vector.
+    \item Subset a vector based on a condition.
+\end{itemize}
+\textbf{Solution:}
+\begin{verbatim}
+x <- c(2, 8, 3, 10)
+x[c(2, 4)]  # Output: 8, 10
+x[x > 5]   # Output: 8, 10
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Matrices and Data Frames}
+\textbf{Key Functions:}
+\begin{itemize}
+    \item \texttt{matrix()} creates matrices.
+    \item \texttt{cbind()} combines columns, \texttt{rbind()} combines rows.
+    \item \texttt{dim()} sets dimensions of an object.
+    \item \texttt{colnames()} assigns column names.
+    \item \texttt{str()} summarizes data structure.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Creating Matrices: Key Functions}
+\textbf{Key Functions:}
+\begin{itemize}
+    \item \texttt{matrix()} creates matrices.
+    \item \texttt{dim()} sets or retrieves dimensions of a matrix.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Creating Matrices: Example}
+\textbf{Example:}
+\begin{verbatim}
+# Create a matrix with 2 rows and 3 columns
+m <- matrix(1:6, nrow=2, ncol=3)
+
+# Add column names
+dimnames(m) <- list(NULL, c("A", "B", "C"))
+print(m)
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+  A B C
+[1,] 1 3 5
+[2,] 2 4 6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Retrieving Dimensions of a Matrix}
+\textbf{Example:}
+\begin{verbatim}
+# Retrieve dimensions of the matrix
+dim(m)  # Output: [1] 2 3
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+[1] 2 3
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Combining Rows and Columns: Key Functions}
+\textbf{Key Functions:}
+\begin{itemize}
+    \item \texttt{cbind()} combines columns to create or expand matrices.
+    \item \texttt{rbind()} combines rows to create or expand matrices.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Combining Columns: Example}
+\textbf{Example:}
+\begin{verbatim}
+# Combine vectors as columns
+v1 <- c(1, 2, 3)
+v2 <- c(4, 5, 6)
+cbind_matrix <- cbind(v1, v2)
+print(cbind_matrix)
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+     v1 v2
+[1,]  1  4
+[2,]  2  5
+[3,]  3  6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Combining Rows: Example}
+\textbf{Example:}
+\begin{verbatim}
+# Combine vectors as rows
+rbind_matrix <- rbind(v1, v2)
+print(rbind_matrix)
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Data Frames: Key Functions}
+\textbf{Key Functions:}
+\begin{itemize}
+    \item \texttt{data.frame()} creates data frames.
+    \item \texttt{str()} summarizes data structure.
+    \item \texttt{dim()} retrieves dimensions.
+    \item \texttt{colnames()} assigns column names.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Creating and Summarizing Data Frames}
+\textbf{Example:}
+\begin{verbatim}
+# Create a data frame
+df <- data.frame(Name=c("Alice", "Bob"), Age=c(25, 30))
+
+# Check structure
+str(df)
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+'data.frame': 2 obs. of  2 variables:
+ $ Name: chr  "Alice" "Bob"
+ $ Age : num  25 30
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Retrieving Dimensions of a Data Frame}
+\textbf{Example:}
+\begin{verbatim}
+# Retrieve dimensions of the data frame
+dim(df)  # Output: [1] 2 2
+\end{verbatim}
+\textbf{Output:}
+\begin{verbatim}
+[1] 2 2
+\end{verbatim}
+\end{frame}
+
+
+
+
+\end{document}

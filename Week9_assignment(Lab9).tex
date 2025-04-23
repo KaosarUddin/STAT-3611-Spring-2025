@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 9)}
+\fancyhead[R]{March 24 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with R’s built-in datasets
+    \item Determine if data is normally distributed using a qqplot
+    \item Conduct a one-sample hypothesis test with known variance
+    \item Conduct a one-sample hypothesis test with unknown variance
+    \item Conduct hypothesis tests using the \texttt{t.test()} function
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab, you will submit 3 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \\ \texttt{Lab8\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \\ \texttt{Lab8\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \\ \texttt{Lab8\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{nile} and \texttt{AirPassengers} datasets in R. The documentation can be found here:
+
+\begin{itemize}
+    \item \url{https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/Nile.html}
+    \item \url{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/AirPassengers.html}
+\end{itemize}
+
+Each test in the lab will specify if you should use \texttt{t.test()} or not.
+
+Read the R documentation on the \texttt{t.test()} function.
+
+Reminder: you can access the documentation for functions in R by typing:
+
+\begin{center}
+    \texttt{?? function\_name}
+\end{center}
+
+so \texttt{?? t.test} will bring up the search results in the Help Tab (in the same part of the screen where files, plots, and packages are). Then you can select the option for Student’s t-Test because that is the relevant result.
+
+How many parameters does this function require?
+
+\section*{Initial Data Overview}
+\begin{itemize}
+    \item Load the \texttt{nile} dataset in R.
+    \item How many years of data are included in this dataset?
+    \item Load the \texttt{AirPassengers} dataset in R.
+    \item How many numbers are in the dataset?
+\end{itemize}
+
+\section*{Summary Stats for the Nile Data Set}
+Compute the following for the annual flow of the Nile River:
+\begin{itemize}
+    \item Mean
+    \item Variance
+\end{itemize}
+
+Create a qq plot of the data that includes a colored reference line using the \texttt{qqnorm()} and \texttt{qqline()} functions. It does not matter what color your reference line is, as long as it is not black. Would you conclude that the data is approximately normally distributed? Why or why not?
+
+\section*{2-Sided Hypothesis Test When the True Variance is Known – Without \texttt{t.test()}}
+Using the \texttt{Nile} dataset, conduct a hypothesis test to determine if the true mean is equal to 920. It is given that the true variance is 28350. You should use $\alpha = 0.05$.
+
+Do \textbf{not} use the \texttt{t.test()} function to complete your work for this question.
+
+\begin{itemize}
+    \item Define the null and alternate hypotheses for this problem.
+    \item Use the \texttt{qnorm()} function to look up the z-value that corresponds to $\alpha = 0.05$ for a two-sided test.
+    \item Compute the upper and lower rejection values for this test.
+    \item Compute the z statistic for this problem.
+    \item Would you reject or fail to reject the null hypothesis?
+    \item Compute the Type II error if the true mean is actually 917.
+\end{itemize}
+
+Use the formula:
+\begin{center}
+    \texttt{pnorm(upper rejection, mean= , sd= ) - pnorm(lower rejection, mean= , sd= )}
+\end{center}
+
+\section*{2-Sided Hypothesis Test When the True Variance is Known - Using \texttt{t.test()}}
+Using the \texttt{Nile} dataset, conduct a hypothesis test to determine if the true mean is equal to 920. It is given that the true variance is 28350. You should use $\alpha = 0.05$.
+
+\begin{itemize}
+    \item You should use the \texttt{t.test()} function to complete your work for this question.
+    \item Would you reject or fail to reject the null hypothesis?
+    \item Is this consistent with your conclusion from the previous test?
+\end{itemize}
+
+\section*{1-Sided Hypothesis Test When the True Variance is Unknown}
+Using the \texttt{AirPassengers} dataset, conduct a hypothesis test to determine if the true mean of the monthly number of passengers in 1955 is equal to 280 or greater than 280. Use $\alpha = 0.05$ for your test.
+
+\begin{itemize}
+    \item Define the null and alternative hypotheses for this test.
+    \item Create a new data structure that contains only the data from the year 1955. 
+    \item Identify the starting and ending indices for 1955 in the dataset to create the subset.
+    \item Find the sample mean and sample standard deviation of the number of monthly passengers in 1955.
+    \item Use R to look up the t-value from the t-table for this test using the \texttt{qt()} function.
+    \item Include the values of $\alpha$ and $n$ in your report.
+    \item Conduct the test. You may either work it out on your own or use the \texttt{t.test()} function.
+    \item What is the p-value for this test?
+    \item Should you reject or fail to reject the null hypothesis?
+\end{itemize}
+
+\section*{Grading Overview}
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors : 10 points
+    \item Code file is commented : 5 points
+    \item Code file is complete : 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness : 10 points
+    \item Report Accuracy/Correctness of Report Content : 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab.
+    \item Note file is the student’s own notes.
+\end{itemize}
+
+\end{document}

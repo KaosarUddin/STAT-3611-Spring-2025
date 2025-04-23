@@ -1,0 +1,173 @@
+
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Lab Test 2 }
+\fancyhead[R]{April 10 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section*{Topic Overview}
+
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with R’s built-in datasets
+    \item Work with datasets that are stored in csv files
+    \item Generate summary statistics
+    \item Create and interpret graphs of the data
+    \item Add columns to a dataframe
+    \item Build confidence intervals
+    \item Conduct hypothesis tests
+    \item Linear regression analysis
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab you will submit 2 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Test\_2\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Test\_2\_LastNameFirstInitial.pdf}
+\end{itemize}
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{mice} dataset in R and the bike share dataset that is provided in a csv file. The R documentation can be found here:
+
+\begin{itemize}
+    \item \url{https://www.rdocumentation.org/packages/datarium/versions/0.1.0/topics/mice2}
+\end{itemize}
+
+
+The file \texttt{expenses.csv} is linked in the Canvas assignment.
+The \texttt{expenses.csv} dataset contains 1,338 observations related to medical insurance charges. It includes seven variables: \texttt{age}, \texttt{sex}, \texttt{bmi}, \texttt{children}, \texttt{smoker}, \texttt{region}, and \texttt{charges}. The dataset is useful for analyzing how demographic and lifestyle factors influence medical expenses.
+\subsection*{Initial Data Overview for Mice Dataset}
+
+\begin{itemize}
+    \item Load the \texttt{mice2} dataset in R. We need to use the \texttt{datarium} package when loading the data, so we will include that as a parameter in the \texttt{data()} function. \\
+    \texttt{data("mice2", package = "datarium")}
+    \item Note that the \texttt{mice2} dataset contains paired data, so we have 2 data points for each mouse.
+    \item How many rows of data are in the dataset?
+\end{itemize}
+
+\subsection*{Set Up the Differences Column and Check Assumptions for the Mice2 Dataset}
+
+\begin{itemize}
+    \item Compute the sample mean and standard deviation of the weights of the mice before and after treatment. From these summaries alone, do you think that there is a difference in the average weight of the mice before and after the experiment?
+    \item Add a column to the \texttt{mice2} dataframe that contains the difference between the weight after the experiment and the weight before the experiment (use \texttt{diff = after - before}).
+\end{itemize}
+
+A new column can be added to a dataframe using the following approach:
+
+\begin{center}
+    \texttt{dataFrame\$newColumn <- newDataVector}
+\end{center}
+
+\begin{itemize}
+    \item Find the sample mean and standard variance of the weight difference of the mice.
+    \item Create a histogram of the weight differences.
+    \item Create a QQ plot of the weight difference and add a colored reference line. Would you conclude that the differences are normally distributed?
+\end{itemize}
+
+\subsection*{Paired t-test Using the Mice2 Dataset}
+
+\begin{itemize}
+    \item Conduct a two-sided paired t-test to determine if the weight of the mice is the same before and after the treatment. Use the \texttt{t.test()} function with $\alpha = 0.02$.
+    \item Define the null and alternative hypotheses for this test.
+    \item What is the p-value of the test?
+    \item Should we reject or fail to reject the null hypothesis?
+    \item Explain your conclusion in the context of the problem.
+    \item Based on your observations of the data, conduct a one-sided test on the differences to determine if the difference of the weights before and after treatment is above or below a certain threshold. Use the \texttt{t.test()} function with $\alpha = 0.02$.
+    \item Pick a reasonable threshold for your test and provide a short justification.
+    \item Define the null and alternative hypotheses for this test.
+    \item What is the p-value of the test?
+    \item Should we reject or fail to reject the null hypothesis?
+    \item Explain your conclusion in the context of the problem.
+\end{itemize}
+\subsection*{Initial Data Overview for Expenses Data}
+
+\begin{itemize}
+    \item Read in the \texttt{expenses.csv} file into R.
+    \item How many rows and columns of data are there? What are the column headers?
+    \item How many unique expense regions are there? What are the regions names?
+\end{itemize}
+
+\subsection*{Setup Data Frames by Region and Collect Samples}
+
+\begin{itemize}
+    \item Create separate data frames for each unique value in the \texttt{region} column.
+    \item How many expense entries (medical charges) are recorded for each region?
+    \item Compute summary statistics (minimum, 1st quartile, median, mean, 3rd quartile, maximum, variance) for the \texttt{charges} column within each region.
+    \item Create boxplots of medical charges by region, clearly labeling each boxplot, using a consistent axis scale (e.g., \texttt{ylim = c(0, 50000)}). Consider truncating outliers for clarity.
+    \item Clearly label your plots and include a descriptive title (e.g., ``Medical Charges by Region'').
+\end{itemize}
+
+\subsection*{Confidence Intervals and Hypothesis Test for Medical Charges}
+
+\begin{itemize}
+    \item Construct a 99\% confidence interval for the mean medical charges in two regions of your choice (e.g., \texttt{southeast} vs. \texttt{northwest}).
+    \item Conduct a two-sided hypothesis test at significance level $\alpha = 0.05$ to determine whether the average medical charges in these two regions are equal.
+    \item Clearly state your hypotheses:
+    \[
+    H_0: , \quad H_a:
+    \]
+    \item Report the p-value obtained from the test and state whether you reject or fail to reject the null hypothesis.
+    \item Clearly interpret your findings in the context of medical expense differences by region.
+\end{itemize}
+
+\subsection*{Linear Regression Analysis Using Medical Charges Data}
+
+\begin{itemize}
+    \item Extract two relevant numerical columns from your dataset (use \texttt{charges} as the dependent variable and \texttt{age} as the independent variable).
+    \item Create a scatter plot of \texttt{charges} vs. \texttt{age}.
+    \item Fit a linear regression model using the \texttt{lm()} function to predict medical \texttt{charges} based on \texttt{age}.
+    \item Add the regression line to your scatter plot using the \texttt{abline()} function.
+    \item Provide the equation of the fitted regression line clearly in your report.
+    \item Interpret the slope of the regression line in the context of this dataset.
+    \item Report the coefficient of determination ($R^2$) from the regression model and explain clearly what it indicates about the strength of the linear relationship.
+    \item Based on residual plots or visual inspection, discuss whether the linear model appears appropriate for modeling the relationship between age and medical charges.
+\end{itemize}
+
+
+\subsection*{Linear Regression Analysis Using the Mice Dataset}
+
+\begin{itemize}
+    \item Use the \texttt{mice2} dataset from the \texttt{datarium} package.
+    \item Create a new variable called \texttt{weight\_diff} which is the difference between the weight after and before the treatment: \texttt{weight\_diff = after - before}.
+    \item Fit a linear regression model using the \texttt{lm()} function to predict the weight after treatment using the weight before treatment as the explanatory variable.
+    \item Provide the equation of the regression line from the model output.
+    \item Create a scatter plot of weight before vs weight after. Add the regression line to the plot using \texttt{abline()}.
+    \item Interpret the slope: What does the slope suggest about how initial weight relates to final weight?
+    \item Report the $R^2$ value from the model and explain what it tells you about the strength of the linear relationship.
+    \item Based on the residuals or visual inspection, comment on whether the linear model appears to be a good fit for this data.
+\end{itemize}
+
+
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 40 points}
+\begin{itemize}
+    \item Code file runs without errors: 15 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 20 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness: 10 points
+    \item Report Accuracy/Correctness of Report Content: 50 points
+\end{itemize}
+
+\end{document}

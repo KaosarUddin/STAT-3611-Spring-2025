@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Assignment (Lab 14)}
+\fancyhead[R]{April 28 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+\section{Topic Overview}
+In this lab you will practice the following skills in R:
+
+\begin{itemize}
+    \item Work with R’s built-in datasets
+    \item Install, load, and use additional libraries
+    \item Plot boxplots on the same graph
+    \item Practice checking for the normality of a dataset
+    \item Create data frames that are subsets of other data frames
+    \item Conduct One-Way ANOVA tests and analyze the results
+\end{itemize}
+
+\section*{Submission Instructions}
+
+For this lab you will submit 3 files:
+
+\begin{itemize}
+    \item Your code file must have a \texttt{.r} extension and be named \texttt{Lab14\_LastNameFirstInitial.r}
+    \item Your code file must be commented with enough details that someone else who has not completed the lab could understand all of the steps you are taking by only reading the comments.
+    \item Your lab report must have a \texttt{.pdf} extension and be named \texttt{Lab14\_LastNameFirstInitial.pdf}
+    \item Your updated reference note sheet must have a \texttt{.pdf} extension and be named \texttt{Lab14\_Notes\_LastNameFirstName.pdf}
+\end{itemize}
+
+The reference sheet should contain all of the information from the previous labs and any additional notes about new functions/code blocks/tips you have acquired in this lab.
+
+\section*{Lab Instructions}
+
+This lab will use the \texttt{coagulation} and \texttt{penguins} data sets in R. The documentation can be found here:
+
+\begin{itemize}
+    \item \url{https://search.r-project.org/CRAN/refmans/faraway/html/coagulation.html}
+    \item \url{https://cran.r-project.org/web/packages/palmerpenguins/index.html}
+\end{itemize}
+
+\subsection*{Setup}
+
+\begin{itemize}
+    \item Install the \texttt{faraway} library
+    \item Load the \texttt{faraway} library
+    \item Install the \texttt{palmerpenguins} library
+    \item Load the \texttt{palmerpenguins} library
+\end{itemize}
+
+\section*{One-Way ANOVA with the \texttt{coagulation} Data Set}
+
+\subsection*{Data Summaries \& Assumption Check}
+
+\begin{itemize}
+    \item Load the \texttt{coagulation} data set.
+    \item Use the \texttt{names()} function to identify the column names.
+    \item How many rows of data are there?
+    \item Create a single graph with 4 boxplots on the same scale, one for the coagulation for each of the diets. Each boxplot should be a different color.
+\end{itemize}
+
+\textbf{Note:} You can use the \texttt{plot()} function for this task.
+
+\begin{itemize}
+    \item Create 4 different data frames, one for the data corresponding to each of the 4 factors. How many observations are there for each diet?
+    \item Check the normality assumption for each subset by creating QQ plots. Make sure each plot has an appropriate title.
+    \item What is the sample variance for each diet? Do you think that the assumption of common variance holds? Why or why not? How could you formally test this?
+\end{itemize}
+
+\subsection*{Conduct One-Way ANOVA}
+
+\begin{itemize}
+    \item Conduct a test using one-way ANOVA to test the null hypothesis that the mean coagulation is the same for all 4 diets.
+    \item Define your null and alternative hypothesis.
+    \item Use the \texttt{aov()} function to conduct your test.
+    \item Use the \texttt{summary()} function to see the full details of the test.
+    \item Report the degrees of freedom, sum of squares, p-value, and conclusion for your test.
+\end{itemize}
+
+\section*{One-Way ANOVA with the \texttt{penguins} Data Set}
+
+\subsection*{Data Summaries \& Assumption Check}
+
+\begin{itemize}
+    \item Load the \texttt{penguins} data set.
+    \item Create a new data frame that only has the columns \texttt{species} and \texttt{bill\_depth\_mm} from the original \texttt{penguins} data frame.
+    \item Remove any \texttt{NA} values from the data frame using the \texttt{na.omit()} function.
+    \item Create a single graph with 3 boxplots on the same scale, one for the bill depth for each of the penguin species. Each boxplot should be a different color.
+    \item From this plot, do you think the means are the same?
+    \item Create a new data frame for each species with the bill depth data for that species. How many observations are there for each species?
+    \item Check the normality assumption for each subset by creating histograms and QQ plots. Make sure each plot has an appropriate title.
+\end{itemize}
+
+\textbf{Note:} It is recommended that you divide your plot region into 6 sections so you can see the histogram and QQ plot for each species side by side.  
+
+
+\begin{itemize}
+    \item What is the sample variance for each species? Do you think that the assumption of common variance holds? Why or why not? How could you formally test this?
+\end{itemize}
+
+\subsection*{Conduct One-Way ANOVA}
+
+\begin{itemize}
+    \item Conduct a test using one-way ANOVA to test the null hypothesis that the mean bill depth is the same for all 3 species.
+    \item Define your null and alternative hypothesis.
+    \item Use the \texttt{aov()} function to conduct your test.
+    \item Use the \texttt{summary()} function to see the full details of the test.
+    \item Report the degrees of freedom, sum of squares, p-value, and conclusion for your test.
+\end{itemize}
+
+\newpage
+\section*{Grading Overview}
+
+\textbf{Code File: 30 points}
+\begin{itemize}
+    \item Code file runs without errors: 10 points
+    \item Code file is commented: 5 points
+    \item Code file is complete: 15 points
+\end{itemize}
+
+\textbf{Report: 60 points}
+\begin{itemize}
+    \item Report Formatting and Completeness: 10 points
+    \item Report Accuracy/Correctness of Report Content: 50 points
+\end{itemize}
+
+\textbf{Note File: 10 points}
+\begin{itemize}
+    \item Note file has been updated with new material from this lab
+    \item Note file is the student’s own notes
+\end{itemize}
+\end{document}

@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
+\title{Lab 4 - Solution Code}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Problem 1: Dataset Overview}
+\begin{lstlisting}[language=R]
+library(stringr)
+books <- read.csv("books.csv") #2b
+
+dim(books) #2d
+
+uni_aut <- unique(books$authors) #2e
+length(uni_aut) #2e
+\end{lstlisting}
+\textbf{Answer:} Load and examine the dataset.
+
+\section*{Problem 2: Data Filtering and Processing}
+\begin{lstlisting}[language=R]
+more_45_page <- books[books$num_pages > 45,] #3a
+dim(more_45_page) #3b
+
+uni_Lang_more_45_page <- unique(more_45_page$language_code)
+uni_Lang_more_45_page_en <- uni_Lang_more_45_page[str_detect(uni_Lang_more_45_page, "en")] #3c_ii
+uni_Lang_more_45_page_en_not_enm <- uni_Lang_more_45_page_en[uni_Lang_more_45_page_en != "enm"] #3c_iii
+Eng_more_45 <- subset(more_45_page, more_45_page$language_code %in% uni_Lang_more_45_page_en_not_enm) #3c_iv
+dim(Eng_more_45)
+unique(Eng_more_45$language_code) 
+\end{lstlisting}
+\textbf{Answer:} Filter books with more than 45 pages and in English.
+
+\section*{Problem 3: Summary Statistics}
+\begin{lstlisting}[language=R]
+s <- summary(Eng_more_45$average_rating)
+s
+range(Eng_more_45$average_rating)
+mean(Eng_more_45$average_rating)
+var(Eng_more_45$average_rating)
+IQR <- s[5] - s[2]
+IQR
+cor(Eng_more_45$average_rating, Eng_more_45$num_pages)
+\end{lstlisting}
+\textbf{Answer:} Compute key summary statistics.
+
+\section*{Problem 4: Data Visualization}
+\begin{lstlisting}[language=R]
+summary(Eng_more_45$num_pages) #4a
+par(mfrow = c(1,2))
+hist(Eng_more_45$num_pages, main = "Histogram of Page Numbers", xlab = "Number of Pages") #4b
+boxplot(Eng_more_45$num_pages, main = "Boxplot of Page Numbers", xlab = "Number of Pages") #4c
+\end{lstlisting}
+\textbf{Answer:} Visualize data distributions.
+
+\section*{Problem 5: Percentile Analysis}
+\begin{lstlisting}[language=R]
+#5a 
+#95th percentile of page length 
+quan95 <- quantile(Eng_more_45$num_pages, probs = 0.95) 
+quan95 
+fewerquan95 <- subset(Eng_more_45, Eng_more_45$num_pages < quan95) 
+fewerquan95 
+hist(fewerquan95$num_pages) 
+#96th percentile of page length 
+quan96 <- quantile(Eng_more_45$num_pages, probs = 0.96) 
+fewerquan96 <- subset(Eng_more_45, Eng_more_45$num_pages < quan96) 
+fewerquan96 
+hist(fewerquan96$num_pages) 
+#97th percentile of page length 
+quan97 <- quantile(Eng_more_45$num_pages, probs = 0.97) 
+fewerquan97 <- subset(Eng_more_45, Eng_more_45$num_pages < quan97) 
+fewerquan97 
+hist(fewerquan97$num_pages) 
+#98th percentile of page length 
+quan98 <- quantile(Eng_more_45$num_pages, probs = 0.98) 
+fewerquan98 <- subset(Eng_more_45, Eng_more_45$num_pages < quan98) 
+fewerquan98 
+hist(fewerquan98$num_pages) 
+#99th percentile of page length 
+quan99 <- quantile(Eng_more_45$num_pages, probs = 0.99) 
+quan99 
+fewerquan99 <- subset(Eng_more_45, Eng_more_45$num_pages < quan99) 
+fewerquan99 
+hist(fewerquan99$num_pages) 
+#or 
+par(mfrow = c(5,1), mar=c(2,4, 2, 2)) 
+percentiles <- c(0.95, 0.96, 0.97, 0.98, 0.99) 
+for (q in percentiles){ 
+currentQuantile <- quantile(Eng_more_45$num_pages, probs = q) 
+currentSubset <- Eng_more_45[Eng_more_45$num_pages < currentQuantile, ] 
+t
+ itle <- paste(as.character(q*100)," percentile num pages") 
+hist(currentSubset$num_pages, main = title) 
+} 
+#or 
+par(mfrow = c(5,1)) 
+for (q in 95:99){ 
+currentQuantile <- quantile(Eng_more_45$num_pages, probs = q/100) 
+currentSubset <- Eng_more_45[Eng_more_45$num_pages < currentQuantile, ] 
+title <- paste(as.character(q)," percentile num pages") 
+hist(currentSubset$num_pages, main = title) 
+}
+
+for (q in 95:99){ 
+currentQuantile <- quantile(Eng_more_45$num_pages, probs = q/100) 
+print(currentQuantile) 
+} 
+#5b 
+#Based on the following code, with 99th percentile, we lose less data, so we should select 99th 
+for (q in 95:99){  
+currentQuantile <- quantile(Eng_more_45$num_pages, probs = q/100) 
+currentSubset <- Eng_more_45[Eng_more_45$num_pages < currentQuantile, ] 
+print(dim(currentSubset)) 
+} 
+#5c 
+par(mfrow = c(1,2))  
+hist(fewerquan99$num_pages,  
+main = "The histogram of #99th percentile", 
+xlab = "Number of pages" 
+) 
+boxplot(fewerquan99$num_pages,  
+main = "The boxplot of #99th percentile", 
+xlab = "Number of pages" 
+) 
+summary(fewerquan99$num_pages) 
+\end{lstlisting}
+\textbf{Answer:}
+\begin{itemize}
+    \item Analyze the each percentile from 95 to 99 of page numbers.
+    \item Choose one percentile that is reasonable for subsetting the data and provides better graphs without losing too much data.
+    \item Generate a histogram, Boxplot, and summary  of the percentile.
+\end{itemize}
+
+
+\section*{Problem 6: Normality Check}
+\begin{lstlisting}[language=R]
+par(mfrow = c(1,1))
+qqnorm(Eng_more_45$ratings_count)
+qqline(Eng_more_45$ratings_count)
+\end{lstlisting}
+\textbf{Answer:} Generate a Q-Q plot to check normality.
+
+\end{document}

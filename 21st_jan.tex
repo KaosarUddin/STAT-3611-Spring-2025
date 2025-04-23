@@ -1,0 +1,225 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\usetheme{Madrid}
+
+\title{Week 2 : Data Description in R}
+\author{Kaosar}
+\institute{Auburn University}
+\date{Spring 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{R Indexing: Zero vs One-Based}
+\textbf{Indexing in Programming Languages:}
+\begin{itemize}
+    \item Many programming languages use \textbf{zero-based indexing}, where the first element of a vector is indexed as 0.
+    \item R uses \textbf{one-based indexing}, where the first element of a vector is indexed as 1.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{R Help and Admin Notes}
+\textbf{Accessing Help in R:}
+\begin{itemize}
+    \item Use \texttt{help(functionName)} or \texttt{?functionName} for help:
+    \begin{verbatim}
+help(hist)    # Help for hist()
+?mean         # Help for mean()
+    \end{verbatim}
+    \item Help appears on the right side of the RStudio screen.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Using R Scripts and Datasets}
+\textbf{R Scripts:}
+\begin{itemize}
+    \item Save and edit code for future use.
+    \item Use the script window in RStudio to write and execute scripts.
+\end{itemize}
+
+\textbf{Built-in Datasets:}
+\begin{itemize}
+    \item R includes datasets like \texttt{iris}.
+    \item Load a dataset using the \texttt{data()} function:
+\begin{verbatim}
+data(iris)
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Dataset Structure}
+\textbf{Exploring Dataset Structure:}
+\begin{itemize}
+    \item \texttt{dim(dataSetName)}: Number of rows and columns.
+    \item \texttt{nrow()} and \texttt{ncol()}: Rows and columns separately.
+    \item \texttt{head(dataSetName)}: First 6 rows (default).
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Working with Columns}
+\begin{itemize}
+    \item Identify how many columns of data there are:
+    \begin{verbatim}
+length(dataSetName)
+length(iris)
+    \end{verbatim}
+
+    \item Access one column:
+    \begin{verbatim}
+iris$Species
+iris[5]
+    \end{verbatim}
+
+    \item Access multiple columns:
+    \begin{verbatim}
+# By column index range
+dataSetName[c(colIndex3:colIndex4)]
+iris[c(3:4)]
+
+# By column names
+subset(dataSetName, select = c(colName3, colName4))
+subset(iris, select = c(Petal.Length, Petal.Width))
+    \end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with Rows}
+\textbf{Subsetting Rows:}
+\begin{itemize}
+    \item Use \texttt{subset()} with conditions to filter rows:
+    \begin{verbatim}
+subset(iris, iris$Petal.Width >= 2.2)
+    \end{verbatim}
+
+    \item Direct row criteria with square brackets:
+    \begin{verbatim}
+dataName[rowCriteria, columnIndex]
+iris[iris$Petal.Width >= 2.2, ]
+    \end{verbatim}
+
+    \item \textbf{Important:} Always include a comma, even when selecting all columns.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Descriptive Statistics}
+\textbf{Basic Statistics:}
+\begin{itemize}
+    \item Functions in R:
+    \begin{verbatim}
+min(dataName$ColumnName)
+max(dataName$ColumnName)
+mean(dataName$ColumnName)
+summary(dataName$ColumnName)
+    \end{verbatim}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Data Frames and Descriptive Statistics in R}
+\textbf{Creating Data Frames:}
+\begin{itemize}
+    \item Use \texttt{data.frame()} to create a data frame.
+    \begin{verbatim}
+# Example:
+newData <- data.frame(quakes[quakes[, 5] < 40, ])
+    \end{verbatim}
+    \item This example subsets rows from the \texttt{quakes} dataset where column 5 is less than 40.
+\end{itemize}
+
+\textbf{Quantile:}
+\begin{itemize}
+    \item Use \texttt{quantile(x, probs)} to calculate specific quantiles:
+    \begin{verbatim}
+quantile(vector, c(0.25, 0.5, 0.75))  # Q1, Median, Q3
+    \end{verbatim}
+\end{itemize}
+
+\textbf{Five-Number Summary:}
+\begin{itemize}
+    \item Use \texttt{fivenum(data)} to compute:
+        - Minimum, lower quartile, median, upper quartile, and maximum.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Sorting and Subsetting Data}
+\textbf{Sorting Data:}
+\begin{itemize}
+    \item Use \texttt{sort()} to sort data:
+    \begin{verbatim}
+sortedData <- sort(variable, decreasing=TRUE)  # Descending order
+    \end{verbatim}
+\end{itemize}
+
+\textbf{Subsetting Columns:}
+\begin{itemize}
+    \item Select specific columns using:
+    \begin{verbatim}
+quakes[, 2]  # Select column 2
+    \end{verbatim}
+\end{itemize}
+
+\textbf{Subsetting Rows:}
+\begin{itemize}
+    \item Use logical conditions to filter rows:
+    \begin{verbatim}
+newVar <- oldData[oldData[, 5] < 40, ]
+    \end{verbatim}
+    \item This example subsets rows where column 5 is less than 40.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Data Visualization}
+\textbf{Histograms:}
+\begin{itemize}
+    \item Create a histogram:
+    \begin{verbatim}
+hist(dataName$ColumnName, main="Title",
+     xlab="X-axis Label", ylab="Y-axis Label")
+    \end{verbatim}
+\end{itemize}
+
+\textbf{Boxplots:}
+\begin{itemize}
+    \item Create a boxplot:
+    \begin{verbatim}
+boxplot(dataName$ColumnName, main="Title",
+        xlab="X-axis Label", ylab="Y-axis Label")
+    \end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Plots and Axis Control}
+\textbf{Multiple Plots:}
+\begin{itemize}
+    \item Use \texttt{par()} with \texttt{mfrow} for grid layout:
+    \begin{verbatim}
+par(mfrow=c(1, 2))
+hist(dataName$ColumnName)
+boxplot(dataName$ColumnName)
+    \end{verbatim}
+\end{itemize}
+
+\textbf{Adjusting Axes:}
+\begin{itemize}
+    \item Use \texttt{xlim} and \texttt{ylim} to control axis scales:
+    \begin{verbatim}
+hist(dataName$ColumnName, ylim=c(minValue, maxValue))
+    \end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Submissions}
+\textbf{Requirements:}
+\begin{itemize}
+    \item Submit an R script (\texttt{.r}) with sufficient comments.
+    \item Ensure the script runs without errors and produces the same output.
+    \item Submit a report using the provided template on Canvas.
+    \item Update your note sheet with summaries and new learnings.
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define the listing settings
+\lstset{
+    language=R,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,   % Keywords in blue
+    commentstyle=\color{green!50!black},  % Comments in green
+    stringstyle=\color{orange},           % Strings in orange
+    numbers=left,                          % Enable line numbers outside
+    numberstyle=\tiny\color{gray},        % Line numbers in gray and tiny
+    stepnumber=1,                          % Number every line
+    numbersep=10pt,                        % Space between numbers and code
+    xleftmargin=20pt,                      % Ensure space for line numbers
+    frame=single,                          % Box around code
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
+\begin{document}
+
+\title{STAT 3611 Lab Test 1 Solution}
+\author{Auburn University}
+\date{Spring 2025}
+\maketitle
+
+\section{Dataset 1: ToothGrowth}
+
+\subsection{Problem 1: Initial Data Overview}
+\begin{lstlisting}
+data("ToothGrowth") # Load dataset
+colnames(ToothGrowth) # Get column names
+nrow(ToothGrowth) # Count rows
+unique(ToothGrowth$supp) # Get unique supplement types
+length(unique(ToothGrowth$supp)) # Count unique supplement types
+\end{lstlisting}
+Answer: Load the dataset, extract column headers, count rows, and find unique supplement types.
+
+\subsection{Problem 2: Summary Statistics}
+\begin{lstlisting}
+VC_data <- subset(ToothGrowth, supp == "VC") # Subset VC data
+OJ_data <- subset(ToothGrowth, supp == "OJ") # Subset OJ data
+summary(VC_data$len) # Compute summary statistics for VC
+summary(OJ_data$len) # Compute summary statistics for OJ
+var(VC_data$len) # Compute variance for VC
+var(OJ_data$len) # Compute variance for OJ
+IQR(VC_data$len) # Compute IQR for VC
+IQR(OJ_data$len) # Compute IQR for OJ
+\end{lstlisting}
+Answer: Compute summary statistics including variance and IQR.
+
+\subsection{Problem 3: Visualization}
+\begin{lstlisting}
+par(mfrow = c(1, 2))
+boxplot(VC_data$len, 
+    main="Boxplot of Tooth Length (VC)",
+    ylab="Tooth Length",
+    col="blue")
+
+boxplot(OJ_data$len, 
+    main="Boxplot of Tooth Length (OJ)",
+    ylab="Tooth Length",
+    col="red")
+
+par(mfrow = c(2, 1))
+hist(VC_data$len, 
+    main="Histogram of Tooth Length (VC)",
+    xlab="Tooth Length",
+    col="blue")
+
+hist(OJ_data$len, 
+    main="Histogram of Tooth Length (OJ)",
+    xlab="Tooth Length",
+    col="red")
+\end{lstlisting}
+Answer: Create boxplots and histograms for both supplement types.
+
+\section{Dataset 2: Palmer Penguins}
+
+\subsection{Problem 4: Initial Data Overview}
+\begin{lstlisting}
+install.packages("palmerpenguins") # Install package
+library(palmerpenguins) # Load library
+data("penguins") # Load dataset
+colnames(penguins) # Get column names
+dim(penguins) # Get dimensions (rows and columns)
+unique(penguins$species) # Get unique species
+sorted_species <- sort(unique(penguins$species)) # Sort species alphabetically
+sorted_species # Display sorted species
+sorted_species[c(1, 2, length(sorted_species)-1, length(sorted_species))] # First and last 2 species
+\end{lstlisting}
+Answer: Load dataset, extract column headers, and analyze species names.
+
+\subsection{Problem 5: Body Mass Analysis}
+\begin{lstlisting}
+penguins_filtered <- subset(penguins, body_mass_g >= 4000) # Subset data
+penguins_filtered <- na.omit(penguins_filtered) # Remove NA values
+nrow(penguins_filtered) # Count filtered rows
+
+par(mfrow = c(1, 1)) # Set plotting window
+hist(penguins_filtered$body_mass_g, 
+    main="Histogram of Body Mass (≥4000g)",
+    xlab="Body Mass (g)",
+    col="blue")
+
+qqnorm(penguins_filtered$body_mass_g, 
+    main="QQ Plot of Body Mass (≥4000g)")
+qqline(penguins_filtered$body_mass_g, col="red")
+\end{lstlisting}
+Answer: Filter dataset, clean NA values, generate histogram and QQ plot.
+
+\end{document}

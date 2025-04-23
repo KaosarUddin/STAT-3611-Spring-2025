@@ -1,0 +1,116 @@
+
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\fancyhead[L]{STAT 3611 Lab Test 1 }
+\fancyhead[R]{Feb 20 at 11:59pm}
+\setlist[itemize]{topsep=2pt, itemsep=1pt, left=10pt}
+\setlist[enumerate]{topsep=2pt, itemsep=1pt, left=10pt}
+
+
+\begin{document}
+
+
+
+
+\section*{Topic Overview}
+In this Lab Test, you will practice the following skills in R:
+\begin{itemize}
+    \item Using R libraries.
+    \item Working with R's built-in datasets.
+    \item Reading data with the help of libraries.
+    \item Generating numeric summaries.
+    \item Creating boxplots, histograms, and QQ plots.
+    \item Two datasets will be used: \texttt{ToothGrowth} and \texttt{penguins}.
+\end{itemize}
+
+\section{Submission Instructions}
+For this lab, submit the following files:
+\begin{itemize}
+    \item Your code file must have a .r extension and be named \texttt{Lab5\_LastNameFirstInitial.r}.
+    \item Your code file must include comments explaining each step clearly.
+    \item Your lab report must have a .pdf extension and be named \texttt{Lab5\_LastNameFirstInitial.pdf}.
+\end{itemize}
+
+\section{Lab Questions}
+
+\subsection{Dataset 1: ToothGrowth}
+This lab will use the \texttt{ToothGrowth} dataset in R. The documentation can be found here:
+\href{https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/ToothGrowth.html}{ToothGrowth Dataset Documentation}.
+We analyze the ToothGrowth dataset, which provides results of an experiment to determine the effect of two supplements (Vitamin C and Orange Juice) at three different doses (0.5, 1, or 2 mg) on tooth length in guinea pigs.\\
+
+
+\textbf{Q1: Initial Data Overview}
+\begin{itemize}
+    \item Load the \texttt{ToothGrowth} dataset in R.
+    \item What are the column headers for this dataset?
+    \item How many rows of data are in the dataset?
+    \item How many different supplements are there in the dataset?
+\end{itemize}
+
+\textbf{Q2: Summary Statistics}
+\begin{itemize}
+    \item Create a new data frame containing only the data for supplement \texttt{VC}.
+    \item Create a new data frame containing only the data for supplement \texttt{OJ}.
+    \item For each supplement, compute the 5-number summary, mean, variance, and interquartile range of the tooth length (\texttt{len} column).
+\end{itemize}
+
+\textbf{Q3: Data Visualization}
+\begin{itemize}
+    \item Create 2 boxplots (boxplot of the Tooth length obtained by supplement VC and 	boxplot of the Tooth length obtained by supplement OJ) side by side with the same axes for easy comparison, with relevant titles and labels.
+    \item Create 2 histograms (histogram of the Tooth length obtained by supplement VC and 	histogram of the Tooth length obtained by supplement OJ) that are vertically stacked and have the same axes for easy comparison, with relevant titles and labels.
+    \item Write a short explanation of the differences in the tooth length obtained by supplement \texttt{VC} and \texttt{OJ}, based on numeric and visual summaries.
+\end{itemize}
+
+\subsection{Dataset 2: Palmer Penguins (R Package Required)}
+\textbf{Note:} To use this dataset, install and load the required package:
+\begin{lstlisting}
+install.packages("palmerpenguins")
+library(palmerpenguins)
+\end{lstlisting}
+
+\textbf{Q4: Initial Data Overview}
+\begin{itemize}
+    \item Load the \texttt{penguins} dataset in R.
+    \item What are the column headers for this dataset?
+    \item How many rows and columns are in the dataset?
+    \item Create a list of the unique species names.
+    \item How many unique species are there? Sort the list alphabetically.
+    \item What are the first 2 and last 2 species names from your alphabetical list?
+\end{itemize}
+
+\textbf{Q5: Body Mass Analysis}
+\begin{itemize}
+    \item Make a new dataframe that contains only penguins with a body mass of at least 4000 grams.
+    \item Remove any rows with missing (NA) values from the dataset.
+    \item How many penguins have a body mass of at least 4000 grams and contain no missing values?
+    \item Reformat your plotting window to show 1 plot at a time instead of multiple plots.
+    \item Make a histogram of the body mass of penguins that have at least 4000 grams. The histogram should be labeled so that the height of each bar is shown.
+    \item Generate a QQ plot with a reference line for the body mass of penguins with at least 4000 grams.
+    \item Write a short explanation about the distribution of the body mass based on the plots generated.
+\end{itemize}
+
+\newpage
+
+\section{Grading Overview}
+\begin{itemize}
+    \item \textbf{Code File: 40 points}
+    \begin{itemize}
+        \item Code runs without errors: 10 points
+        \item Code is well-commented: 5 points
+        \item Code is complete: 15 points
+    \end{itemize}
+    \item \textbf{Report: 60 points}
+    \begin{itemize}
+        \item Report formatting and completeness: 10 points
+        \item Report accuracy and correctness: 60 points
+    \end{itemize}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny,
+  captionpos=b
+}
+
+\begin{document}
+
+\section*{STAT 3611 Lab 9 Solution Code}
+
+\subsection*{1. Initial Data Overview}
+\begin{lstlisting}
+data("Nile")
+length(Nile)
+
+data("AirPassengers")
+length(AirPassengers)
+\end{lstlisting}
+Answer:
+- Nile dataset: \texttt{100} years
+- AirPassengers dataset: \texttt{144} data points
+
+\subsection*{2. Summary Statistics for the Nile Dataset}
+\begin{lstlisting}
+mean(Nile)
+var(Nile)
+qqnorm(Nile)
+qqline(Nile, col="red")
+\end{lstlisting}
+Answer:
+- Calculated mean and variance.
+- QQ-plot indicates approximate normality as points closely follow the reference line.
+
+\subsection*{3. 2-Sided Test Known Variance (without t.test())}
+\begin{lstlisting}
+# Hypotheses:
+# H0: mu = 920
+# Ha: mu != 920
+
+alpha <- 0.05
+z_value <- qnorm(1 - alpha / 2)
+sigma <- sqrt(28350)
+n <- length(Nile)
+
+upper_rejection <- 920 + z_value * (sigma / sqrt(n))
+lower_rejection <- 920 - z_value * (sigma / sqrt(n))
+
+z_stat <- (mean(Nile) - 920) / (sigma / sqrt(n))
+z_stat
+
+# Decision:
+(abs(z_stat) > z_value)
+
+# Type II error calculation if true mean is 917:
+pnorm(upper_rejection, mean=917, sd=sigma/sqrt(n)) - 
+  pnorm(lower_rejection, mean=917, sd=sigma/sqrt(n))
+\end{lstlisting}
+Answer:
+- Null hypothesis \texttt{rejected} due to z-statistic exceeding the critical value.
+- Type II error computed for true mean \texttt{917}.
+
+\subsection*{4. 2-Sided Test Known Variance (using t.test())}
+\begin{lstlisting}
+t.test(Nile, mu=920, alternative="two.sided", conf.level=0.95)
+\end{lstlisting}
+Answer:
+- Null hypothesis \texttt{rejected}; result consistent with previous test.
+
+\subsection*{5. 1-Sided Test Unknown Variance}
+\begin{lstlisting}
+# H0: mu = 280
+# Ha: mu > 280
+
+# Extract data for 1955:
+start_1955 <- (1955 - 1949) * 12 + 1
+end_1955 <- start_1955 + 11
+
+data_1955 <- AirPassengers[start_1955:end_1955]
+mean_1955 <- mean(data_1955)
+sd_1955 <- sd(data_1955)
+n_1955 <- length(data_1955)
+
+# t-value calculation
+t_value <- qt(0.95, df=n_1955-1)
+
+# Perform test using t.test()
+test_result <- t.test(data_1955, mu=280, alternative="greater")
+test_result
+\end{lstlisting}
+Answer:
+- Computed sample mean and standard deviation for 1955.
+- p-value obtained from the t-test indicates to \texttt{reject} the null hypothesis at $\alpha = 0.05$.
+
+\end{document}

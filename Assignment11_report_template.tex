@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{STAT 3611 - Lab 11 Report}
+\author{Your First and Last Name}
+\date{Submission Date}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report presents the analysis for Lab 11, which includes testing for the median and variance using nonparametric methods and simple linear regression analysis using the \texttt{islands} and \texttt{starwars} datasets.
+
+\section{Analysis Using the islands Dataset}
+
+\subsection{Initial Data Overview}
+\begin{itemize}
+    \item The \texttt{islands} dataset was loaded.
+    \item Units are in 10,000s of square miles.
+\end{itemize}
+
+\subsection{Normality Check}
+\begin{itemize}
+    \item QQ plot created with reference line.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{qq_plots.png} % update this with actual filename
+    \caption{ QQ plots .}
+    \label{fig:height_dists}
+\end{figure}
+    \item Conclusion: \textit{(State if distribution appears normal or skewed, and why)}
+\end{itemize}
+
+\subsection{Sampling and Visualization}
+\begin{itemize}
+    \item Five random samples of size 15 created.
+    \item Combined into a single dataframe with sample indices.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{boxplot_samples.png} % update this with actual filename
+    \caption{Boxplots of five samples from the islands dataset.}
+    \label{fig:islands_boxplot}
+\end{figure}
+
+\subsection{Sign Tests for Median = 100}
+\begin{itemize}
+    \item Each sample tested using \texttt{binom.test()}.
+    \item Significance level: 0.05
+    \item Summary of results:
+    \begin{itemize}
+        \item Sample 1: \_\_
+        \item Sample 2: \_\_
+        \item Sample 3: \_\_
+        \item Sample 4: \_\_
+        \item Sample 5: \_\_
+    \end{itemize}
+    \item Observations: \textit{(Brief explanation on variability across tests)}
+\end{itemize}
+
+\subsection{Signed Rank Tests for Median = 100}
+\begin{itemize}
+    \item Each sample tested using \texttt{wilcox.test()}.
+    \item Significance level: 0.05
+    \item Summary of results:
+    \begin{itemize}
+        \item Sample 1: \_\_
+        \item Sample 2: \_\_
+        \item Sample 3: \_\_
+        \item Sample 4: \_\_
+        \item Sample 5: \_\_
+    \end{itemize}
+    \item Comparison to sign tests: \textit{(Brief explanation)}
+    \item Preferred method: \textit{(State which test is better and why)}
+\end{itemize}
+
+\section{Analysis Using the starwars Dataset}
+
+\subsection{Initial Cleaning and Overview}
+\begin{itemize}
+    \item The \texttt{starwars} dataset was loaded.
+    \item A dataframe with height and species was created.
+    \item Missing values were removed using \texttt{na.omit()}.
+    \item Number of rows removed: \_\_
+\end{itemize}
+
+\subsection{Group Separation}
+\begin{itemize}
+    \item Human heights extracted.
+    \item Alien heights extracted (non-human, non-droid).
+\end{itemize}
+
+\subsection{Visualization of Heights}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{heights_plots.png} % update this with actual filename
+    \caption{Histograms and QQ plots of human and alien heights.}
+    \label{fig:height_dists}
+\end{figure}
+
+\textbf{Observation:} \textit{(Describe distribution shape and differences)}
+
+\subsection{Descriptive Statistics}
+\begin{itemize}
+    \item Humans: mean = \_\_, median = \_\_, sd = \_\_
+    \item Aliens: mean = \_\_, median = \_\_, sd = \_\_
+\end{itemize}
+
+\subsection{Wilcoxon Test for Median Difference}
+\begin{itemize}
+    \item Null: 
+    \item Alt:
+    \item Significance level: 0.02
+    \item Result: \_\_, Conclusion: \textit{(Interpretation)}
+\end{itemize}
+
+\subsection{Test for Variance}
+\begin{itemize}
+    \item Null: variances are equal
+    \item Alt: variances are different
+    \item Method: \texttt{var.test()}
+    \item Significance level: 0.02
+    \item Result: \_\_, Conclusion: \textit{(Interpretation)}
+\end{itemize}
+
+\section{Linear Regression: Height vs Mass}
+\begin{itemize}
+    \item Scatter plot of mass (y) vs height (x) created.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Scatter_plot.png} % update this with actual filename
+    \caption{Scatter plot of mass (y) vs height (x) created .}
+    \label{fig:Scatter_plot}
+\end{figure}
+    \item Linear model fit using \texttt{lm()}.
+    \item Regression line added using \texttt{abline()}.
+    \item Regression equation: \(\hat{y} = b_0 + b_1x\)
+    \item Slope interpretation: \textit{(Explain meaning in context)}
+    \item \(R^2\) value: \_\_, interpretation: \textit{(Explanation)}
+    \item Model fit: Appears reasonable/unreasonable \textit{(Justify)}
+\end{itemize}
+
+\section{Conclusion}
+Summarize findings across all sections, comparing effectiveness of median tests, insights from visualization, and conclusions from regression and variance analysis.
+
+\section{References}
+List any documentation used (e.g., R help files, packages: ggpubr, dplyr, MASS).
+
+\end{document}
