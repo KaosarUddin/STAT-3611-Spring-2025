@@ -1,0 +1,39 @@
+name: AI-Polish LaTeX
+
+on:
+  push:
+    paths:
+      - 'chapters/introduction.tex'
+      - 'chapters/conclusion.tex'
+
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install openai
+
+    - name: Run AI polish
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        python scripts/ai_polish.py \
+          chapters/introduction.tex \
+          chapters/conclusion.tex\
+          chapters/Read.me.tex
+
+    - name: Commit polished files
+      run: |
+        git config KaosarUddin
+        git config mzu0014@auburn.edu
+        git add chapters/introduction.tex chapters/conclusion.tex chapters/Read.me.tex
+        git commit -m "✍️ AI-polished LaTeX" || echo "No changes to commit"
+        git push
