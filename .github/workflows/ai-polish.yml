@@ -32,8 +32,8 @@ jobs:
 
     - name: Commit polished files
       run: |
-        git config KaosarUddin
-        git config mzu0014@auburn.edu
-        git add chapters/introduction.tex chapters/conclusion.tex chapters/Read.me.tex
-        git commit -m "✍️ AI-polished LaTeX" || echo "No changes to commit"
-        git push
+           git config user.name "Kaosar Uddin"
+           git config user.email "mzu0014@auburn.edu"
+           git add chapters/introduction.tex chapters/conclusion.tex chapters/Read.me.tex
+           git commit -m "✍️ AI-polished LaTeX" || echo "No changes to commit"
+           git push
